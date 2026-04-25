@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Gym Coach",
+    "slug": "gym-coach",
+    "version": "0.0.1",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "io.bendang.gymcoach"
+    },
+    "android": {
+      "package": "io.bendang.gymcoach"
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [],
+    "extra": {
+      "apiUrl": "http://localhost:3000"
+    }
+  }
+}
