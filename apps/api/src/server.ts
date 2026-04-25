@@ -9,6 +9,7 @@
  */
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 
 import { loadEnvrc } from "./env.js";
 import { chatRoute } from "./routes/chat.js";
@@ -17,6 +18,16 @@ import { webhookRoute } from "./routes/webhook.js";
 loadEnvrc();
 
 const app = new Hono();
+
+// Expo web (default port 8081) + dev LAN access. Tighten for prod.
+app.use(
+  "/api/*",
+  cors({
+    origin: (origin) => origin ?? "*",
+    allowHeaders: ["authorization", "content-type"],
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  }),
+);
 
 app.get("/health", (c) => c.json({ ok: true }));
 
