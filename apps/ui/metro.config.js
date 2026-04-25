@@ -1,4 +1,4 @@
-// Expo + pnpm monorepo: watch the workspace root, also resolve from root node_modules.
+// Expo + pnpm monorepo: extend defaults with the workspace root.
 const { getDefaultConfig } = require("expo/metro-config");
 const path = require("node:path");
 
@@ -7,11 +7,11 @@ const monorepoRoot = path.resolve(projectRoot, "../..");
 
 const config = getDefaultConfig(projectRoot);
 
-config.watchFolders = [monorepoRoot];
+// Extend Metro's defaults rather than replace, so expo-doctor stays happy.
+config.watchFolders = [...(config.watchFolders ?? []), monorepoRoot];
 config.resolver.nodeModulesPaths = [
   path.resolve(projectRoot, "node_modules"),
   path.resolve(monorepoRoot, "node_modules"),
 ];
-config.resolver.disableHierarchicalLookup = true;
 
 module.exports = config;
