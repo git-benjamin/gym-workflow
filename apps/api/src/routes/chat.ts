@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { z } from "zod";
 
 import { runAgentTurn } from "../chat-agent.js";
+import { logger } from "../log.js";
 import * as store from "../store.js";
 
 const ChatRequestSchema = z.object({
@@ -38,7 +39,19 @@ chatRoute.post("/", async (c) => {
   const stored = store.loadChat(session_id);
   const history: Content[] = stored.map(turnToContent);
 
+  const start = Date.now();
   const result = await runAgentTurn(message, history);
+  logger.info(
+    {
+      session_id,
+      input_chars: message.length,
+      output_chars: result.text.length,
+      tool_call_count: result.tool_calls.length,
+      tool_names: result.tool_calls.map((t) => t.name),
+      duration_ms: Date.now() - start,
+    },
+    "chat turn complete",
+  );
 
   // Persist user + model turns (history was mutated in-place by the agent loop).
   const now = new Date().toISOString();

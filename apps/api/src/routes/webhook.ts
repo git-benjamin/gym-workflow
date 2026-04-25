@@ -6,6 +6,7 @@ import { timingSafeEqual } from "node:crypto";
 import { Hono } from "hono";
 import { z } from "zod";
 
+import { logger } from "../log.js";
 import * as review from "../review.js";
 
 const PayloadSchema = z.object({
@@ -30,12 +31,22 @@ function verifyToken(headers: Headers): { ok: boolean; matched: string[] } {
 }
 
 async function runReviewSafely(workoutId: string): Promise<void> {
+  const start = Date.now();
   try {
-    await review.reviewWorkout(workoutId);
-    console.log(`[webhook] review completed for workout_id=${workoutId}`);
+    const review_ = await review.reviewWorkout(workoutId);
+    logger.info(
+      { workout_id: workoutId, rating: review_.rating, duration_ms: Date.now() - start },
+      "webhook review completed",
+    );
   } catch (err) {
-    console.error(
-      `[webhook] review FAILED for workout_id=${workoutId}: ${(err as Error).constructor.name}: ${(err as Error).message}`,
+    logger.error(
+      {
+        workout_id: workoutId,
+        error_name: (err as Error).constructor?.name,
+        error_message: (err as Error).message,
+        duration_ms: Date.now() - start,
+      },
+      "webhook review failed",
     );
   }
 }
@@ -45,14 +56,14 @@ export const webhookRoute = new Hono();
 webhookRoute.post("/hevy", async (c) => {
   const headerNames: string[] = [];
   c.req.raw.headers.forEach((_, name) => headerNames.push(name));
-  console.log(`[webhook] inbound headers: ${JSON.stringify(headerNames)}`);
+  logger.info({ headers: headerNames }, "webhook inbound");
 
   const { ok, matched } = verifyToken(c.req.raw.headers);
   if (matched.length > 0) {
-    console.log(`[webhook] token matched header(s): ${JSON.stringify(matched)}`);
+    logger.info({ matched }, "webhook token matched");
   }
   if (!ok) {
-    console.log("[webhook] auth FAILED — rejecting");
+    logger.warn("webhook auth failed — rejecting");
     return c.json({ error: "invalid auth token" }, 401);
   }
 
@@ -68,7 +79,7 @@ webhookRoute.post("/hevy", async (c) => {
     return c.json({ error: "missing workoutId in body" }, 400);
   }
 
-  console.log(`[webhook] queued review for workout_id=${parsed.data.workoutId}`);
+  logger.info({ workout_id: parsed.data.workoutId }, "webhook queued review");
   // Fire-and-forget — Hono returns immediately, the review runs in the background.
   void runReviewSafely(parsed.data.workoutId);
 

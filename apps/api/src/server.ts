@@ -12,12 +12,29 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 
 import { loadEnvrc } from "./env.js";
+import { logger } from "./log.js";
 import { chatRoute } from "./routes/chat.js";
 import { webhookRoute } from "./routes/webhook.js";
 
 loadEnvrc();
 
 const app = new Hono();
+
+// Structured request logging — every request emits a single log line on completion.
+app.use("/*", async (c, next) => {
+  const start = Date.now();
+  await next();
+  const duration_ms = Date.now() - start;
+  logger.info(
+    {
+      method: c.req.method,
+      path: c.req.path,
+      status: c.res.status,
+      duration_ms,
+    },
+    `${c.req.method} ${c.req.path} → ${c.res.status} (${duration_ms}ms)`,
+  );
+});
 
 // Expo web (default port 8081) + dev LAN access. Tighten for prod.
 app.use(
@@ -52,5 +69,5 @@ app.route("/api/chat", chatRoute);
 
 const port = Number(process.env.PORT ?? 3000);
 serve({ fetch: app.fetch, port }, ({ port: p }) => {
-  console.log(`[server] listening on http://localhost:${p}`);
+  logger.info({ port: p }, `listening on http://localhost:${p}`);
 });

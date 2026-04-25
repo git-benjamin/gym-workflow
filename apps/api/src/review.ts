@@ -6,6 +6,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { WorkoutReview, type Workout, type Routine } from "@gym/shared";
 
 import { repoRoot, requireEnv } from "./env.js";
+import { logger } from "./log.js";
 import * as hevy from "./hevy.js";
 import * as store from "./store.js";
 import type { ExerciseHistorySession } from "./store.js";
@@ -209,19 +210,30 @@ export async function reviewWorkout(
   if (!options.force) {
     const cached = store.loadReview(workoutId);
     if (cached) {
-      console.log(`[review] cached: ${cached.reviewed_at} via ${cached.model}`);
+      logger.info(
+        { workout_id: workoutId, reviewed_at: cached.reviewed_at, model: cached.model },
+        "review cache hit",
+      );
       return cached.review;
     }
   }
 
+  logger.info({ workout_id: workoutId }, "review starting");
   const workout = await hevy.getWorkout(workoutId);
   if (!workout.routine_id) {
     throw new Error(`workout ${workoutId} has no routine_id; cannot compare`);
   }
   const routine = await hevy.getRoutine(workout.routine_id);
+
+  const tHistory = Date.now();
   const history = await gatherExerciseHistory(workout);
+  logger.debug(
+    { workout_id: workoutId, exercises: Object.keys(history).length, duration_ms: Date.now() - tHistory },
+    "history gathered",
+  );
   const historyText = formatHistory(history, workout);
 
+  const tGemini = Date.now();
   const ai = client();
   const response = await ai.models.generateContent({
     model: MODEL,
@@ -237,6 +249,10 @@ export async function reviewWorkout(
   const text = response.text;
   if (!text) throw new Error("Gemini returned empty response");
   const review = WorkoutReview.parse(JSON.parse(text));
+  logger.info(
+    { workout_id: workoutId, model: MODEL, rating: review.rating, duration_ms: Date.now() - tGemini },
+    "gemini reviewed",
+  );
 
   const path = store.saveReview({
     workout_id: workout.id,
@@ -250,7 +266,7 @@ export async function reviewWorkout(
     routine,
     history,
   });
-  console.log(`[review] saved: ${path}`);
+  logger.info({ workout_id: workoutId, path }, "review saved");
   return review;
 }
 

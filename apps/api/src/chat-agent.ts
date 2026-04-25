@@ -5,6 +5,7 @@ import { resolve } from "node:path";
 import { GoogleGenAI, Type, type Content, type FunctionDeclaration } from "@google/genai";
 
 import { repoRoot, requireEnv } from "./env.js";
+import { logger } from "./log.js";
 import * as hevy from "./hevy.js";
 import * as store from "./store.js";
 
@@ -229,13 +230,19 @@ export async function runAgentTurn(
         const name = fc.name ?? "";
         const args = (fc.args ?? {}) as Record<string, unknown>;
         const tool = tools[name];
+        const tStart = Date.now();
         let output: unknown;
         try {
           output = tool ? await tool(args) : { error: `unknown tool: ${name}` };
+          logger.debug({ tool: name, args, duration_ms: Date.now() - tStart }, "tool call");
         } catch (err) {
           output = {
             error: `${(err as Error).constructor?.name ?? "Error"}: ${(err as Error).message}`,
           };
+          logger.warn(
+            { tool: name, args, error: (err as Error).message, duration_ms: Date.now() - tStart },
+            "tool call failed",
+          );
         }
         toolCalls.push({ name, input: args, output });
         return {
