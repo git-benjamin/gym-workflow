@@ -1,0 +1,29 @@
+# Secrets & personal data
+.envrc
+.env
+.env.*
+!.env.example
+profile.md
+reviews/
+chats/
+
+# Tooling state
+.claude
+__pycache__
+
+# Build / cache outputs
+node_modules/
+dist/
+.expo/
+.turbo/
+*.log
+*.tsbuildinfo
+
+# Native build artifacts (when Expo prebuilds)
+ios/build/
+android/app/build/
+android/build/
+android/.gradle/
+
+# OS
+.DS_Store
