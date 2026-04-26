@@ -65,6 +65,50 @@ const tools: Record<string, Tool> = {
       force: Boolean(args.force ?? false),
     });
   },
+  async propose_amendments_from_review(args) {
+    const workoutId = String(args.workout_id);
+    const record = store.loadReview(workoutId);
+    if (!record) {
+      return { error: `no saved review for workout ${workoutId}. Call review_workout first.` };
+    }
+    const routineId = record.routine_id;
+    if (!routineId) return { error: "review has no routine_id; cannot propose amendments" };
+
+    interface Edit {
+      exercise_template_id: string;
+      notes?: string;
+      sets?: Array<{
+        set_index: number;
+        weight_kg?: number | null;
+        rep_range_start?: number | null;
+        rep_range_end?: number | null;
+      }>;
+    }
+
+    const edits: Edit[] = [];
+    for (const ex of record.review.per_exercise) {
+      if (!ex.exercise_template_id) continue;
+      const hasNote = ex.suggested_note_change != null;
+      const hasSets = (ex.suggested_set_edits?.length ?? 0) > 0;
+      if (!hasNote && !hasSets) continue;
+      const e: Edit = { exercise_template_id: ex.exercise_template_id };
+      if (hasNote && ex.suggested_note_change) e.notes = ex.suggested_note_change;
+      if (hasSets && ex.suggested_set_edits) e.sets = ex.suggested_set_edits;
+      edits.push(e);
+    }
+
+    if (edits.length === 0) {
+      return {
+        error: "no actionable amendments in this review",
+        changes: [],
+        proposed_routine: null,
+      };
+    }
+
+    // Delegate to compute_routine_update for the actual diff + validation.
+    return await tools.compute_routine_update!({ routine_id: routineId, edits });
+  },
+
   async compute_routine_update(args) {
     const routineId = String(args.routine_id);
     const edits = (args.edits ?? []) as Array<{
@@ -262,12 +306,26 @@ const TOOL_DECLARATIONS: FunctionDeclaration[] = [
     },
   },
   {
+    name: "propose_amendments_from_review",
+    description:
+      "PREFERRED for the post-workout 'yes/apply' confirm step. Loads the saved review for " +
+      "the given workout_id, builds the edits internally from its suggested_note_change + " +
+      "suggested_set_edits fields, and runs compute_routine_update. Returns proposed_routine, " +
+      "changes, errors. Single argument — much easier than rebuilding edits by hand.",
+    parameters: {
+      type: Type.OBJECT,
+      properties: { workout_id: { type: Type.STRING } },
+      required: ["workout_id"],
+    },
+  },
+  {
     name: "compute_routine_update",
     description:
       "Preview applying structured edits to a routine. Returns the proposed full routine " +
       "(the body that would PUT to /v1/routines/{id}), a per-change diff, and errors for any " +
       "edits that violate scope (notes that drop existing content, missing exercises/sets). " +
-      "DOES NOT call Hevy — it's a preview only. Use this AFTER the user confirms.",
+      "DOES NOT call Hevy — it's a preview only. Use this for one-off, manual edits — for " +
+      "the 'yes/apply' confirm step prefer propose_amendments_from_review.",
     parameters: {
       type: Type.OBJECT,
       properties: {
@@ -367,22 +425,14 @@ POST-WORKOUT FLOW (when user asks to review their latest workout, or "post-worko
 
 3. If the user replies yes/apply/confirm to the "## Apply?" prompt:
 
-   IMPORTANT — re-fetch context before building edits. Conversation history
-   stored between requests may have dropped the structured tool data, so do not
-   rely on remembering the prior turn's review. Always:
+   Two simple tool calls — DO NOT try to rebuild structured edits by hand.
 
-   a. Call latest_workout to get the current workout_id and routine_id.
-   b. Call review_workout(workout_id) to re-load the review. It's cached and fast.
-   c. Build the edits array from review.per_exercise. For each entry where
-      suggested_note_change OR suggested_set_edits is non-null, push:
-        {
-          exercise_template_id: <copy from review entry>,
-          notes: <suggested_note_change>,        // include only if non-null
-          sets: <suggested_set_edits>            // include only if non-null
-        }
-      Skip entries where both are null.
-   d. Call compute_routine_update(routine_id, edits).
-   e. Reply with:
+   a. Call latest_workout to get the workout_id.
+   b. Call propose_amendments_from_review(workout_id). This loads the saved
+      review server-side and builds the edits internally, so you don't have
+      to construct the deeply nested edits array yourself. Returns the
+      proposed_routine, a changes array, and an errors array.
+   c. Reply with:
 
       ## Diff
       Same per-exercise sub-heading format as in step 2 — DO NOT use a table.
