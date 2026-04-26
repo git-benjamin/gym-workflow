@@ -28,6 +28,10 @@ const WORKOUT_REVIEW_SCHEMA = {
         type: Type.OBJECT,
         properties: {
           exercise_title: { type: Type.STRING },
+          exercise_template_id: {
+            type: Type.STRING,
+            description: "Hevy template id from the routine — copy verbatim.",
+          },
           observation: {
             type: Type.STRING,
             description: "1-2 sentences on planned vs actual: under/over-target, bottlenecks, surprises.",
@@ -35,7 +39,10 @@ const WORKOUT_REVIEW_SCHEMA = {
           suggested_note_change: {
             type: Type.STRING,
             nullable: true,
-            description: "Replacement text for the routine exercise's notes, or null if no change.",
+            description:
+              "Full replacement text for the routine exercise's notes, or null if no change. " +
+              "MUST be a superset of the existing notes — preserve every line of the current note " +
+              "verbatim and only ADD or AMEND. NEVER remove existing note content.",
           },
           suggested_weight_change: {
             type: Type.STRING,
@@ -45,10 +52,31 @@ const WORKOUT_REVIEW_SCHEMA = {
           suggested_rep_range_change: {
             type: Type.STRING,
             nullable: true,
-            description: 'Plain English rep_range adjustment, or null.',
+            description: "Plain English rep_range adjustment, or null.",
+          },
+          suggested_set_edits: {
+            type: Type.ARRAY,
+            nullable: true,
+            description:
+              "Structured per-set edits matching the prose suggestions above. " +
+              "Include one entry per set you want to modify, omit unchanged sets. " +
+              "Use null when no weight/rep changes are needed.",
+            items: {
+              type: Type.OBJECT,
+              properties: {
+                set_index: {
+                  type: Type.INTEGER,
+                  description: "0-based index matching the routine set's `index` field.",
+                },
+                weight_kg: { type: Type.NUMBER, nullable: true },
+                rep_range_start: { type: Type.INTEGER, nullable: true },
+                rep_range_end: { type: Type.INTEGER, nullable: true },
+              },
+              required: ["set_index"],
+            },
           },
         },
-        required: ["exercise_title", "observation"],
+        required: ["exercise_title", "exercise_template_id", "observation"],
       },
     },
   },
@@ -65,11 +93,18 @@ to the routine via the Hevy API. The user has set strict scope limits:
 - DO recommend changes to: per-exercise routine notes, planned weight_kg, planned rep_range.
 - DO NOT recommend: adding exercises, removing exercises, or reordering exercises. \
 The structural shape of the routine is the user's call.
+- DO NOT remove any existing note content. When you suggest a note change, the \
+new note MUST contain every line of the current note verbatim — only add or amend.
+- DO NOT change set RPE expectations or rest_seconds — out of scope.
 - Skipped exercises (in routine but not in workout) are intentional session-level decisions \
 (often A/B alternatives or "Optional" exercises noted in the routine prose). Do NOT \
 suggest removing them from the routine.
 - Unplanned exercises (in workout but not in routine) stay session-only. Do NOT \
 suggest adding them to the routine.
+
+When you suggest a weight or rep_range change, also populate suggested_set_edits \
+with structured per-set entries matching your prose. Use the routine sets' index \
+field as set_index. This lets the workflow apply your changes programmatically.
 
 Match routine and workout exercises by exercise_template_id, not by index — workout \
 order may differ from routine order.

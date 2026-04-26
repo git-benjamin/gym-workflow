@@ -7,6 +7,7 @@ import { GoogleGenAI, Type, type Content, type FunctionDeclaration } from "@goog
 import { repoRoot, requireEnv } from "./env.js";
 import { logger } from "./log.js";
 import * as hevy from "./hevy.js";
+import * as review from "./review.js";
 import * as store from "./store.js";
 
 const MODEL = "gemini-2.5-flash";
@@ -55,6 +56,108 @@ const tools: Record<string, Tool> = {
   load_review(args) {
     const r = store.loadReview(String(args.workout_id));
     return r ?? { error: `no saved review for workout ${args.workout_id}` };
+  },
+  async review_workout(args) {
+    return await review.reviewWorkout(String(args.workout_id), {
+      force: Boolean(args.force ?? false),
+    });
+  },
+  async compute_routine_update(args) {
+    const routineId = String(args.routine_id);
+    const edits = (args.edits ?? []) as Array<{
+      exercise_template_id: string;
+      notes?: string | null;
+      sets?: Array<{
+        set_index: number;
+        weight_kg?: number | null;
+        rep_range_start?: number | null;
+        rep_range_end?: number | null;
+      }>;
+    }>;
+
+    const current = await hevy.getRoutine(routineId);
+    const proposed = JSON.parse(JSON.stringify(current)) as typeof current;
+    const changes: Array<{
+      exercise_template_id: string;
+      exercise_title: string;
+      field: "notes" | "weight_kg" | "rep_range";
+      set_index?: number;
+      before: unknown;
+      after: unknown;
+    }> = [];
+    const errors: string[] = [];
+
+    for (const edit of edits) {
+      const ex = proposed.exercises.find(
+        (e) => e.exercise_template_id === edit.exercise_template_id,
+      );
+      if (!ex) {
+        errors.push(`exercise_template_id ${edit.exercise_template_id} not in routine`);
+        continue;
+      }
+
+      if (edit.notes !== undefined && edit.notes !== null) {
+        const before = ex.notes;
+        if (!edit.notes.includes(before.trim()) && before.trim().length > 0) {
+          errors.push(
+            `proposed note for "${ex.title}" does not preserve existing content — refusing`,
+          );
+          continue;
+        }
+        changes.push({
+          exercise_template_id: edit.exercise_template_id,
+          exercise_title: ex.title,
+          field: "notes",
+          before,
+          after: edit.notes,
+        });
+        ex.notes = edit.notes;
+      }
+
+      for (const s of edit.sets ?? []) {
+        const set = ex.sets.find((x) => x.index === s.set_index);
+        if (!set) {
+          errors.push(`set_index ${s.set_index} not on exercise "${ex.title}"`);
+          continue;
+        }
+        if (s.weight_kg !== undefined && s.weight_kg !== null) {
+          changes.push({
+            exercise_template_id: edit.exercise_template_id,
+            exercise_title: ex.title,
+            field: "weight_kg",
+            set_index: s.set_index,
+            before: set.weight_kg,
+            after: s.weight_kg,
+          });
+          set.weight_kg = s.weight_kg;
+        }
+        if (s.rep_range_start !== undefined || s.rep_range_end !== undefined) {
+          const beforeRange = set.rep_range ?? { start: null, end: null };
+          const afterRange = {
+            start: s.rep_range_start ?? beforeRange.start,
+            end: s.rep_range_end ?? beforeRange.end,
+          };
+          changes.push({
+            exercise_template_id: edit.exercise_template_id,
+            exercise_title: ex.title,
+            field: "rep_range",
+            set_index: s.set_index,
+            before: beforeRange,
+            after: afterRange,
+          });
+          set.rep_range = afterRange;
+        }
+      }
+    }
+
+    return {
+      proposed_routine: proposed,
+      changes,
+      errors,
+      patch_payload_note:
+        "proposed_routine is the body that would be PUT to /v1/routines/{routine_id}. " +
+        "This tool only previews — it does not call Hevy.",
+    };
   },
 };
 
@@ -141,6 +244,64 @@ const TOOL_DECLARATIONS: FunctionDeclaration[] = [
       required: ["workout_id"],
     },
   },
+  {
+    name: "review_workout",
+    description:
+      "Run (or load cached) review for a workout. Returns rating, summary, per-exercise " +
+      "feedback, and structured suggested edits. Set force=true to bypass cache.",
+    parameters: {
+      type: Type.OBJECT,
+      properties: {
+        workout_id: { type: Type.STRING },
+        force: { type: Type.BOOLEAN },
+      },
+      required: ["workout_id"],
+    },
+  },
+  {
+    name: "compute_routine_update",
+    description:
+      "Preview applying structured edits to a routine. Returns the proposed full routine " +
+      "(the body that would PUT to /v1/routines/{id}), a per-change diff, and errors for any " +
+      "edits that violate scope (notes that drop existing content, missing exercises/sets). " +
+      "DOES NOT call Hevy — it's a preview only. Use this AFTER the user confirms.",
+    parameters: {
+      type: Type.OBJECT,
+      properties: {
+        routine_id: { type: Type.STRING },
+        edits: {
+          type: Type.ARRAY,
+          items: {
+            type: Type.OBJECT,
+            properties: {
+              exercise_template_id: { type: Type.STRING },
+              notes: {
+                type: Type.STRING,
+                nullable: true,
+                description:
+                  "Replacement note text. MUST be a superset of the existing note — never remove content.",
+              },
+              sets: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    set_index: { type: Type.INTEGER },
+                    weight_kg: { type: Type.NUMBER, nullable: true },
+                    rep_range_start: { type: Type.INTEGER, nullable: true },
+                    rep_range_end: { type: Type.INTEGER, nullable: true },
+                  },
+                  required: ["set_index"],
+                },
+              },
+            },
+            required: ["exercise_template_id"],
+          },
+        },
+      },
+      required: ["routine_id", "edits"],
+    },
+  },
 ];
 
 // ── System prompt ────────────────────────────────────────────────────────
@@ -162,12 +323,50 @@ Style:
 - Markdown tables for set-by-set data; prose for analysis.
 - Routine edit scope: only weight, rep_range, and notes. Do NOT propose adding,
   removing, or reordering exercises in routines — the structural shape is the user's call.
+- NEVER remove existing note content. Note changes must be a superset of the current note.
+- Do NOT change RPE or rest_seconds — out of scope.
 - Base weight/rep recommendations on multi-session trends, not single sessions.
 - For ambiguous questions, fetch a small slice of data first and refine, rather than
   asking many clarifying questions up front.
 - Match routine and workout exercises by exercise_template_id, not index.
 
 When you don't know an id, fetch it (latest_workout, list_workouts, list_routines).
+
+POST-WORKOUT FLOW (when user asks to review their latest workout, or "post-workout review"):
+
+1. Call latest_workout to get the workout id, then review_workout(workout_id) for the review.
+   The review pulls prior sessions and the routine automatically.
+2. Reply with one structured response in this order:
+   ## Review — Rating: X/10
+   {summary}
+
+   ## Per-exercise feedback
+   - **{exercise_title}** — {observation}
+
+   ## Suggested routine amendments
+   Markdown table with columns: Exercise | Field | Current | Suggested.
+   Pull the "Current" values from the review's persisted routine_snapshot, history,
+   or call get_routine if needed. Skip exercises with no suggested_* changes.
+
+   ## Apply?
+   "Would you like to amend your current routine with the following changes?
+   Reply 'yes' to generate the patch payload, or 'cancel' to skip."
+
+3. If the user replies yes/apply/confirm:
+   a. Call compute_routine_update(routine_id, edits) where edits is the list of
+      per-exercise changes derived from the review's suggested_set_edits and
+      suggested_note_change fields.
+   b. Reply with:
+      ## Diff
+      Render the changes array as a markdown table.
+      ## Errors
+      List any errors returned by the tool (a non-empty errors array means at least
+      one edit was refused — typically because a note tried to drop content).
+      ## Patch payload
+      A fenced JSON code block containing proposed_routine. This is the body that
+      would PUT to /v1/routines/{id}.
+      "Run \`PUT https://api.hevyapp.com/v1/routines/{routine_id}\` with this body
+      to apply. (Not yet automated.)"
 `;
 }
 

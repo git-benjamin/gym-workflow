@@ -1,0 +1,422 @@
+{
+  "routine": {
+    "id": "8e7268e0-7617-4798-bf50-3dd421196dbd",
+    "title": "2026: Pull",
+    "folder_id": null,
+    "updated_at": "2026-04-26T08:02:59.925Z",
+    "created_at": "2023-01-31T11:51:18.413Z",
+    "exercises": [
+      {
+        "index": 0,
+        "title": "Face Pull",
+        "notes": "Target: 3 Technical Failure (RPE 10).\n\nLengthened partials: Immediately after third set, log as drop set.\n\nSetup: Cable #11 | Bench #7. If can, use chest support.\n\nElbow Lead: Hands are hooks; pull through the elbows.\n\nTear: Pull toward hairline; tear the rope apart\".\n\nDouble Bicep: Finish with hands higher than elbows.\n\nVector: 45° upward angle (toward forehead).\n\nOptimal pulley height appears to be 6-7, with seat at ~45 degrees for forehead clearance.",
+        "exercise_template_id": "BE640BA0",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 9.1,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 8,
+              "end": 10
+            }
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 9.1,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 8,
+              "end": 10
+            }
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 9.1,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 8,
+              "end": 10
+            }
+          },
+          {
+            "index": 3,
+            "type": "dropset",
+            "weight_kg": 9.1,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 2,
+              "end": null
+            }
+          }
+        ],
+        "rest_seconds": 120
+      },
+      {
+        "index": 1,
+        "title": "Iso-Lateral Row (Machine)",
+        "notes": "Target: 3 Technical Failure (RPE 10).\n\nSetup: Neutral/vertical grip. Palms facing.\n\nPockets: Pull shoulder blades toward back pockets before arm movement.\n\nSternum: Chest \"glued\" to pad.\n\nCrush: Imagine crushing grape between shoulder blades at peak.\n\nHook: Hands are thumbless hooks. Focus elbow drive.\n\nMid-Range: Stop 2–3cm before full contraction. Avoid bicep takeover.\n\nConsider a slight weight reduction if bicep bottleneck consistently prevents hitting 8-10 reps for the lats across all sets.",
+        "exercise_template_id": "AA1EB7D8",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 51.3,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 8,
+              "end": 10
+            }
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 51.3,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 8,
+              "end": 10
+            }
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 51.3,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 8,
+              "end": 10
+            }
+          }
+        ],
+        "rest_seconds": 120
+      },
+      {
+        "index": 2,
+        "title": "Pull Up (Assisted)",
+        "notes": "Target: 3 Sets Technical Failure (RPE 10).\n\nSetup: Use assisted machine if needed to maintain 10-rep range.\n\nNeutral grip (palms facing) is safer for shoulders.\n\nPockets: Pull shoulder blades to back pockets before moving arms.",
+        "exercise_template_id": "2C37EC5E",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": null,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": null,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": null,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          }
+        ],
+        "rest_seconds": 120
+      },
+      {
+        "index": 3,
+        "title": "Lat Pulldown (Cable)",
+        "notes": "Target: 3 Technical Failure (RPE 10).\n\nTempo: Slow controlled.\n\nWindow: Head \"tall\" looking through window. Pull to upper chest, not stomach.\n\nElbow Tuck: Drive elbows toward hips. Do not pull behind body.\n\nLeg Anchor: Push thighs into pads. Create \"closed loop\" tension.\n\nUse double V-handle (prone grip) with smaller side facing you. Consider a slight weight reduction to ensure lats are the limiting factor and the 8-10 rep range is consistently met.",
+        "exercise_template_id": "6A6C31A5",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 47.3,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 8,
+              "end": 10
+            }
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 45,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 8,
+              "end": 10
+            }
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 41.3,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 8,
+              "end": 10
+            }
+          }
+        ],
+        "rest_seconds": 120
+      },
+      {
+        "index": 4,
+        "title": "Rear Delt Reverse Fly (Machine)",
+        "notes": "Target: 2 Technical Failure (RPE 10).\n\nLengthened partials: Immediately after third set, log as drop set.\n\nSetup: Sit tall; barely touch chest pad. Force core active.\n\nPinky Lead: Light grip; push out with pinky fingers. Bypass traps.\n\nWide: Reach for side walls with knuckles. Reach \"out and wide\", not \"back\".\n\nElbow Lock: Soft bend; lock angle. Prevent tricep takeover.\n\nStop Early: Stop when arms line with shoulders. Avoid shoulder \"roll\" forward.\n\nAim for arms parallel with the floor. Monitor for mid-back compensation.",
+        "exercise_template_id": "D8281C62",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 34.5,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 10,
+              "end": 12
+            }
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 32,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 10,
+              "end": 12
+            }
+          },
+          {
+            "index": 2,
+            "type": "dropset",
+            "weight_kg": 32,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 5,
+              "end": null
+            }
+          }
+        ],
+        "rest_seconds": 120
+      },
+      {
+        "index": 5,
+        "title": "Preacher Curl (Barbell)",
+        "notes": "Target: 2 Technical Failure (RPE 10).\n\nLengthened partials: Immediately after third set, log as drop set, bottom half of movement.\n\nArmpit: Jam armpits deep into pad. No \"air\" between triceps and bench.\n\nWrist: Keep straight or curled inward. Avoid wrists \"flopping\" back.\n\nPinky: \"Turn\" pinkies toward shoulders during curl. Maximize supination.\n\nSafety Stop: Stop short of 180° extension. Protect bicep tendon.\n\nShoulder: Keep shoulders depressed. Do not shrug toward ears.\n\nAlways use an EZ bar. Increase rest time to 2 minutes.",
+        "exercise_template_id": "4F942934",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 12.5,
+            "reps": 12,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 12.5,
+            "reps": 6,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "dropset",
+            "weight_kg": null,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          }
+        ],
+        "rest_seconds": 90
+      },
+      {
+        "index": 6,
+        "title": "Bicep Curl (Dumbbell)",
+        "notes": "Seated incline bicep curl.\n\nTarget: 2 Technical Failure (RPE 10).\n\nLengthened partials: Immediately after third set, log as drop set, bottom half of movement.\n\nSitting on a 45-degree incline bench forces your chest open and stretches the anterior chain. It also biases the lengthened position of the bicep, which yields higher hypertrophy.\n\nSetup: Bench at 45–60 degrees. Let arms hang dead straight down.\nShoulders: Pin shoulders back against the pad. Do not let shoulders roll forward as you curl.",
+        "exercise_template_id": "37FCC2BB",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": null,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": null,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": null,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          },
+          {
+            "index": 3,
+            "type": "dropset",
+            "weight_kg": null,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          }
+        ],
+        "rest_seconds": 0
+      },
+      {
+        "index": 7,
+        "title": "Cable Core Palloff Press",
+        "notes": "Target: 3 Technical Failure (RPE 10).\n\nHolds: Seated; 15 seconds per rep.\n\nSetup: Sit sideways. Pull handle to chest center.\n\nAnti-Slouch: \"Punch\" shoulder blades forward (protraction). Activate serratus.\n\nAnchor: Brace feet against machine frame. Anchor legs for anti-rotation.\n\nFriction: ~15kg load causes seat sliding. Stabilize with leg pressure.\n\nAlways start with the left side closer to the cable, with the handle in the left hand. Ensure 15-second holds per rep.",
+        "exercise_template_id": "CC55119B",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": 4,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": 3,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": 3,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          }
+        ],
+        "rest_seconds": 60
+      },
+      {
+        "index": 8,
+        "title": "Hip Abduction (Machine)",
+        "notes": "Optional.\n\nTarget: 2 Technical Failure (RPE 10).\n\nLengthened partials: Immediately after third set, log as drop set.\n\nFrequency: Every workout; high recovery.\n\nBurnout: High-volume finisher for upper glute.\n\nPosture: Lean forward. Grip machine in front.",
+        "exercise_template_id": "F4B4C6EE",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 57,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 12,
+              "end": null
+            }
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 57,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null,
+            "rep_range": {
+              "start": 15,
+              "end": null
+            }
+          },
+          {
+            "index": 2,
+            "type": "dropset",
+            "weight_kg": null,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "custom_metric": null
+          }
+        ],
+        "rest_seconds": 60
+      }
+    ]
+  }
+}
