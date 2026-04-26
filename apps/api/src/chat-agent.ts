@@ -10,7 +10,7 @@ import * as hevy from "./hevy.js";
 import * as review from "./review.js";
 import * as store from "./store.js";
 
-const MODEL = "gemini-2.5-flash";
+const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
 
 // ── Tool implementations ─────────────────────────────────────────────────
 type Tool = (args: Record<string, unknown>) => Promise<unknown> | unknown;
@@ -362,11 +362,24 @@ POST-WORKOUT FLOW (when user asks to review their latest workout, or "post-worko
    Would you like to amend your current routine with these changes? Reply **yes** to
    generate the patch payload, or **cancel** to skip.
 
-3. If the user replies yes/apply/confirm:
-   a. Call compute_routine_update(routine_id, edits) where edits is the list of
-      per-exercise changes derived from the review's suggested_set_edits and
-      suggested_note_change fields.
-   b. Reply with:
+3. If the user replies yes/apply/confirm to the "## Apply?" prompt:
+
+   IMPORTANT — re-fetch context before building edits. Conversation history
+   stored between requests may have dropped the structured tool data, so do not
+   rely on remembering the prior turn's review. Always:
+
+   a. Call latest_workout to get the current workout_id and routine_id.
+   b. Call review_workout(workout_id) to re-load the review. It's cached and fast.
+   c. Build the edits array from review.per_exercise. For each entry where
+      suggested_note_change OR suggested_set_edits is non-null, push:
+        {
+          exercise_template_id: <copy from review entry>,
+          notes: <suggested_note_change>,        // include only if non-null
+          sets: <suggested_set_edits>            // include only if non-null
+        }
+      Skip entries where both are null.
+   d. Call compute_routine_update(routine_id, edits).
+   e. Reply with:
 
       ## Diff
       Same per-exercise sub-heading format as in step 2 — DO NOT use a table.
@@ -431,6 +444,17 @@ export async function runAgentTurn(
 
     if (functionCallParts.length === 0) {
       finalText = parts.map((p) => p.text ?? "").join("");
+      if (!finalText.trim()) {
+        const finishReason = candidate?.finishReason;
+        logger.warn(
+          { parts_count: parts.length, finish_reason: finishReason, step },
+          "agent returned empty response — emitting fallback",
+        );
+        finalText =
+          "I didn't generate a response — please rephrase your request, or try " +
+          "a more specific question (e.g. \"review my latest workout\" or \"apply " +
+          "the suggested changes\").";
+      }
       if (candidate?.content) history.push(candidate.content);
       break;
     }

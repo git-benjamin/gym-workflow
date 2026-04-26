@@ -11,7 +11,7 @@ import * as hevy from "./hevy.js";
 import * as store from "./store.js";
 import type { ExerciseHistorySession } from "./store.js";
 
-export const MODEL = "gemini-2.5-flash";
+export const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
 const HISTORY_SESSIONS = 5;
 
 // ── Response schema for Gemini ──────────────────────────────────────────

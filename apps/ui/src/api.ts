@@ -41,8 +41,19 @@ function authHeaders(): Record<string, string> {
 }
 
 async function jsonOrThrow<T>(r: Response, label: string): Promise<T> {
-  if (!r.ok) throw new Error(`${label} ${r.status}: ${await r.text()}`);
-  return (await r.json()) as T;
+  const text = await r.text();
+  if (!r.ok) {
+    let msg = `${label} ${r.status}`;
+    try {
+      const body = JSON.parse(text) as { error?: string; retry_seconds?: number };
+      if (body.error) msg += `: ${body.error}`;
+      if (body.retry_seconds) msg += ` (retry in ~${Math.ceil(body.retry_seconds)}s)`;
+    } catch {
+      if (text) msg += `: ${text.slice(0, 300)}`;
+    }
+    throw new Error(msg);
+  }
+  return JSON.parse(text) as T;
 }
 
 export async function postChat(sessionId: string, message: string): Promise<ChatResponse> {

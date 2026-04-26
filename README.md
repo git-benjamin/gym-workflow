@@ -118,6 +118,7 @@ HEVY_API_KEY=...                  # https://hevy.com/settings?developer (Hevy Pr
 GEMINI_API_KEY=...                # AI Studio key
 HEVY_WEBHOOK_TOKEN=...            # set after registering the webhook in Hevy
 API_TOKEN=...                     # any random string; bearer for /api/*
+GEMINI_MODEL=gemini-2.5-flash     # optional; flash-lite has higher free-tier RPD
 
 pnpm api:smoke         # verify Hevy client against your account
 pnpm api:dump-latest   # dump latest workout + routine to examples/
@@ -221,6 +222,34 @@ The optimiser must **not**:
 
 The structural shape of the routine (which exercises, how many, in what
 order) is the user's call. The optimiser tunes the dials inside that shape.
+
+## Gemini free-tier quota
+
+Per-day request caps are model-specific and tight on the free tier
+(observed ~20-250 RPD on `gemini-2.5-flash`, ~1000 RPD on
+`gemini-2.5-flash-lite` — confirm against your project at
+<https://ai.google.dev/gemini-api/docs/rate-limits>).
+
+Each post-workout review burns one Gemini call. Each chat turn that calls
+tools is also one call (the tool-call loop is one round-trip per agent
+step). Heavy testing during one day blows through the cap quickly.
+
+When the cap is hit, `/api/chat` returns 429 with a structured JSON body:
+
+```json
+{
+  "error": "Gemini quota exhausted...",
+  "retry_seconds": 56.9,
+  "upstream": "..."
+}
+```
+
+The UI surfaces this as a readable error message with the suggested retry
+delay. To raise the cap:
+
+- Switch to a higher-cap model: set `GEMINI_MODEL=gemini-2.5-flash-lite`
+  in `.envrc`. Slightly weaker model, much higher daily limit.
+- Add billing on the Google AI Studio project for paid-tier limits.
 
 ## Open questions
 

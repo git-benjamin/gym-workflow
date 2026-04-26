@@ -40,7 +40,42 @@ chatRoute.post("/", async (c) => {
   const history: Content[] = stored.map(turnToContent);
 
   const start = Date.now();
-  const result = await runAgentTurn(message, history);
+  let result: Awaited<ReturnType<typeof runAgentTurn>>;
+  try {
+    result = await runAgentTurn(message, history);
+  } catch (err) {
+    const e = err as Error;
+    const msg = e.message ?? String(e);
+    const lower = msg.toLowerCase();
+    const isQuota =
+      lower.includes("resource_exhausted") ||
+      lower.includes("quota") ||
+      msg.includes("429");
+    if (isQuota) {
+      const retryMatch = msg.match(/retry in ([\d.]+)s/i);
+      const retrySeconds = retryMatch?.[1] ? Number(retryMatch[1]) : null;
+      logger.warn(
+        { session_id, retry_seconds: retrySeconds, duration_ms: Date.now() - start },
+        "gemini quota exhausted",
+      );
+      return c.json(
+        {
+          error:
+            "Gemini quota exhausted. Free tier resets daily; bump to a paid tier or switch " +
+            "the MODEL constant in chat-agent.ts to gemini-2.5-flash-lite for a higher daily cap.",
+          retry_seconds: retrySeconds,
+          upstream: msg.slice(0, 400),
+        },
+        429,
+      );
+    }
+    logger.error(
+      { session_id, err_name: e.constructor?.name, err_message: msg, duration_ms: Date.now() - start },
+      "chat turn failed",
+    );
+    return c.json({ error: msg.slice(0, 600) }, 500);
+  }
+
   logger.info(
     {
       session_id,
