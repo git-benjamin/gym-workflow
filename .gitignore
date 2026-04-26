@@ -8,7 +8,8 @@ reviews/
 chats/
 
 # Tooling state
-.claude
+.claude/*
+!.claude/skills/
 __pycache__
 
 # Build / cache outputs
