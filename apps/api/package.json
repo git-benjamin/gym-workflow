@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "smoke": "tsx src/smoke.ts",
+    "dump-latest": "tsx src/scripts/dump-latest.ts",
+    "post-workout": "tsx src/scripts/post-workout.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

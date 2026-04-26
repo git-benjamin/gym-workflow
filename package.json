@@ -5,6 +5,8 @@
   "scripts": {
     "api:dev": "pnpm --filter @gym/api dev",
     "api:smoke": "pnpm --filter @gym/api smoke",
+    "api:dump-latest": "pnpm --filter @gym/api dump-latest",
+    "api:post-workout": "pnpm --filter @gym/api post-workout",
     "ui:dev": "pnpm --filter @gym/ui dev",
     "typecheck": "pnpm -r typecheck"
   },
