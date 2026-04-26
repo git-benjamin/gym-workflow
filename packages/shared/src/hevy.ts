@@ -39,7 +39,7 @@ export type RoutineSet = z.infer<typeof RoutineSet>;
 export const WorkoutExercise = z.object({
   index: z.number().int(),
   title: z.string(),
-  notes: z.string(),
+  notes: z.string().nullable().transform((v) => v ?? ""),
   exercise_template_id: z.string(),
   superset_id: z.string().nullable(),
   sets: z.array(WorkoutSet),
@@ -49,7 +49,7 @@ export type WorkoutExercise = z.infer<typeof WorkoutExercise>;
 export const RoutineExercise = z.object({
   index: z.number().int(),
   title: z.string(),
-  notes: z.string(),
+  notes: z.string().nullable().transform((v) => v ?? ""),
   exercise_template_id: z.string(),
   superset_id: z.string().nullable(),
   sets: z.array(RoutineSet),

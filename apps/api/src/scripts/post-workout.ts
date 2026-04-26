@@ -106,7 +106,7 @@ for (const review_ex of review.per_exercise) {
 
 writeFileSync(
   resolve(EXAMPLES, "proposed-routine-update.json"),
-  JSON.stringify({ routine: proposed }, null, 2),
+  JSON.stringify(hevy.toPutRoutineBody(proposed), null, 2),
 );
 
 const md: string[] = [

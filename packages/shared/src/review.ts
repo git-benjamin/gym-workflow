@@ -18,11 +18,11 @@ export const ExerciseReview = z.object({
   observation: z.string(),
   /** Full replacement text for the routine note. MUST be a superset of the existing
    *  note (no content removed); only additions/amendments allowed. */
-  suggested_note_change: z.string().nullable(),
+  suggested_note_change: z.string().nullable().optional(),
   /** Human-readable rationale for weight changes (e.g. "+2.5kg set 1, hold sets 2-3"). */
-  suggested_weight_change: z.string().nullable(),
+  suggested_weight_change: z.string().nullable().optional(),
   /** Human-readable rationale for rep_range changes. */
-  suggested_rep_range_change: z.string().nullable(),
+  suggested_rep_range_change: z.string().nullable().optional(),
   /** Structured per-set edits matching the prose suggestions; optional for backward-compat. */
   suggested_set_edits: z.array(SuggestedSetEdit).nullable().optional(),
 });

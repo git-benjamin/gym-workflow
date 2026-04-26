@@ -189,15 +189,19 @@ const tools: Record<string, Tool> = {
       errors: string[];
     };
 
-    // Persist the full proposed routine to disk so the user (or a future
-    // apply tool) can fetch it. The chat reply does NOT include the full
-    // body — flash-lite chokes when asked to re-emit ~30 KB of JSON.
+    // Persist the proposed routine in the slimmer PUT-body shape so the file
+    // is directly applicable via `curl --data @...` (no client-side stripping
+    // needed). The full GET response carries fields Hevy rejects on PUT.
     const exampleDir = resolve(repoRoot(), "examples");
     mkdirSync(exampleDir, { recursive: true });
     const payloadPath = resolve(exampleDir, "proposed-routine-update.json");
     writeFileSync(
       payloadPath,
-      JSON.stringify({ routine: result.proposed_routine }, null, 2),
+      JSON.stringify(
+        hevy.toPutRoutineBody(result.proposed_routine as Parameters<typeof hevy.toPutRoutineBody>[0]),
+        null,
+        2,
+      ),
     );
 
     // Pre-render the markdown the agent should echo verbatim.

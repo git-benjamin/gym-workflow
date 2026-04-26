@@ -1,78 +1,42 @@
 {
   "rating": 7,
-  "summary": "This Pull session demonstrated strong effort, with most working sets taken to RPE 10. However, bicep fatigue continued to bottleneck performance on Iso-Lateral Rows and Lat Pulldowns, limiting the intended stimulus for the lats. A notable PR was achieved on the first set of Rear Delt Reverse Flyes, indicating effective targeting of the posterior deltoids.",
+  "summary": "The session showed some signs of fatigue, particularly in the bicep exercises where the user hit a bottleneck earlier than planned. However, the user adapted well by adjusting exercise order and rep schemes to maintain intensity.",
   "per_exercise": [
     {
       "exercise_title": "Face Pull",
       "exercise_template_id": "BE640BA0",
-      "observation": "After an initial setup adjustment, sets 2 and 3 were performed at RPE 10 within the target rep range. Performance is consistent with recent sessions at this weight.",
-      "suggested_note_change": "Target: 3 Technical Failure (RPE 10).\n\nLengthened partials: Immediately after third set, log as drop set.\n\nSetup: Cable #11 | Bench #7. If can, use chest support.\n\nElbow Lead: Hands are hooks; pull through the elbows.\n\nTear: Pull toward hairline; tear the rope apart\".\n\nDouble Bicep: Finish with hands higher than elbows.\n\nVector: 45° upward angle (toward forehead).\n\nOptimal pulley height appears to be 6-7, with seat at ~45 degrees for forehead clearance.",
-      "suggested_weight_change": null,
-      "suggested_rep_range_change": null,
-      "suggested_set_edits": null
+      "observation": "The first set was cut short for setup adjustments, but the subsequent sets hit the target RPE and rep range. The dropset was completed as planned.",
+      "suggested_note_change": "Target: 3 Technical Failure (RPE 10).\n\nLengthened partials: Immediately after third set, log as drop set.\n\nSetup: Cable #11 | Bench #7. If can, use chest support.\n\nElbow Lead: Hands are hooks; pull through the elbows.\n\nTear: Pull toward hairline; tear the rope apart\".\n\nDouble Bicep: Finish with hands higher than elbows.\n\nVector: 45° upward angle (toward forehead).\n\nSession Notes: Stopped set 1 early adjusting height for beter clearance to forehead.\n\nSet 2 trying pulley height 7, seat about 45 degrees. Rope can come through top of seat.\nSet 3 trting lower pulley height 6."
     },
     {
       "exercise_title": "Iso-Lateral Row (Machine)",
       "exercise_template_id": "AA1EB7D8",
-      "observation": "The first set was a strong PR at 51.3kg, exceeding the rep range. However, subsequent sets saw a significant drop in reps, with biceps noted as the bottleneck, preventing sustained performance within the target rep range for the lats.",
-      "suggested_note_change": "Target: 3 Technical Failure (RPE 10).\n\nSetup: Neutral/vertical grip. Palms facing.\n\nPockets: Pull shoulder blades toward back pockets before arm movement.\n\nSternum: Chest \"glued\" to pad.\n\nCrush: Imagine crushing grape between shoulder blades at peak.\n\nHook: Hands are thumbless hooks. Focus elbow drive.\n\nMid-Range: Stop 2–3cm before full contraction. Avoid bicep takeover.\n\nConsider a slight weight reduction if bicep bottleneck consistently prevents hitting 8-10 reps for the lats across all sets.",
-      "suggested_weight_change": null,
-      "suggested_rep_range_change": null,
-      "suggested_set_edits": null
+      "observation": "The user hit a bicep bottleneck early in the second and third sets, significantly reducing reps. The planned 3 failure sets were extended to include a dropset to compensate for the reduced volume on the failure sets.",
+      "suggested_note_change": "Target: 3 Technical Failure (RPE 10).\n\nSetup: Neutral/vertical grip. Palms facing.\n\nPockets: Pull shoulder blades toward back pockets before arm movement.\n\nSternum: Chest \"glued\" to pad.\n\nCrush: Imagine crushing grape between shoulder blades at peak.\n\nHook: Hands are thumbless hooks. Focus elbow drive.\n\nMid-Range: Stop 2–3cm before full contraction. Avoid bicep takeover.\n\nSession Notes: Matrix plate loaded seated row - assuming total base resistance is 11.3kg.\n\nSet 1: bicep bottle neck at around 10 reps\nSet 2: 2 min rest, bicep bottle neck at around 6 reps\nSet 3: 2.5 min rest, bicep bottle neck at rep 5"
     },
     {
       "exercise_title": "Lat Pulldown (Cable)",
       "exercise_template_id": "6A6C31A5",
-      "observation": "All three planned sets were limited by bicep fatigue, resulting in reps below the target range. This indicates the weight is too high to effectively target the lats for the desired rep range. An unplanned high-rep set at a lower weight suggests an attempt to bypass this bottleneck.",
-      "suggested_note_change": "Target: 3 Technical Failure (RPE 10).\n\nTempo: Slow controlled.\n\nWindow: Head \"tall\" looking through window. Pull to upper chest, not stomach.\n\nElbow Tuck: Drive elbows toward hips. Do not pull behind body.\n\nLeg Anchor: Push thighs into pads. Create \"closed loop\" tension.\n\nUse double V-handle (prone grip) with smaller side facing you. Consider a slight weight reduction to ensure lats are the limiting factor and the 8-10 rep range is consistently met.",
-      "suggested_weight_change": "Reduce weight by one plate for each set to better hit the 8-10 rep range for the lats, e.g., Set 1 to 47.3kg, Set 2 to 45kg, Set 3 to 41.3kg.",
-      "suggested_rep_range_change": null,
-      "suggested_set_edits": [
-        {
-          "set_index": 0,
-          "weight_kg": 47.3
-        },
-        {
-          "set_index": 1,
-          "weight_kg": 45
-        },
-        {
-          "set_index": 2,
-          "weight_kg": 41.3
-        }
-      ]
+      "observation": "The user moved this exercise earlier due to unavailable equipment and encountered a bicep bottleneck in the first three sets, reducing reps significantly. They then performed an additional set to failure, pushing to a very high rep count, indicating a potential RPE misjudgment but still achieving high volume.",
+      "suggested_note_change": "Target: 3 Technical Failure (RPE 10).\n\nTempo: Slow controlled.\n\nWindow: Head \"tall\" looking through window. Pull to upper chest, not stomach.\n\nElbow Tuck: Drive elbows toward hips. Do not pull behind body.\n\nLeg Anchor: Push thighs into pads. Create \"closed loop\" tension.\n\nSession Notes: Doing this prior to assisted pull ups as none available.\n\nusing double v handle (aka prone grip) with smaller side of grip facing me\n\nSet 1 on rep 5 bicep bottlenexk\nSet 2 rested 2.5 mins instead of 2, bicep bottleneck rep 5\nSet 3 rested 2.5 mins instead of 2, bicep bottleneck rep 5/6 \nSet 4 limit testing, slow and controlled, at rep 14 i thought i was 6 RPE, but kept going (evidence of extremely skewed RPE gauge), bicep bottleneck at rep 32"
     },
     {
       "exercise_title": "Preacher Curl (Barbell)",
       "exercise_template_id": "4F942934",
-      "observation": "Both working sets hit the planned reps and RPE 10, demonstrating effective bicep targeting. The drop set was appropriately skipped due to complete bicep fatigue, indicating maximal effort on the main sets.",
-      "suggested_note_change": "Target: 2 Technical Failure (RPE 10).\n\nLengthened partials: Immediately after third set, log as drop set, bottom half of movement.\n\nArmpit: Jam armpits deep into pad. No \"air\" between triceps and bench.\n\nWrist: Keep straight or curled inward. Avoid wrists \"flopping\" back.\n\nPinky: \"Turn\" pinkies toward shoulders during curl. Maximize supination.\n\nSafety Stop: Stop short of 180° extension. Protect bicep tendon.\n\nShoulder: Keep shoulders depressed. Do not shrug toward ears.\n\nAlways use an EZ bar. Increase rest time to 2 minutes.",
-      "suggested_weight_change": null,
-      "suggested_rep_range_change": null,
-      "suggested_set_edits": null
+      "observation": "The user hit a bicep bottleneck after the second set and was unable to perform the planned dropset. The routine notes should be updated to reflect the consistent use of an EZ bar.",
+      "suggested_note_change": "Target: 2 Technical Failure (RPE 10).\n\nLengthened partials: Immediately after third set, log as drop set, bottom half of movement.\n\nArmpit: Jam armpits deep into pad. No \"air\" between triceps and bench.\n\nWrist: Keep straight or curled inward. Avoid wrists \"flopping\" back.\n\nPinky: \"Turn\" pinkies toward shoulders during curl. Maximize supination.\n\nSafety Stop: Stop short of 180° extension. Protect bicep tendon.\n\nShoulder: Keep shoulders depressed. Do not shrug toward ears.\n\nSession Notes: always EZ bar as always at preacher curls, add to routine notes\n\nrest default is 1.5m lets change to 2min\n\nbiceps gassed after set 2 at the bottom, couldnt even get into position for partials"
     },
     {
       "exercise_title": "Rear Delt Reverse Fly (Machine)",
       "exercise_template_id": "D8281C62",
-      "observation": "Set 1 was a significant PR, exceeding the target rep range by 5 reps at RPE 10. Set 2 was within the target range. The user noted feeling it in the mid-right back, which should be monitored for compensation.",
-      "suggested_note_change": "Target: 2 Technical Failure (RPE 10).\n\nLengthened partials: Immediately after third set, log as drop set.\n\nSetup: Sit tall; barely touch chest pad. Force core active.\n\nPinky Lead: Light grip; push out with pinky fingers. Bypass traps.\n\nWide: Reach for side walls with knuckles. Reach \"out and wide\", not \"back\".\n\nElbow Lock: Soft bend; lock angle. Prevent tricep takeover.\n\nStop Early: Stop when arms line with shoulders. Avoid shoulder \"roll\" forward.\n\nAim for arms parallel with the floor. Monitor for mid-back compensation.",
-      "suggested_weight_change": "Increase weight for Set 1 to 34.5kg to bring reps closer to the 10-12 target range, given the strong performance.",
-      "suggested_rep_range_change": null,
-      "suggested_set_edits": [
-        {
-          "set_index": 0,
-          "weight_kg": 34.5
-        }
-      ]
+      "observation": "The user exceeded the rep target on the first set and completed all planned sets and the dropset, indicating good performance despite potential fatigue from previous exercises.",
+      "suggested_note_change": "Target: 2 Technical Failure (RPE 10).\n\nLengthened partials: Immediately after third set, log as drop set.\n\nSetup: Sit tall; barely touch chest pad. Force core active.\n\nPinky Lead: Light grip; push out with pinky fingers. Bypass traps.\n\nWide: Reach for side walls with knuckles. Reach \"out and wide\", not \"back\".\n\nElbow Lock: Soft bend; lock angle. Prevent tricep takeover.\n\nStop Early: Stop when arms line with shoulders. Avoid shoulder \"roll\" forward.\n\nSession Notes: What angle do my arms need to be to the floor? Parallel or slightly downafds/upwards\n\nSet 1, had the seat higher than usual arms are parallel with floor, towards end of set can feel it in my mid right back"
     },
     {
       "exercise_title": "Cable Core Palloff Press",
       "exercise_template_id": "CC55119B",
-      "observation": "Set 1 hit the target 4 reps, though with a shorter hold duration than previous sessions. Sets 2 and 3 were slightly below target at 3 reps. Performance is consistent with recent sessions at this weight.",
-      "suggested_note_change": "Target: 3 Technical Failure (RPE 10).\n\nHolds: Seated; 15 seconds per rep.\n\nSetup: Sit sideways. Pull handle to chest center.\n\nAnti-Slouch: \"Punch\" shoulder blades forward (protraction). Activate serratus.\n\nAnchor: Brace feet against machine frame. Anchor legs for anti-rotation.\n\nFriction: ~15kg load causes seat sliding. Stabilize with leg pressure.\n\nAlways start with the left side closer to the cable, with the handle in the left hand. Ensure 15-second holds per rep.",
-      "suggested_weight_change": null,
-      "suggested_rep_range_change": null,
-      "suggested_set_edits": null
+      "observation": "The user struggled to maintain the hold duration from the previous session, indicating fatigue. They adjusted rest times and rep counts accordingly. The note about left side starting position should be added.",
+      "suggested_note_change": "Target: 3 Technical Failure (RPE 10).\n\nHolds: Seated; 15 seconds per rep.\n\nSetup: Sit sideways. Pull handle to chest center.\n\nAnti-Slouch: \"Punch\" shoulder blades forward (protraction). Activate serratus.\n\nAnchor: Brace feet against machine frame. Anchor legs for anti-rotation.\n\nFriction: ~15kg load causes seat sliding. Stabilize with leg pressure.\n\nSession Notes: Add to notes i always start with left side closer to cable, with handle on left hand\n\nSet 1 held 4 reps 10 seconds , last workout was 3 reps 15 seconds - was struggling already at 10 likely torched \nset 2 rest 1 min default, 3 reps of 10 seconds\nset 3 rest 2 min for data, 3 reps of 15 seconds,"
     }
   ]
 }

@@ -8,6 +8,7 @@
     "smoke": "tsx src/smoke.ts",
     "dump-latest": "tsx src/scripts/dump-latest.ts",
     "post-workout": "tsx src/scripts/post-workout.ts",
+    "apply-proposed": "tsx src/scripts/apply-proposed.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

@@ -187,6 +187,41 @@ export const getRoutine = (routineId: string) =>
 export const updateRoutine = (routineId: string, payload: { routine: unknown }) =>
   request(z.unknown(), "PUT", `/v1/routines/${routineId}`, { body: payload });
 
+/** Transform a Routine (GET response) into the slimmer PutRoutinesRequestBody
+ *  Hevy expects on PUT. The GET response has fields the PUT schema doesn't
+ *  accept (id, created_at, updated_at, folder_id, per-exercise title and index,
+ *  per-set index) — sending them yields 400 Validation failed.
+ *
+ *  rep_range is OpenAPI-nullable but Hevy's PUT actually rejects null — must
+ *  omit the field entirely when there's no range. Same defensive treatment
+ *  for any field where the GET shape might include null but PUT might trip. */
+export function toPutRoutineBody(routine: Routine): { routine: unknown } {
+  return {
+    routine: {
+      title: routine.title,
+      notes: null,
+      exercises: routine.exercises.map((ex) => ({
+        exercise_template_id: ex.exercise_template_id,
+        superset_id: ex.superset_id,
+        rest_seconds: ex.rest_seconds ?? null,
+        notes: ex.notes,
+        sets: ex.sets.map((s) => {
+          const set: Record<string, unknown> = {
+            type: s.type,
+            weight_kg: s.weight_kg,
+            reps: s.reps,
+            distance_meters: s.distance_meters,
+            duration_seconds: s.duration_seconds,
+            custom_metric: s.custom_metric,
+          };
+          if (s.rep_range) set.rep_range = s.rep_range;
+          return set;
+        }),
+      })),
+    },
+  };
+}
+
 export const getExerciseHistory = (
   exerciseTemplateId: string,
   page = 1,
