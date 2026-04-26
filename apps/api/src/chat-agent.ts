@@ -336,37 +336,51 @@ POST-WORKOUT FLOW (when user asks to review their latest workout, or "post-worko
 
 1. Call latest_workout to get the workout id, then review_workout(workout_id) for the review.
    The review pulls prior sessions and the routine automatically.
+
 2. Reply with one structured response in this order:
+
    ## Review — Rating: X/10
    {summary}
 
    ## Per-exercise feedback
-   - **{exercise_title}** — {observation}
+   - **{exercise_title}** — {one-sentence observation}
 
    ## Suggested routine amendments
-   Markdown table with columns: Exercise | Field | Current | Suggested.
-   Pull the "Current" values from the review's persisted routine_snapshot, history,
-   or call get_routine if needed. Skip exercises with no suggested_* changes.
+   One sub-heading per exercise that has changes. **DO NOT use markdown tables here**
+   — note text has newlines and pipe characters that break tables. Use this exact format:
+
+   ### {exercise_title}
+   **Notes appended:** {ONLY the new line(s) being added, prefixed with a "+ ". DO NOT
+   include the existing note text — the user already has it. Compute the diff yourself.}
+   **Set N weight:** {old}kg → {new}kg
+   **Set N rep range:** {old.start}–{old.end} → {new.start}–{new.end}
+   **Why:** {one short sentence}
+
+   Omit any field that doesn't change. Skip exercises that have no suggestions entirely.
 
    ## Apply?
-   "Would you like to amend your current routine with the following changes?
-   Reply 'yes' to generate the patch payload, or 'cancel' to skip."
+   Would you like to amend your current routine with these changes? Reply **yes** to
+   generate the patch payload, or **cancel** to skip.
 
 3. If the user replies yes/apply/confirm:
    a. Call compute_routine_update(routine_id, edits) where edits is the list of
       per-exercise changes derived from the review's suggested_set_edits and
       suggested_note_change fields.
    b. Reply with:
+
       ## Diff
-      Render the changes array as a markdown table.
-      ## Errors
-      List any errors returned by the tool (a non-empty errors array means at least
-      one edit was refused — typically because a note tried to drop content).
+      Same per-exercise sub-heading format as in step 2 — DO NOT use a table.
+      List each change in the tool's \`changes\` array compactly.
+
+      ## Errors (only if non-empty)
+      Bulleted list of any refused edits from the tool's \`errors\` array. A non-empty
+      errors array means at least one edit was refused — typically because a note
+      tried to drop existing content.
+
       ## Patch payload
-      A fenced JSON code block containing proposed_routine. This is the body that
-      would PUT to /v1/routines/{id}.
+      A fenced \`json\` code block with the tool's \`proposed_routine\`. End with:
       "Run \`PUT https://api.hevyapp.com/v1/routines/{routine_id}\` with this body
-      to apply. (Not yet automated.)"
+      to apply. (Not yet automated — confirmation step lives in the chat.)"
 `;
 }
 
