@@ -86,12 +86,17 @@ chatRoute.post("/", async (c) => {
           ? "per-day"
           : "unknown-window";
 
+      const onFlashLite = upstreamModel === "gemini-2.5-flash-lite" || process.env.GEMINI_MODEL === "gemini-2.5-flash-lite";
+      const modelTag = upstreamModel ? ` (model=${upstreamModel}` + (quotaLimit ? `, limit=${quotaLimit}` : "") + ")" : "";
       const friendly =
         limitWindow === "per-minute"
-          ? "Gemini rate limit (per-minute) hit. Wait a minute and retry, or set GEMINI_MODEL=gemini-2.5-flash-lite in .envrc for a higher RPM cap."
+          ? `Gemini per-minute rate limit hit${modelTag}. Wait ~${Math.ceil(retrySeconds ?? 60)}s and retry.`
           : limitWindow === "per-day"
-            ? "Gemini daily quota hit. Resets at midnight UTC, or set GEMINI_MODEL=gemini-2.5-flash-lite for a higher daily cap."
-            : "Gemini quota hit. See ai.dev/rate-limit for your project's limits.";
+            ? `Gemini daily quota hit${modelTag}. Google enforces a rolling 24h window — retry in ~${Math.ceil(retrySeconds ?? 60)}s. ` +
+              (onFlashLite
+                ? "You're already on the higher-cap model; this account has a tight project quota. Add billing on Google AI Studio for paid-tier limits, or wait."
+                : "Set GEMINI_MODEL=gemini-2.5-flash-lite in .envrc for a higher daily cap.")
+            : `Gemini quota hit${modelTag}. See ai.dev/rate-limit for your project's limits.`;
 
       logger.warn(
         {
