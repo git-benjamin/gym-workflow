@@ -815,6 +815,10 @@ export async function runAgentTurn(
 
   const toolCalls: ToolCallTrace[] = [];
   let finalText = "";
+  /** Tracks the most recent tool-result `markdown` field so we can fall back
+   *  to it when the model fails to echo (flash-lite hits finish_reason=STOP
+   *  with zero parts after some long pre-rendered tool results). */
+  let lastToolMarkdown: string | null = null;
 
   // Manual function-call loop. Cap iterations so a buggy tool can't infinite-loop.
   for (let step = 0; step < 8; step++) {
@@ -838,14 +842,25 @@ export async function runAgentTurn(
       finalText = parts.map((p) => p.text ?? "").join("");
       if (!finalText.trim()) {
         const finishReason = candidate?.finishReason;
-        logger.warn(
-          { parts_count: parts.length, finish_reason: finishReason, step },
-          "agent returned empty response — emitting fallback",
-        );
-        finalText =
-          "I didn't generate a response — please rephrase your request, or try " +
-          "a more specific question (e.g. \"review my latest workout\" or \"apply " +
-          "the suggested changes\").";
+        if (lastToolMarkdown) {
+          // Pre-rendered tool result is exactly what the model was supposed to
+          // echo. Use it directly so flash-lite's empty-output failure mode is
+          // a no-op rather than a user-facing fallback.
+          logger.info(
+            { parts_count: parts.length, finish_reason: finishReason, step, source: "tool_markdown" },
+            "agent empty — falling back to tool's pre-rendered markdown",
+          );
+          finalText = lastToolMarkdown;
+        } else {
+          logger.warn(
+            { parts_count: parts.length, finish_reason: finishReason, step },
+            "agent returned empty response — emitting generic fallback",
+          );
+          finalText =
+            "I didn't generate a response — please rephrase your request, or try " +
+            "a more specific question (e.g. \"review my latest workout\" or \"apply " +
+            "the suggested changes\").";
+        }
       }
       if (candidate?.content) history.push(candidate.content);
       break;
@@ -874,6 +889,12 @@ export async function runAgentTurn(
           );
         }
         toolCalls.push({ name, input: args, output });
+        // Capture the tool's pre-rendered markdown for the empty-response
+        // fallback (see lastToolMarkdown above).
+        if (output && typeof output === "object" && "markdown" in output) {
+          const m = (output as { markdown?: unknown }).markdown;
+          if (typeof m === "string" && m.trim()) lastToolMarkdown = m;
+        }
         return {
           functionResponse: { name, response: { result: output } },
         };
