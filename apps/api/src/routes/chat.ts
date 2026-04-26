@@ -12,6 +12,19 @@ const ChatRequestSchema = z.object({
   message: z.string().min(1),
 });
 
+/** Post-workout responses come back as one big string; split into two bubbles —
+ *  the review (rating + summary + per-exercise feedback) and the amendments
+ *  (suggested edits + apply prompt). Other responses stay as a single bubble. */
+function splitIntoBubbles(text: string): string[] {
+  const trimmed = text.trim();
+  if (!trimmed) return [];
+  const idx = trimmed.search(/\n##\s+Suggested routine amendments/i);
+  if (idx > 0) {
+    return [trimmed.slice(0, idx).trim(), trimmed.slice(idx).trim()];
+  }
+  return [trimmed];
+}
+
 /** Project a stored ChatTurn back into Gemini Content. */
 function turnToContent(turn: store.ChatTurn): Content {
   return {
@@ -88,20 +101,42 @@ chatRoute.post("/", async (c) => {
     "chat turn complete",
   );
 
-  // Persist user + model turns (history was mutated in-place by the agent loop).
+  // Split into visual bubbles and persist them as separate model turns,
+  // so re-hydrating a session shows the same shape the user originally saw.
+  const bubbles = splitIntoBubbles(result.text);
   const now = new Date().toISOString();
   stored.push({ role: "user", text: message, ts: now });
-  stored.push({
-    role: "model",
-    text: result.text,
-    tool_calls: result.tool_calls.length > 0 ? result.tool_calls : undefined,
-    ts: new Date().toISOString(),
-  });
+
+  if (bubbles.length === 0) {
+    stored.push({
+      role: "model",
+      text: result.text,
+      tool_calls: result.tool_calls.length > 0 ? result.tool_calls : undefined,
+      ts: new Date().toISOString(),
+    });
+  } else {
+    bubbles.forEach((bubble, i) => {
+      stored.push({
+        role: "model",
+        text: bubble,
+        // Attach tool_calls only to the first bubble — the work that produced
+        // them was the same agent step regardless of how the output is split.
+        tool_calls: i === 0 && result.tool_calls.length > 0 ? result.tool_calls : undefined,
+        ts: new Date().toISOString(),
+      });
+    });
+  }
   store.saveChat(session_id, stored);
 
   return c.json({
     session_id,
+    // Keep `text` for any consumer that still wants the joined view.
     text: result.text,
+    // New shape: array of { text, tool_calls? } visual bubbles.
+    messages: (bubbles.length > 0 ? bubbles : [result.text]).map((text, i) => ({
+      text,
+      tool_calls: i === 0 ? result.tool_calls : [],
+    })),
     tool_calls: result.tool_calls,
   });
 });

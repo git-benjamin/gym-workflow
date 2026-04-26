@@ -13,9 +13,18 @@ export interface ChatTurn {
   ts: string;
 }
 
+export interface ChatBubble {
+  text: string;
+  tool_calls: ToolCall[];
+}
+
 export interface ChatResponse {
   session_id: string;
+  /** Joined view — kept for backwards-compat. */
   text: string;
+  /** Visual bubbles — present on every modern server response. */
+  messages: ChatBubble[];
+  /** Aggregated tool calls across all bubbles. */
   tool_calls: ToolCall[];
 }
 
