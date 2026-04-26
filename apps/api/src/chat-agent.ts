@@ -1,5 +1,5 @@
 /** Gemini agent: function-calling loop with hevy + store tools, used by /api/chat. */
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import { GoogleGenAI, Type, type Content, type FunctionDeclaration } from "@google/genai";
@@ -14,6 +14,73 @@ import * as store from "./store.js";
  *  AFTER this module's imports resolve, so a top-level const would freeze
  *  to the default before .envrc lands. */
 const model = (): string => process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
+
+/** Pre-render the diff markdown so flash-lite doesn't have to assemble it
+ *  from a 30 KB tool result. Grouped per exercise to match the review format. */
+function formatAmendmentDiff(
+  changes: Array<{
+    exercise_title: string;
+    field: "notes" | "weight_kg" | "rep_range";
+    set_index?: number;
+    before: unknown;
+    after: unknown;
+  }>,
+  errors: string[],
+  routineId: string,
+): string {
+  const lines: string[] = [];
+  lines.push("## Diff");
+  lines.push("");
+  if (changes.length === 0) {
+    lines.push("_No applicable changes._");
+  } else {
+    const byExercise = new Map<string, typeof changes>();
+    for (const c of changes) {
+      if (!byExercise.has(c.exercise_title)) byExercise.set(c.exercise_title, []);
+      byExercise.get(c.exercise_title)!.push(c);
+    }
+    for (const [title, group] of byExercise) {
+      lines.push(`### ${title}`);
+      for (const c of group) {
+        if (c.field === "notes") {
+          lines.push(`**Notes amended.** Existing content preserved; new lines appended.`);
+        } else if (c.field === "weight_kg") {
+          lines.push(
+            `**Set ${(c.set_index ?? 0) + 1} weight:** ${c.before}kg → ${c.after}kg`,
+          );
+        } else if (c.field === "rep_range") {
+          const b = c.before as { start: number | null; end: number | null };
+          const a = c.after as { start: number | null; end: number | null };
+          lines.push(
+            `**Set ${(c.set_index ?? 0) + 1} rep range:** ${b.start ?? "?"}–${b.end ?? "?"} → ${a.start ?? "?"}–${a.end ?? "?"}`,
+          );
+        }
+      }
+      lines.push("");
+    }
+  }
+  if (errors.length > 0) {
+    lines.push("## Errors");
+    lines.push("");
+    for (const e of errors) lines.push(`- ${e}`);
+    lines.push("");
+  }
+  lines.push("## Patch payload");
+  lines.push("");
+  lines.push("Saved to `examples/proposed-routine-update.json`. To apply manually:");
+  lines.push("");
+  lines.push("```bash");
+  lines.push(`curl -X PUT "https://api.hevyapp.com/v1/routines/${routineId}" \\`);
+  lines.push(`  -H "api-key: $HEVY_API_KEY" \\`);
+  lines.push(`  -H "content-type: application/json" \\`);
+  lines.push(`  --data @examples/proposed-routine-update.json`);
+  lines.push("```");
+  lines.push("");
+  lines.push(
+    "_Not yet automated end-to-end — confirmation lives in the chat; the actual PUT is manual._",
+  );
+  return lines.join("\n");
+}
 
 // ── Tool implementations ─────────────────────────────────────────────────
 type Tool = (args: Record<string, unknown>) => Promise<unknown> | unknown;
@@ -99,14 +166,50 @@ const tools: Record<string, Tool> = {
 
     if (edits.length === 0) {
       return {
-        error: "no actionable amendments in this review",
-        changes: [],
-        proposed_routine: null,
+        markdown: "_No actionable amendments in this review — nothing to apply._",
+        diff_count: 0,
+        error_count: 0,
       };
     }
 
     // Delegate to compute_routine_update for the actual diff + validation.
-    return await tools.compute_routine_update!({ routine_id: routineId, edits });
+    const result = (await tools.compute_routine_update!({
+      routine_id: routineId,
+      edits,
+    })) as {
+      proposed_routine: unknown;
+      changes: Array<{
+        exercise_template_id: string;
+        exercise_title: string;
+        field: "notes" | "weight_kg" | "rep_range";
+        set_index?: number;
+        before: unknown;
+        after: unknown;
+      }>;
+      errors: string[];
+    };
+
+    // Persist the full proposed routine to disk so the user (or a future
+    // apply tool) can fetch it. The chat reply does NOT include the full
+    // body — flash-lite chokes when asked to re-emit ~30 KB of JSON.
+    const exampleDir = resolve(repoRoot(), "examples");
+    mkdirSync(exampleDir, { recursive: true });
+    const payloadPath = resolve(exampleDir, "proposed-routine-update.json");
+    writeFileSync(
+      payloadPath,
+      JSON.stringify({ routine: result.proposed_routine }, null, 2),
+    );
+
+    // Pre-render the markdown the agent should echo verbatim.
+    const md = formatAmendmentDiff(result.changes, result.errors, routineId);
+
+    return {
+      routine_id: routineId,
+      diff_count: result.changes.length,
+      error_count: result.errors.length,
+      proposed_routine_path: "examples/proposed-routine-update.json",
+      markdown: md,
+    };
   },
 
   async compute_routine_update(args) {
@@ -425,28 +528,15 @@ POST-WORKOUT FLOW (when user asks to review their latest workout, or "post-worko
 
 3. If the user replies yes/apply/confirm to the "## Apply?" prompt:
 
-   Two simple tool calls — DO NOT try to rebuild structured edits by hand.
-
    a. Call latest_workout to get the workout_id.
-   b. Call propose_amendments_from_review(workout_id). This loads the saved
-      review server-side and builds the edits internally, so you don't have
-      to construct the deeply nested edits array yourself. Returns the
-      proposed_routine, a changes array, and an errors array.
-   c. Reply with:
-
-      ## Diff
-      Same per-exercise sub-heading format as in step 2 — DO NOT use a table.
-      List each change in the tool's \`changes\` array compactly.
-
-      ## Errors (only if non-empty)
-      Bulleted list of any refused edits from the tool's \`errors\` array. A non-empty
-      errors array means at least one edit was refused — typically because a note
-      tried to drop existing content.
-
-      ## Patch payload
-      A fenced \`json\` code block with the tool's \`proposed_routine\`. End with:
-      "Run \`PUT https://api.hevyapp.com/v1/routines/{routine_id}\` with this body
-      to apply. (Not yet automated — confirmation step lives in the chat.)"
+   b. Call propose_amendments_from_review(workout_id).
+   c. The tool returns a \`markdown\` field with the full pre-rendered response
+      (per-exercise diff, errors if any, and a curl command to apply the patch).
+      Output that markdown VERBATIM as your reply. Do NOT summarise, restructure,
+      or re-render the proposed routine — the tool already did that work and
+      saved the JSON to examples/proposed-routine-update.json. You may add ONE
+      short opening sentence ("Here's the diff and how to apply it:") if useful,
+      but otherwise echo the markdown as-is.
 `;
 }
 
