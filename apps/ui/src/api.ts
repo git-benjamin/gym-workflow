@@ -88,3 +88,32 @@ export async function loadSession(sessionId: string): Promise<ChatTurn[]> {
   const body = await jsonOrThrow<{ session_id: string; turns: ChatTurn[] }>(r, "load session");
   return body.turns;
 }
+
+export interface ProposedSummary {
+  exists: boolean;
+  routine_title?: string;
+  exercise_count?: number;
+  file_modified_at?: string;
+  file_size_bytes?: number;
+}
+
+export async function getProposedSummary(): Promise<ProposedSummary> {
+  const r = await fetch(`${apiUrl()}/api/apply/proposed`, { headers: authHeaders() });
+  return jsonOrThrow<ProposedSummary>(r, "load proposed");
+}
+
+export interface ApplyResponse {
+  applied: boolean;
+  routine_id: string;
+  routine_title: string;
+  duration_ms: number;
+}
+
+/** Push examples/proposed-routine-update.json directly to Hevy (bypass chat). */
+export async function applyProposedToHevy(): Promise<ApplyResponse> {
+  const r = await fetch(`${apiUrl()}/api/apply/proposed`, {
+    method: "POST",
+    headers: authHeaders(),
+  });
+  return jsonOrThrow<ApplyResponse>(r, "apply");
+}

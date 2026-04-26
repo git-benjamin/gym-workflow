@@ -13,6 +13,7 @@ import { cors } from "hono/cors";
 
 import { loadEnvrc } from "./env.js";
 import { logger } from "./log.js";
+import { applyRoute } from "./routes/apply.js";
 import { chatRoute } from "./routes/chat.js";
 import { webhookRoute } from "./routes/webhook.js";
 
@@ -66,6 +67,7 @@ app.use("/api/*", async (c, next) => {
 });
 
 app.route("/api/chat", chatRoute);
+app.route("/api/apply", applyRoute);
 
 const port = Number(process.env.PORT ?? 3000);
 serve({ fetch: app.fetch, port }, ({ port: p }) => {

@@ -15,7 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "../components/Button";
 import { Divider } from "../components/Divider";
 import { Text } from "../components/Text";
-import { loadSession, postChat, type ToolCall } from "../api";
+import { applyProposedToHevy, getProposedSummary, loadSession, postChat, type ProposedSummary, type ToolCall } from "../api";
 import { borderWidth, colors, fonts, fontSize, layout, leading, space, tracking } from "../theme";
 
 interface Message {
@@ -42,6 +42,7 @@ export function ChatScreen({ sessionId, onOpenSessions, onNewChat }: Props) {
   const [sending, setSending] = useState(false);
   const [hydrating, setHydrating] = useState(true);
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+  const [proposed, setProposed] = useState<ProposedSummary>({ exists: false });
   const listRef = useRef<FlatList<Message>>(null);
 
   // ── Hydrate when session changes ───────────────────────────────────────
@@ -73,6 +74,22 @@ export function ChatScreen({ sessionId, onOpenSessions, onNewChat }: Props) {
       cancelled = true;
     };
   }, [sessionId]);
+
+  // ── Poll the proposed payload summary so the direct-apply button can
+  //     show whether one's available + show the routine title. ────────────
+  useEffect(() => {
+    let cancelled = false;
+    getProposedSummary()
+      .then((s) => {
+        if (!cancelled) setProposed(s);
+      })
+      .catch(() => {
+        if (!cancelled) setProposed({ exists: false });
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [sessionId, sending]);
 
   // ── Send a message (also exposed for buttons that bypass the composer) ─
   const sendText = useCallback(
@@ -114,6 +131,43 @@ export function ChatScreen({ sessionId, onOpenSessions, onNewChat }: Props) {
   const previewAmendments = useCallback(() => sendText("yes"), [sendText]);
   const pushToHevy = useCallback(() => sendText("push to hevy"), [sendText]);
 
+  /** Direct push: bypasses the chat agent. Just POSTs the saved file to Hevy. */
+  const applyProposedDirect = useCallback(async () => {
+    if (sending) return;
+    setSending(true);
+    setMessages((m) => [
+      ...m,
+      {
+        id: `u-${Date.now()}`,
+        role: "user",
+        text: "_(direct push from button)_",
+      },
+    ]);
+    try {
+      const r = await applyProposedToHevy();
+      setMessages((m) => [
+        ...m,
+        {
+          id: `m-${Date.now()}`,
+          role: "model",
+          text: `## ✓ Applied to Hevy\n\nRoutine **${r.routine_title}** updated. \`PUT /v1/routines/${r.routine_id}\` succeeded in ${r.duration_ms}ms.`,
+        },
+      ]);
+    } catch (err) {
+      setMessages((m) => [
+        ...m,
+        {
+          id: `e-${Date.now()}`,
+          role: "model",
+          text: `## ✗ Apply failed\n\n${(err as Error).message}`,
+        },
+      ]);
+    } finally {
+      setSending(false);
+      setTimeout(() => listRef.current?.scrollToEnd({ animated: true }), 60);
+    }
+  }, [sending]);
+
   const toggleCollapse = (id: string) =>
     setCollapsed((c) => ({ ...c, [id]: !c[id] }));
 
@@ -142,15 +196,23 @@ export function ChatScreen({ sessionId, onOpenSessions, onNewChat }: Props) {
 
       {/* Quick actions */}
       <View style={s.quickActions}>
-        <Button
-          variant="primary"
-          size="md"
-          onPress={reviewLatest}
-          disabled={sending}
-        >
+        <Button variant="primary" size="md" onPress={reviewLatest} disabled={sending}>
           Review latest workout
         </Button>
+        {proposed.exists ? (
+          <Button variant="outline" size="md" onPress={applyProposedDirect} disabled={sending}>
+            Push proposed to Hevy
+          </Button>
+        ) : null}
       </View>
+      {proposed.exists ? (
+        <View style={s.proposedHint}>
+          <Text variant="label" color="mutedForeground">
+            Saved proposal: {proposed.routine_title} · {proposed.exercise_count} exercises ·{" "}
+            {proposed.file_modified_at?.slice(0, 16).replace("T", " ")}
+          </Text>
+        </View>
+      ) : null}
       <Divider />
 
       <KeyboardAvoidingView
@@ -335,6 +397,12 @@ const s = StyleSheet.create({
     paddingHorizontal: space[5],
     paddingVertical: space[4],
     gap: space[5],
+    backgroundColor: colors.background,
+    flexWrap: "wrap",
+  },
+  proposedHint: {
+    paddingHorizontal: space[5],
+    paddingBottom: space[3],
     backgroundColor: colors.background,
   },
 
