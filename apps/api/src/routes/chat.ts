@@ -67,15 +67,38 @@ chatRoute.post("/", async (c) => {
     if (isQuota) {
       const retryMatch = msg.match(/retry in ([\d.]+)s/i);
       const retrySeconds = retryMatch?.[1] ? Number(retryMatch[1]) : null;
+
+      // Pull the specific quota metric out of the upstream JSON so the user can
+      // tell RPM vs RPD at a glance. Examples seen in the wild:
+      //   GenerateRequestsPerMinutePerProjectPerModel-FreeTier   → RPM
+      //   GenerateRequestsPerDayPerProjectPerModel-FreeTier      → RPD
+      const metricMatch = msg.match(/quotaId":\s*"([^"]+)"/);
+      const quotaId = metricMatch?.[1] ?? null;
+      const limitMatch = msg.match(/quotaValue":\s*"([^"]+)"/);
+      const quotaLimit = limitMatch?.[1] ?? null;
+      const limitWindow = quotaId?.includes("PerMinute")
+        ? "per-minute"
+        : quotaId?.includes("PerDay")
+          ? "per-day"
+          : "unknown-window";
+
+      const friendly =
+        limitWindow === "per-minute"
+          ? "Gemini rate limit (per-minute) hit. Wait a minute and retry, or set GEMINI_MODEL=gemini-2.5-flash-lite in .envrc for a higher RPM cap."
+          : limitWindow === "per-day"
+            ? "Gemini daily quota hit. Resets at midnight UTC, or set GEMINI_MODEL=gemini-2.5-flash-lite for a higher daily cap."
+            : "Gemini quota hit. See ai.dev/rate-limit for your project's limits.";
+
       logger.warn(
-        { session_id, retry_seconds: retrySeconds, duration_ms: Date.now() - start },
+        { session_id, quota_id: quotaId, quota_limit: quotaLimit, limit_window: limitWindow, retry_seconds: retrySeconds },
         "gemini quota exhausted",
       );
       return c.json(
         {
-          error:
-            "Gemini quota exhausted. Free tier resets daily; bump to a paid tier or switch " +
-            "the MODEL constant in chat-agent.ts to gemini-2.5-flash-lite for a higher daily cap.",
+          error: friendly,
+          quota_id: quotaId,
+          quota_limit: quotaLimit,
+          limit_window: limitWindow,
           retry_seconds: retrySeconds,
           upstream: msg.slice(0, 400),
         },
