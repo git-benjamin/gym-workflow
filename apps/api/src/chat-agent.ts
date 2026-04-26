@@ -10,7 +10,10 @@ import * as hevy from "./hevy.js";
 import * as review from "./review.js";
 import * as store from "./store.js";
 
-const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
+/** Read at call time, not module-load time — server.ts's loadEnvrc() runs
+ *  AFTER this module's imports resolve, so a top-level const would freeze
+ *  to the default before .envrc lands. */
+const model = (): string => process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
 
 // ── Tool implementations ─────────────────────────────────────────────────
 type Tool = (args: Record<string, unknown>) => Promise<unknown> | unknown;
@@ -427,7 +430,7 @@ export async function runAgentTurn(
   // Manual function-call loop. Cap iterations so a buggy tool can't infinite-loop.
   for (let step = 0; step < 8; step++) {
     const response = await ai.models.generateContent({
-      model: MODEL,
+      model: model(),
       contents: history,
       config: {
         systemInstruction: systemInstruction(),

@@ -11,7 +11,8 @@ import * as hevy from "./hevy.js";
 import * as store from "./store.js";
 import type { ExerciseHistorySession } from "./store.js";
 
-export const MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
+/** Read at call time, not module-load time. See chat-agent.ts for the why. */
+const model = (): string => process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
 const HISTORY_SESSIONS = 5;
 
 // ── Response schema for Gemini ──────────────────────────────────────────
@@ -271,7 +272,7 @@ export async function reviewWorkout(
   const tGemini = Date.now();
   const ai = client();
   const response = await ai.models.generateContent({
-    model: MODEL,
+    model: model(),
     contents: buildUserPrompt(workout, routine, historyText),
     config: {
       systemInstruction: systemInstruction(),
@@ -285,7 +286,7 @@ export async function reviewWorkout(
   if (!text) throw new Error("Gemini returned empty response");
   const review = WorkoutReview.parse(JSON.parse(text));
   logger.info(
-    { workout_id: workoutId, model: MODEL, rating: review.rating, duration_ms: Date.now() - tGemini },
+    { workout_id: workoutId, model: model(), rating: review.rating, duration_ms: Date.now() - tGemini },
     "gemini reviewed",
   );
 
@@ -295,7 +296,7 @@ export async function reviewWorkout(
     workout_title: workout.title,
     workout_start_time: workout.start_time,
     reviewed_at: new Date().toISOString(),
-    model: MODEL,
+    model: model(),
     review,
     workout,
     routine,

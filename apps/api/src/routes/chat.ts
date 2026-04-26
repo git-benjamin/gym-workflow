@@ -76,6 +76,10 @@ chatRoute.post("/", async (c) => {
       const quotaId = metricMatch?.[1] ?? null;
       const limitMatch = msg.match(/quotaValue":\s*"([^"]+)"/);
       const quotaLimit = limitMatch?.[1] ?? null;
+      // The model that actually got hit — surfaces silent .envrc → process.env
+      // mismatches (e.g. GEMINI_MODEL was set but the call still went to flash).
+      const upstreamModelMatch = msg.match(/"model":\s*"([^"]+)"/);
+      const upstreamModel = upstreamModelMatch?.[1] ?? null;
       const limitWindow = quotaId?.includes("PerMinute")
         ? "per-minute"
         : quotaId?.includes("PerDay")
@@ -90,7 +94,15 @@ chatRoute.post("/", async (c) => {
             : "Gemini quota hit. See ai.dev/rate-limit for your project's limits.";
 
       logger.warn(
-        { session_id, quota_id: quotaId, quota_limit: quotaLimit, limit_window: limitWindow, retry_seconds: retrySeconds },
+        {
+          session_id,
+          quota_id: quotaId,
+          quota_limit: quotaLimit,
+          limit_window: limitWindow,
+          upstream_model: upstreamModel,
+          configured_model: process.env.GEMINI_MODEL ?? "gemini-2.5-flash (default)",
+          retry_seconds: retrySeconds,
+        },
         "gemini quota exhausted",
       );
       return c.json(
@@ -99,6 +111,8 @@ chatRoute.post("/", async (c) => {
           quota_id: quotaId,
           quota_limit: quotaLimit,
           limit_window: limitWindow,
+          upstream_model: upstreamModel,
+          configured_model: process.env.GEMINI_MODEL ?? null,
           retry_seconds: retrySeconds,
           upstream: msg.slice(0, 400),
         },
