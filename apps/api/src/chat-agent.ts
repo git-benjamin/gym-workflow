@@ -15,6 +15,28 @@ import * as store from "./store.js";
  *  to the default before .envrc lands. */
 const model = (): string => process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
 
+/** Line-level note diff: returns lines that appear in `after` but not in `before`,
+ *  trimmed and de-duped. Treats blank lines as identity. */
+function noteDiffLines(before: string, after: string): string[] {
+  const beforeSet = new Set(
+    (before ?? "")
+      .split("\n")
+      .map((l) => l.trim())
+      .filter((l) => l.length > 0),
+  );
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const raw of (after ?? "").split("\n")) {
+    const t = raw.trim();
+    if (!t) continue;
+    if (beforeSet.has(t)) continue;
+    if (seen.has(t)) continue;
+    seen.add(t);
+    out.push(t);
+  }
+  return out;
+}
+
 /** Pre-render the diff markdown so flash-lite doesn't have to assemble it
  *  from a 30 KB tool result. Grouped per exercise to match the review format.
  *  Always opens with an explicit "preview only" disclaimer and ends with a
@@ -47,7 +69,13 @@ function formatAmendmentDiff(
       lines.push(`### ${title}`);
       for (const c of group) {
         if (c.field === "notes") {
-          lines.push(`**Notes amended.** Existing content preserved; new lines appended.`);
+          const newLines = noteDiffLines(String(c.before ?? ""), String(c.after ?? ""));
+          if (newLines.length === 0) {
+            lines.push(`_Notes change is whitespace-only — skipping._`);
+          } else {
+            lines.push(`**Notes appended** (${newLines.length} new line${newLines.length === 1 ? "" : "s"}):`);
+            for (const nl of newLines) lines.push(`> + ${nl}`);
+          }
         } else if (c.field === "weight_kg") {
           lines.push(
             `**Set ${(c.set_index ?? 0) + 1} weight:** ${c.before}kg → ${c.after}kg`,
@@ -75,6 +103,86 @@ function formatAmendmentDiff(
     "Reply **push to hevy** to update the routine, or **cancel** to discard. " +
       "The proposed body is also saved to `examples/proposed-routine-update.json`.",
   );
+  return lines.join("\n");
+}
+
+/** Pre-render the post-workout review (rating + summary + per-exercise feedback +
+ *  per-exercise amendment deltas), joined into one string. Server-side splitter
+ *  on '## Suggested routine amendments' makes this two visual bubbles. */
+function formatPostWorkoutReview(record: store.ReviewRecord): string {
+  const r = record.review;
+  const routine = record.routine;
+  const lines: string[] = [];
+
+  lines.push(`## Review — Rating: ${r.rating}/10`);
+  lines.push("");
+  lines.push(r.summary);
+  lines.push("");
+  lines.push("## Per-exercise feedback");
+  lines.push("");
+  for (const ex of r.per_exercise) {
+    lines.push(`- **${ex.exercise_title}** — ${ex.observation}`);
+  }
+  lines.push("");
+
+  // Splitter — server splits the response into two bubbles here.
+  lines.push("## Suggested routine amendments");
+  lines.push("");
+
+  let amendmentsCount = 0;
+  for (const ex of r.per_exercise) {
+    if (!ex.exercise_template_id) continue;
+    const routineEx = routine.exercises.find(
+      (e) => e.exercise_template_id === ex.exercise_template_id,
+    );
+    if (!routineEx) continue;
+
+    const exLines: string[] = [];
+
+    if (ex.suggested_note_change) {
+      const newLines = noteDiffLines(routineEx.notes ?? "", ex.suggested_note_change);
+      if (newLines.length > 0) {
+        exLines.push(`**Notes appended** (${newLines.length} new line${newLines.length === 1 ? "" : "s"}):`);
+        for (const nl of newLines) exLines.push(`> + ${nl}`);
+      }
+    }
+
+    for (const edit of ex.suggested_set_edits ?? []) {
+      const set = routineEx.sets.find((s) => s.index === edit.set_index);
+      if (!set) continue;
+      if (edit.weight_kg != null && edit.weight_kg !== set.weight_kg) {
+        exLines.push(
+          `**Set ${edit.set_index + 1} weight:** ${set.weight_kg}kg → ${edit.weight_kg}kg`,
+        );
+      }
+      const beforeRange = set.rep_range ?? { start: null, end: null };
+      const afterStart = edit.rep_range_start ?? beforeRange.start;
+      const afterEnd = edit.rep_range_end ?? beforeRange.end;
+      const rangeChanged =
+        (edit.rep_range_start !== undefined && edit.rep_range_start !== beforeRange.start) ||
+        (edit.rep_range_end !== undefined && edit.rep_range_end !== beforeRange.end);
+      if (rangeChanged) {
+        exLines.push(
+          `**Set ${edit.set_index + 1} rep range:** ${beforeRange.start ?? "?"}–${beforeRange.end ?? "?"} → ${afterStart ?? "?"}–${afterEnd ?? "?"}`,
+        );
+      }
+    }
+
+    if (exLines.length === 0) continue;
+    lines.push(`### ${ex.exercise_title}`);
+    for (const l of exLines) lines.push(l);
+    lines.push("");
+    amendmentsCount++;
+  }
+
+  if (amendmentsCount === 0) {
+    lines.push("_No amendments suggested — the session is already on plan._");
+  } else {
+    lines.push("## Apply?");
+    lines.push("");
+    lines.push("Click **Preview amendments** to see the full diff (no changes pushed yet), or **cancel** to skip.");
+  }
+
   return lines.join("\n");
 }
 
@@ -107,12 +215,39 @@ function formatApplyFailure(routineId: string, error: string): string {
 // ── Tool implementations ─────────────────────────────────────────────────
 type Tool = (args: Record<string, unknown>) => Promise<unknown> | unknown;
 
+/** Resolve the workout_id arg to an actual id, defaulting to the latest workout. */
+async function resolveWorkoutId(args: Record<string, unknown>): Promise<string | null> {
+  const explicit = args.workout_id;
+  if (typeof explicit === "string" && explicit.length > 0) return explicit;
+  const { workouts } = await hevy.listWorkouts(1, 1);
+  return workouts[0]?.id ?? null;
+}
+
 const tools: Record<string, Tool> = {
   async latest_workout() {
     const { workouts } = await hevy.listWorkouts(1, 1);
     const w = workouts[0];
     if (!w) return { error: "no workouts on this account" };
     return { id: w.id, title: w.title, start_time: w.start_time, routine_id: w.routine_id };
+  },
+
+  /** Returns pre-rendered markdown for the post-workout review (both bubbles). */
+  async post_workout_review_response(args) {
+    const workoutId = await resolveWorkoutId(args);
+    if (!workoutId) return { error: "no workouts on this account" };
+    let record = store.loadReview(workoutId);
+    if (!record) {
+      // Trigger a fresh review and reload from disk.
+      await review.reviewWorkout(workoutId);
+      record = store.loadReview(workoutId);
+      if (!record) return { error: "review failed to persist" };
+    }
+    return {
+      workout_id: record.workout_id,
+      rating: record.review.rating,
+      cached: !!record.reviewed_at,
+      markdown: formatPostWorkoutReview(record),
+    };
   },
   async get_workout(args) {
     return await hevy.getWorkout(String(args.workout_id));
@@ -155,7 +290,8 @@ const tools: Record<string, Tool> = {
     });
   },
   async propose_amendments_from_review(args) {
-    const workoutId = String(args.workout_id);
+    const workoutId = await resolveWorkoutId(args);
+    if (!workoutId) return { error: "no workouts on this account" };
     const record = store.loadReview(workoutId);
     if (!record) {
       return { error: `no saved review for workout ${workoutId}. Call review_workout first.` };
@@ -239,7 +375,8 @@ const tools: Record<string, Tool> = {
   },
 
   async apply_routine_update(args) {
-    const workoutId = String(args.workout_id);
+    const workoutId = await resolveWorkoutId(args);
+    if (!workoutId) return { error: "no workouts on this account" };
     const record = store.loadReview(workoutId);
     if (!record) {
       return { error: `no saved review for workout ${workoutId}. Call review_workout first.` };
@@ -481,28 +618,52 @@ const TOOL_DECLARATIONS: FunctionDeclaration[] = [
   {
     name: "review_workout",
     description:
-      "Run (or load cached) review for a workout. Returns rating, summary, per-exercise " +
-      "feedback, and structured suggested edits. Set force=true to bypass cache.",
+      "Run (or load cached) review for a workout. Returns the structured review JSON " +
+      "(rating, summary, per_exercise + suggested edits). For the 'review my latest workout' " +
+      "flow, prefer post_workout_review_response which returns pre-rendered markdown.",
     parameters: {
       type: Type.OBJECT,
       properties: {
-        workout_id: { type: Type.STRING },
+        workout_id: {
+          type: Type.STRING,
+          description: "Optional. If omitted, defaults to the most recent workout.",
+        },
         force: { type: Type.BOOLEAN },
       },
-      required: ["workout_id"],
+    },
+  },
+  {
+    name: "post_workout_review_response",
+    description:
+      "PREFERRED entry for 'review my latest workout'. Returns pre-rendered markdown " +
+      "covering both visual bubbles (review + suggested amendments). The chat surface " +
+      "splits the output into two bubbles automatically. Calls review_workout internally " +
+      "if no cached review exists. Echo `markdown` verbatim — do not reformat.",
+    parameters: {
+      type: Type.OBJECT,
+      properties: {
+        workout_id: {
+          type: Type.STRING,
+          description: "Optional. If omitted, defaults to the most recent workout.",
+        },
+      },
     },
   },
   {
     name: "propose_amendments_from_review",
     description:
-      "PREFERRED for the post-workout 'yes/apply' confirm step. Loads the saved review for " +
-      "the given workout_id, builds the edits internally from its suggested_note_change + " +
-      "suggested_set_edits fields, and runs compute_routine_update. Returns proposed_routine, " +
-      "changes, errors. Single argument — much easier than rebuilding edits by hand.",
+      "PREFERRED for the 'yes' / 'preview amendments' confirm step. Returns pre-rendered " +
+      "preview markdown with line-level note diffs, weight/rep changes, and a '## Confirm " +
+      "apply?' prompt. Echo `markdown` verbatim. Defaults to the latest workout if " +
+      "workout_id is omitted.",
     parameters: {
       type: Type.OBJECT,
-      properties: { workout_id: { type: Type.STRING } },
-      required: ["workout_id"],
+      properties: {
+        workout_id: {
+          type: Type.STRING,
+          description: "Optional. If omitted, defaults to the most recent workout.",
+        },
+      },
     },
   },
   {
@@ -511,11 +672,16 @@ const TOOL_DECLARATIONS: FunctionDeclaration[] = [
       "ACTUALLY pushes the proposed routine update to Hevy via PUT /v1/routines/{id}. " +
       "Mutates the user's account. Only call after the user has explicitly confirmed " +
       "with words like 'push to hevy', 'apply to hevy', 'confirm apply', 'push it' — " +
-      "NEVER on a plain 'yes', which is reserved for the preview step.",
+      "NEVER on a plain 'yes', which is reserved for the preview step. Defaults to the " +
+      "latest workout if workout_id is omitted.",
     parameters: {
       type: Type.OBJECT,
-      properties: { workout_id: { type: Type.STRING } },
-      required: ["workout_id"],
+      properties: {
+        workout_id: {
+          type: Type.STRING,
+          description: "Optional. If omitted, defaults to the most recent workout.",
+        },
+      },
     },
   },
   {
@@ -593,60 +759,33 @@ Style:
 
 When you don't know an id, fetch it (latest_workout, list_workouts, list_routines).
 
-POST-WORKOUT FLOW (when user asks to review their latest workout, or "post-workout review"):
+POST-WORKOUT FLOW — three single-tool steps. Always pass NO arguments to these
+tools (they default to the most recent workout). Always echo the tool's
+\`markdown\` field verbatim.
 
-1. Call latest_workout to get the workout id, then review_workout(workout_id) for the review.
-   The review pulls prior sessions and the routine automatically.
+1. When the user asks to review their latest workout (or any "post-workout review"
+   phrasing): call \`post_workout_review_response\` and echo its \`markdown\`.
+   The server splits the output into two bubbles automatically (review +
+   suggested amendments) on the "## Suggested routine amendments" boundary.
 
-2. Reply with one structured response in this order:
+2. FIRST confirm — preview. If the user replies "yes" / "preview" / "apply"
+   to the "## Apply?" prompt: call \`propose_amendments_from_review\` with NO
+   arguments and echo \`markdown\`. The output starts with "Preview only —
+   nothing has been pushed yet" and ends with "## Confirm apply?". The actual
+   PUT has NOT happened.
 
-   ## Review — Rating: X/10
-   {summary}
+3. SECOND confirm — push. If the user replies "push to hevy" / "push it" /
+   "apply to hevy" / "confirm apply": call \`apply_routine_update\` with NO
+   arguments and echo \`markdown\` (either "✓ Applied to Hevy" or "✗ Apply
+   failed"). This is the only tool that mutates Hevy.
 
-   ## Per-exercise feedback
-   - **{exercise_title}** — {one-sentence observation}
-
-   ## Suggested routine amendments
-   One sub-heading per exercise that has changes. **DO NOT use markdown tables here**
-   — note text has newlines and pipe characters that break tables. Use this exact format:
-
-   ### {exercise_title}
-   **Notes appended:** {ONLY the new line(s) being added, prefixed with a "+ ". DO NOT
-   include the existing note text — the user already has it. Compute the diff yourself.}
-   **Set N weight:** {old}kg → {new}kg
-   **Set N rep range:** {old.start}–{old.end} → {new.start}–{new.end}
-   **Why:** {one short sentence}
-
-   Omit any field that doesn't change. Skip exercises that have no suggestions entirely.
-
-   ## Apply?
-   Would you like to amend your current routine with these changes? Reply **yes** to
-   generate the patch payload, or **cancel** to skip.
-
-3. If the user replies yes/apply/confirm to the "## Apply?" prompt
-   (FIRST confirm — preview only; nothing is pushed to Hevy yet):
-
-   a. Call latest_workout to get the workout_id.
-   b. Call propose_amendments_from_review(workout_id).
-   c. The tool returns a \`markdown\` field. The markdown opens with an explicit
-      "Preview only" disclaimer and ends with a "## Confirm apply?" prompt —
-      this is the SECOND confirmation gate. Echo it VERBATIM.
-
-4. If the user replies "push to hevy" / "push it" / "apply to hevy" /
-   "confirm apply" (SECOND confirm — actually mutates Hevy):
-
-   a. Call latest_workout to get the workout_id (or reuse if you have it).
-   b. Call apply_routine_update(workout_id). This is the only tool in the system
-      that calls Hevy's PUT endpoint. It reads the proposed body saved by step 3
-      and pushes it.
-   c. The tool returns a \`markdown\` field with either "✓ Applied to Hevy" or
-      "✗ Apply failed". Echo it VERBATIM.
-
-   GUARDRAIL: do NOT call apply_routine_update on a plain "yes" — "yes" is
-   reserved for the preview (step 3). The user must explicitly say "push" or
-   "confirm apply" after seeing the preview before any PUT happens. If the
-   latest message is ambiguous, ask for explicit confirmation rather than
-   guessing.
+GUARDRAILS for the apply step:
+- Never call \`apply_routine_update\` on a plain "yes" — "yes" is reserved for
+  the preview (step 2).
+- Always pass NO arguments to these tools — they default to the latest workout.
+  Do NOT guess or hallucinate a workout_id.
+- If the user's intent is unclear, ask for explicit "push to hevy" confirmation
+  rather than guessing.
 `;
 }
 
