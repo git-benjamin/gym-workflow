@@ -13,10 +13,13 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.26.0",
+    "@expo-google-fonts/inter-tight": "^0.4.2",
+    "@expo-google-fonts/jetbrains-mono": "^0.4.1",
     "@expo/metro-runtime": "~6.1.2",
     "@gym/shared": "workspace:*",
     "expo": "~54.0.0",
     "expo-constants": "~18.0.0",
+    "expo-font": "^55.0.6",
     "expo-status-bar": "~3.0.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
