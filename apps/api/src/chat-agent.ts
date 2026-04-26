@@ -16,7 +16,9 @@ import * as store from "./store.js";
 const model = (): string => process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
 
 /** Pre-render the diff markdown so flash-lite doesn't have to assemble it
- *  from a 30 KB tool result. Grouped per exercise to match the review format. */
+ *  from a 30 KB tool result. Grouped per exercise to match the review format.
+ *  Always opens with an explicit "preview only" disclaimer and ends with a
+ *  "## Confirm apply?" prompt — the second-confirm step before any PUT. */
 function formatAmendmentDiff(
   changes: Array<{
     exercise_title: string;
@@ -26,9 +28,11 @@ function formatAmendmentDiff(
     after: unknown;
   }>,
   errors: string[],
-  routineId: string,
+  _routineId: string,
 ): string {
   const lines: string[] = [];
+  lines.push("> **Preview only.** Nothing has been pushed to Hevy yet — confirm below to apply.");
+  lines.push("");
   lines.push("## Diff");
   lines.push("");
   if (changes.length === 0) {
@@ -65,21 +69,39 @@ function formatAmendmentDiff(
     for (const e of errors) lines.push(`- ${e}`);
     lines.push("");
   }
-  lines.push("## Patch payload");
-  lines.push("");
-  lines.push("Saved to `examples/proposed-routine-update.json`. To apply manually:");
-  lines.push("");
-  lines.push("```bash");
-  lines.push(`curl -X PUT "https://api.hevyapp.com/v1/routines/${routineId}" \\`);
-  lines.push(`  -H "api-key: $HEVY_API_KEY" \\`);
-  lines.push(`  -H "content-type: application/json" \\`);
-  lines.push(`  --data @examples/proposed-routine-update.json`);
-  lines.push("```");
+  lines.push("## Confirm apply?");
   lines.push("");
   lines.push(
-    "_Not yet automated end-to-end — confirmation lives in the chat; the actual PUT is manual._",
+    "Reply **push to hevy** to update the routine, or **cancel** to discard. " +
+      "The proposed body is also saved to `examples/proposed-routine-update.json`.",
   );
   return lines.join("\n");
+}
+
+/** Success markdown for the actual apply step. */
+function formatApplySuccess(routineTitle: string, routineId: string, durationMs: number): string {
+  return [
+    `## ✓ Applied to Hevy`,
+    "",
+    `Routine **${routineTitle}** updated.`,
+    "",
+    `\`PUT /v1/routines/${routineId}\` succeeded in ${durationMs}ms. Open Hevy to verify the changes are visible on the routine.`,
+  ].join("\n");
+}
+
+function formatApplyFailure(routineId: string, error: string): string {
+  return [
+    `## ✗ Apply failed`,
+    "",
+    `\`PUT /v1/routines/${routineId}\` returned an error:`,
+    "",
+    "```",
+    error,
+    "```",
+    "",
+    "Routine on Hevy is unchanged. The proposed body is still saved to " +
+      "`examples/proposed-routine-update.json` if you want to investigate or retry manually.",
+  ].join("\n");
 }
 
 // ── Tool implementations ─────────────────────────────────────────────────
@@ -213,6 +235,64 @@ const tools: Record<string, Tool> = {
       error_count: result.errors.length,
       proposed_routine_path: "examples/proposed-routine-update.json",
       markdown: md,
+    };
+  },
+
+  async apply_routine_update(args) {
+    const workoutId = String(args.workout_id);
+    const record = store.loadReview(workoutId);
+    if (!record) {
+      return { error: `no saved review for workout ${workoutId}. Call review_workout first.` };
+    }
+    const routineId = record.routine_id;
+    if (!routineId) return { error: "review has no routine_id; cannot apply" };
+
+    const payloadPath = resolve(repoRoot(), "examples", "proposed-routine-update.json");
+    if (!existsSync(payloadPath)) {
+      return {
+        error:
+          "no proposed update on disk. Call propose_amendments_from_review first " +
+          "to generate the payload, then confirm.",
+      };
+    }
+    const payload = JSON.parse(readFileSync(payloadPath, "utf8")) as { routine: unknown };
+
+    const t0 = Date.now();
+    try {
+      await hevy.updateRoutine(routineId, payload);
+    } catch (err) {
+      const e = err as Error;
+      logger.error(
+        {
+          routine_id: routineId,
+          err_name: e.constructor?.name,
+          err_message: e.message,
+          response: (e as { response?: unknown }).response,
+        },
+        "apply_routine_update failed",
+      );
+      const upstream =
+        (e as { response?: unknown }).response != null
+          ? `${e.message}: ${JSON.stringify((e as { response?: unknown }).response).slice(0, 300)}`
+          : e.message;
+      return {
+        applied: false,
+        routine_id: routineId,
+        markdown: formatApplyFailure(routineId, upstream),
+      };
+    }
+
+    const after = await hevy.getRoutine(routineId);
+    const ms = Date.now() - t0;
+    logger.info(
+      { routine_id: routineId, duration_ms: ms, exercises: after.exercises.length },
+      "apply_routine_update succeeded",
+    );
+    return {
+      applied: true,
+      routine_id: routineId,
+      duration_ms: ms,
+      markdown: formatApplySuccess(after.title, routineId, ms),
     };
   },
 
@@ -426,6 +506,19 @@ const TOOL_DECLARATIONS: FunctionDeclaration[] = [
     },
   },
   {
+    name: "apply_routine_update",
+    description:
+      "ACTUALLY pushes the proposed routine update to Hevy via PUT /v1/routines/{id}. " +
+      "Mutates the user's account. Only call after the user has explicitly confirmed " +
+      "with words like 'push to hevy', 'apply to hevy', 'confirm apply', 'push it' — " +
+      "NEVER on a plain 'yes', which is reserved for the preview step.",
+    parameters: {
+      type: Type.OBJECT,
+      properties: { workout_id: { type: Type.STRING } },
+      required: ["workout_id"],
+    },
+  },
+  {
     name: "compute_routine_update",
     description:
       "Preview applying structured edits to a routine. Returns the proposed full routine " +
@@ -530,17 +623,30 @@ POST-WORKOUT FLOW (when user asks to review their latest workout, or "post-worko
    Would you like to amend your current routine with these changes? Reply **yes** to
    generate the patch payload, or **cancel** to skip.
 
-3. If the user replies yes/apply/confirm to the "## Apply?" prompt:
+3. If the user replies yes/apply/confirm to the "## Apply?" prompt
+   (FIRST confirm — preview only; nothing is pushed to Hevy yet):
 
    a. Call latest_workout to get the workout_id.
    b. Call propose_amendments_from_review(workout_id).
-   c. The tool returns a \`markdown\` field with the full pre-rendered response
-      (per-exercise diff, errors if any, and a curl command to apply the patch).
-      Output that markdown VERBATIM as your reply. Do NOT summarise, restructure,
-      or re-render the proposed routine — the tool already did that work and
-      saved the JSON to examples/proposed-routine-update.json. You may add ONE
-      short opening sentence ("Here's the diff and how to apply it:") if useful,
-      but otherwise echo the markdown as-is.
+   c. The tool returns a \`markdown\` field. The markdown opens with an explicit
+      "Preview only" disclaimer and ends with a "## Confirm apply?" prompt —
+      this is the SECOND confirmation gate. Echo it VERBATIM.
+
+4. If the user replies "push to hevy" / "push it" / "apply to hevy" /
+   "confirm apply" (SECOND confirm — actually mutates Hevy):
+
+   a. Call latest_workout to get the workout_id (or reuse if you have it).
+   b. Call apply_routine_update(workout_id). This is the only tool in the system
+      that calls Hevy's PUT endpoint. It reads the proposed body saved by step 3
+      and pushes it.
+   c. The tool returns a \`markdown\` field with either "✓ Applied to Hevy" or
+      "✗ Apply failed". Echo it VERBATIM.
+
+   GUARDRAIL: do NOT call apply_routine_update on a plain "yes" — "yes" is
+   reserved for the preview (step 3). The user must explicitly say "push" or
+   "confirm apply" after seeing the preview before any PUT happens. If the
+   latest message is ambiguous, ask for explicit confirmation rather than
+   guessing.
 `;
 }
 

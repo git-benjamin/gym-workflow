@@ -34,6 +34,7 @@ interface Props {
 const COLLAPSE_PREVIEW_CHARS = 220;
 
 const APPLY_PROMPT_RE = /##\s+Apply\??/i;
+const CONFIRM_APPLY_RE = /##\s+Confirm apply\??/i;
 
 export function ChatScreen({ sessionId, onOpenSessions, onNewChat }: Props) {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -110,7 +111,8 @@ export function ChatScreen({ sessionId, onOpenSessions, onNewChat }: Props) {
   }, [input, sendText]);
 
   const reviewLatest = useCallback(() => sendText("review my latest workout"), [sendText]);
-  const applyAmendments = useCallback(() => sendText("yes"), [sendText]);
+  const previewAmendments = useCallback(() => sendText("yes"), [sendText]);
+  const pushToHevy = useCallback(() => sendText("push to hevy"), [sendText]);
 
   const toggleCollapse = (id: string) =>
     setCollapsed((c) => ({ ...c, [id]: !c[id] }));
@@ -182,8 +184,9 @@ export function ChatScreen({ sessionId, onOpenSessions, onNewChat }: Props) {
               message={item}
               collapsed={!!collapsed[item.id]}
               onToggleCollapse={() => toggleCollapse(item.id)}
-              onApply={applyAmendments}
-              applying={sending}
+              onPreview={previewAmendments}
+              onPushToHevy={pushToHevy}
+              acting={sending}
             />
           )}
           ItemSeparatorComponent={() => <View style={{ height: space[3] }} />}
@@ -235,20 +238,26 @@ function MessageBubble({
   message,
   collapsed,
   onToggleCollapse,
-  onApply,
-  applying,
+  onPreview,
+  onPushToHevy,
+  acting,
 }: {
   message: Message;
   collapsed: boolean;
   onToggleCollapse: () => void;
-  onApply: () => void;
-  applying: boolean;
+  onPreview: () => void;
+  onPushToHevy: () => void;
+  acting: boolean;
 }) {
   const isUser = message.role === "user";
   const isLong = message.text.length > COLLAPSE_PREVIEW_CHARS;
   const visibleText =
     collapsed && isLong ? `${message.text.slice(0, COLLAPSE_PREVIEW_CHARS).trimEnd()}…` : message.text;
-  const showApply = !isUser && APPLY_PROMPT_RE.test(message.text);
+  // Match the more specific "Confirm apply?" first; otherwise the broader
+  // "## Apply?" detector matches both because the second contains the first.
+  const showConfirmApply = !isUser && CONFIRM_APPLY_RE.test(message.text);
+  const showPreviewApply =
+    !isUser && !showConfirmApply && APPLY_PROMPT_RE.test(message.text);
 
   return (
     <View style={[s.bubbleRow, isUser ? s.bubbleRowUser : s.bubbleRowModel]}>
@@ -278,8 +287,8 @@ function MessageBubble({
           <Markdown style={markdownStyles as any}>{visibleText}</Markdown>
         )}
 
-        {/* Footer row: collapse toggle + apply button (model only) */}
-        {(isLong || showApply) && (
+        {/* Footer row: collapse toggle + action button (model only) */}
+        {(isLong || showPreviewApply || showConfirmApply) && (
           <View style={s.bubbleFooter}>
             {isLong ? (
               <Pressable onPress={onToggleCollapse} hitSlop={6}>
@@ -290,9 +299,14 @@ function MessageBubble({
             ) : (
               <View />
             )}
-            {showApply && !collapsed ? (
-              <Button variant="primary" size="sm" onPress={onApply} disabled={applying}>
-                Apply amendments
+            {showPreviewApply && !collapsed ? (
+              <Button variant="primary" size="sm" onPress={onPreview} disabled={acting}>
+                Preview amendments
+              </Button>
+            ) : null}
+            {showConfirmApply && !collapsed ? (
+              <Button variant="outline" size="sm" onPress={onPushToHevy} disabled={acting}>
+                Push to Hevy
               </Button>
             ) : null}
           </View>
