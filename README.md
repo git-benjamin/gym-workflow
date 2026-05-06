@@ -1,3 +1,7 @@
+# TODO:
+- Check out Hermes Agent https://hermes-agent.nousresearch.com/docs/
+- Check out Z AI
+
 # gym-workflow
 
 Personal workflow that fires when a [Hevy](https://www.hevyapp.com/) workout
