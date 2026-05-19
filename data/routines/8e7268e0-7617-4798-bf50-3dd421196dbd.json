@@ -1,0 +1,512 @@
+{
+  "id": "8e7268e0-7617-4798-bf50-3dd421196dbd",
+  "title": "2026: Pull [Bicep Bypass]",
+  "folder_id": null,
+  "updated_at": "2026-05-14T14:26:14.068Z",
+  "created_at": "2023-01-31T11:51:18.413Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Straight Arm Lat Pulldown (Cable)",
+      "notes": "Sets: 3 Working Sets.\n\nTarget: 10-15 reps @ RPE 10.\n\nRest: 2m 0s\n\nSetup: Use a straight bar or rope on the highest pulley setting. Step back to create a diagonal vector. Lean forward slightly.\n\nVector Lock: Keep a slight micro-bend in the elbows, but lock that angle. Do not bend the arms during the movement.\n\nThe Sweep: Drive the bar in a wide arc down to your thighs. Feel the lat sweep engage before moving to the heavy compounds.",
+      "exercise_template_id": "D2387AB1",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 20.4,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 20.4,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 20.4,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        }
+      ],
+      "rest_seconds": 120
+    },
+    {
+      "index": 1,
+      "title": "Pull Up (Assisted)",
+      "notes": "Sets: 2 Working Sets (Cut from 3 to reduce vertical pull redundancy).\n\nTarget: 8-10 reps @ RPE 10. (If you fall below 8, increase the machine assistance).\n\nRest: 3m 0s\n\nSetup: Neutral grip (palms facing). Hands spaced roughly at skeletal shoulder width.\n\nThe Truncation: Pull yourself up, but stop just before your chin clears the bar (avoiding the final bicep squeeze). Immediately transition into the 3-second eccentric drop.",
+      "exercise_template_id": "2C37EC5E",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 61.2,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 10
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 61.2,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 10
+          }
+        }
+      ],
+      "rest_seconds": 180
+    },
+    {
+      "index": 2,
+      "title": "Iso-Lateral Row (Machine)",
+      "notes": "Sets: 3 Working Sets.\n\nTarget: 8-12 reps @ RPE 10.\n\nRest: 3m 0s\n\nSetup: Neutral/vertical grip. Palms facing.\n\nGrip: Thumbless grip is mandatory.\n\nMid-Range Constraint: Stop 2–3cm before the hardware reaches full contraction. Do not let the biceps hijack the load at the back of the movement.",
+      "exercise_template_id": "AA1EB7D8",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 51.3,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 12
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 51.3,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 12
+          }
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 51.3,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 12
+          }
+        }
+      ],
+      "rest_seconds": 180
+    },
+    {
+      "index": 3,
+      "title": "Lat Pulldown (Cable)",
+      "notes": "Sets: 2 Working Sets.\n\nTarget: 10-12 reps @ RPE 10.\n\nRest: 2m 0s\n\nThe Stretch Bias: Because the lats will be chemically exhausted by this point, focus 100% of your energy on the 3-second eccentric stretch at the top of the movement. Let the cable pull your shoulders completely into elevation.",
+      "exercise_template_id": "6A6C31A5",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 41.3,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 12
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 41.3,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 12
+          }
+        }
+      ],
+      "rest_seconds": 120
+    },
+    {
+      "index": 4,
+      "title": "Rear Delt Reverse Fly (Machine)",
+      "notes": "Rear Delt Reverse Fly (Cable or Machine)\n\nSets: 3 Working Sets.\n\nTarget: 10-15 reps @ RPE 10.\n\nRest: 2m 0s\n\nScapula Lock: Push shoulder blades forward (protract) against the chest pad and lock them. Do not pinch them together at the end of the rep.\n\nPinky Lead: Light grip; push out with pinky fingers. Reach for the side walls.\n\nVector: Arms strictly parallel to the floor or angled 15–20 degrees downward. Stop when arms align with shoulders to prevent anterior roll.",
+      "exercise_template_id": "D8281C62",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 45,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 45,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 45,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        }
+      ],
+      "rest_seconds": 120
+    },
+    {
+      "index": 5,
+      "title": "Rear Delt Reverse Fly (Cable)",
+      "notes": "Rear Delt Reverse Fly (Cable or Machine)\n\nSets: 3 Working Sets.\n\nTarget: 10-15 reps @ RPE 10.\n\nRest: 2m 0s\n\nSetup: Set dual pulleys slightly above shoulder height. Do not use handles; grab the rubber stoppers or the bare carabiners (removes grip/forearm bottleneck).\n\nThe Cross: Left hand holds the right cable; right hand holds the left cable. Stand perfectly upright.\n\nVector: Push the cables strictly outward to the side walls, angled 15–20 degrees downward.\n\nThe Stretch: On the 3-second eccentric return, allow your arms to cross completely over each other in front of your chest to violently stretch the rear delt under load.",
+      "exercise_template_id": "C315DC2A",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 0,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 0,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        }
+      ],
+      "rest_seconds": 120
+    },
+    {
+      "index": 6,
+      "title": "Face Pull",
+      "notes": "Sets: 3 Working Sets + 1 Drop Set (Lengthened Partials).\n\nTarget: 12-15 reps @ RPE 10.\n\nRest: 2m 0s\n\nSetup: Cable at height #7. Use an incline bench set at 45° for chest support. Drag bench far enough back to ensure maximum cable tension at full arm extension.\n\nTear: Pull toward the hairline; physically attempt to tear the rope apart.\n\nDouble Bicep: Finish with hands higher than elbows.",
+      "exercise_template_id": "BE640BA0",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 12,
+            "end": 15
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 12,
+            "end": 15
+          }
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 4.5,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 12,
+            "end": 15
+          }
+        },
+        {
+          "index": 3,
+          "type": "dropset",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 3,
+            "end": null
+          }
+        }
+      ],
+      "rest_seconds": 120
+    },
+    {
+      "index": 7,
+      "title": "Behind the Back Curl (Cable)",
+      "notes": "Sets: 3 Working Sets (Unilateral).\n\nTarget: 8-12 reps @ RPE 10.\n\nRest: 1.5m 0s (Switching arms provides natural localized rest).\n\nSetup: Bench at 45–60 degrees. Single D-handle attached to the lowest pulley.\n\nVector Lock: Ensure the bench is positioned so the cable pulls the arm down and slightly backward, maintaining absolute tension in the fully stretched position.\n\nAnchor: Pin the shoulder completely flat against the pad. Do not allow the anterior deltoid to pull forward to cheat the weight up.",
+      "exercise_template_id": "2DBCA395",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 9,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 12
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 9,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 12
+          }
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 9,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 12
+          }
+        }
+      ],
+      "rest_seconds": 90
+    },
+    {
+      "index": 8,
+      "title": "Hammer Curl (Cable)",
+      "notes": "Sets: 2 Working Sets.\n\nTarget: 10-15 reps @ RPE 10.\n\nRest: 1.5m 0s\n\nSetup: Rope attachment on the lowest pulley. Step back 30-50cm from the tower to create a diagonal resistance vector.\n\nTarget Tissue: Brachialis. Pin elbows strictly to the ribcage.\n\nLockout: Stop the concentric pull just before the forearm stacks vertically over the bicep to maintain constant mechanical tension.",
+      "exercise_template_id": "36E8F14E",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 9,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 9,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        }
+      ],
+      "rest_seconds": 90
+    },
+    {
+      "index": 9,
+      "title": "Cable Core Pallof Press",
+      "notes": "Sets: 3 Sets (Isometric Holds).\n\nTarget: 1 rep per set (15-20+ seconds) @ RPE 10.\n\nRest: 2m 0s\n\nSetup: Seated sideways on a flat bench. Cable set to chest height. Pull handle to the exact center of the sternum and press straight out.\n\nAnti-Slouch: \"Punch\" shoulder blades forward (protraction). Activate serratus.\n\nAnchor: Brace feet heavily against the floor/machine frame. The entire lower body must act as a concrete foundation to prevent the hips from rotating.",
+      "exercise_template_id": "CC55119B",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": 1,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": 1,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": 1,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null
+        }
+      ],
+      "rest_seconds": 120
+    },
+    {
+      "index": 10,
+      "title": "Cable Core Pallof Holds",
+      "notes": "Sets: 3 Sets (Isometric Holds).\n\nTarget: 1 rep per set (15-20+ seconds) @ RPE 10.\n\nRest: 2m 0s\n\nSetup: Seated sideways on a flat bench. Cable set to chest height. Pull handle to the exact center of the sternum and press straight out.\n\nAnti-Slouch: \"Punch\" shoulder blades forward (protraction). Activate serratus.\n\nAnchor: Brace feet heavily against the floor/machine frame. The entire lower body must act as a concrete foundation to prevent the hips from rotating.",
+      "exercise_template_id": "ea7381ca-4846-4d9a-918d-b11c1aa86e8f",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 57,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 49,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 39,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 39,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 40,
+          "custom_metric": null
+        },
+        {
+          "index": 5,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 37,
+          "custom_metric": null
+        }
+      ],
+      "rest_seconds": 120
+    }
+  ]
+}

@@ -8,6 +8,9 @@
     "api:dump-latest": "pnpm --filter @gym/api dump-latest",
     "api:post-workout": "pnpm --filter @gym/api post-workout",
     "api:apply-proposed": "pnpm --filter @gym/api apply-proposed",
+    "api:fetch-year": "pnpm --filter @gym/api fetch-year",
+    "api:combine-year": "pnpm --filter @gym/api combine-year",
+    "api:trend-report": "pnpm --filter @gym/api trend-report",
     "ui:dev": "pnpm --filter @gym/ui dev",
     "typecheck": "pnpm -r typecheck"
   },

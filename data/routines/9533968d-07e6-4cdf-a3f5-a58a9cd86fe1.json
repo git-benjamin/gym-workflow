@@ -1,0 +1,408 @@
+{
+  "id": "9533968d-07e6-4cdf-a3f5-a58a9cd86fe1",
+  "title": "2026: Legs",
+  "folder_id": null,
+  "updated_at": "2026-05-16T08:03:17.110Z",
+  "created_at": "2022-08-08T13:22:03.797Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Seated Leg Curl (Machine)",
+      "notes": "Sets: 2 Working Sets (Cut from 3 to save systemic energy).\n\nTarget: 10-12 reps @ RPE 10.\n\nRest: 2m 0s (Increased from 1m 30s to ensure total failure).\n\nPrimer: Wakes hamstrings. Acts as a \"protective sleeve\" for knees before heavy compounds.\n\nTempo: 3-second eccentric return.\n\nToe Position: Point toes toward shins (dorsiflexion) to lock the calf muscle and isolate the hamstring.\n\nPosture: Press lower back firmly into the seat; do not let the hips slide forward.",
+      "exercise_template_id": "11A123F3",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 45,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 12
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 45,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 12
+          }
+        }
+      ],
+      "rest_seconds": 120
+    },
+    {
+      "index": 1,
+      "title": "Hip Thrust (Machine)",
+      "notes": "Base resistance: 22.7kg\n\nSets: 3 Working Sets + 1 Drop Set (Cut from 5 sets to prevent CNS crash).\n\nTarget: 8-12 reps @ RPE 10.\n\nRest: 3m 0s\n\nExecution:\n\nMass Builder: Maximizes glute contraction.\n\nThe Overload: Integrate the 3-second isometric hold at the top of the final reps, transitioning directly into lengthened partials for the drop set.\n\nPelvic Tuck: Ribs down; belly button to spine. Avoid hyperextending the lower back.\n\nStability: Dig heels into the plate. Slightly wider-than-shoulder-width stance. Toes pointed out 15–30°.",
+      "exercise_template_id": "68CE0B9B",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 22.7,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 62.7,
+          "reps": 11,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 62.7,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "failure",
+          "weight_kg": 62.7,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null
+        }
+      ],
+      "rest_seconds": 180
+    },
+    {
+      "index": 2,
+      "title": "Romanian Deadlift (Dumbbell)",
+      "notes": "Sets: 3 Working Sets.\n\nTarget: 6-10 reps @ RPE 10 (Increased rep range slightly to maximize Time Under Tension over raw force).\n\nRest: 3m 0s (Increased from 2m 0s).\n\nTempo: 3-second eccentric stretch. This is the primary growth driver.\n\nStretch Bias: Lengthens glutes under load. DBs provide a neutral center of gravity.\n\nSoft Knees: Maintain a micro-bend. Stop at mid-shin. Avoid knee hyperextension.\n\nSetup: Rotate palms slightly toward thighs to set shoulders and prevent the internal rotation caused by barbells.",
+      "exercise_template_id": "72CFFAD5",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 40,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 6,
+            "end": 10
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 40,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 6,
+            "end": null
+          }
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 40,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 4,
+            "end": null
+          }
+        }
+      ],
+      "rest_seconds": 180
+    },
+    {
+      "index": 3,
+      "title": "Seated Cable Deadlift",
+      "notes": "Test",
+      "exercise_template_id": "23c060cc-6e32-4fd1-8d8c-48be71d3c30c",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 25,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": null
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 32,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": null
+          }
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 32,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 5,
+            "end": null
+          }
+        }
+      ],
+      "rest_seconds": 180
+    },
+    {
+      "index": 4,
+      "title": "Standing Cable Glute Kickbacks",
+      "notes": "This OR machine.\n\nTarget: 2 Technical Failure (RPE 10).\n\nLengthened partials: Immediately after third set, log as drop set.\n\nOrdering: Perform before Abductions. Prevents standing leg exhaustion.\n\nIsolation: Targeted glute peak. Stable standing leg required.\n\nVector: Kick back and 30° out.\n\nSetup: Stand on 2.5kg plate. Elevate standing foot for ground clearance.\n\nLogging: Weight/Reps for one side only.",
+      "exercise_template_id": "ACB2751D",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 4.5,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 12
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 4.5,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 12
+          }
+        }
+      ],
+      "rest_seconds": 120
+    },
+    {
+      "index": 5,
+      "title": "Glute Kickback (Machine)",
+      "notes": "Sets: 2 Working Sets.\n\nTarget: 8-12 reps @ RPE 10.\n\nRest: 2m 0s\n\nHardware Pivot: Utilize the machine instead of cables to lock the standing leg and remove knee instability.\n\nIsolation: Targeted glute peak.\n\nVector: Drive the heel back and slightly outward. Squeeze at maximum extension.",
+      "exercise_template_id": "CBA02382",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 18,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 12
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 18,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 12
+          }
+        }
+      ],
+      "rest_seconds": 120
+    },
+    {
+      "index": 6,
+      "title": "Hip Abduction (Machine)",
+      "notes": "Sets: 3 Working Sets + 1 Drop Set.\n\nTarget: 10-15 reps @ RPE 10.\n\nRest: 2m 0s (Increased from 1m 30s).\n\nFrequency Constraint: Execute strictly on this Leg Day. Do not run on Push Days.\n\nPosture: Lean forward slightly to bias the upper glute. Grip machine in front to lock the torso.\n\nTension Loop: 2-second isometric pause when legs are fully spread.",
+      "exercise_template_id": "F4B4C6EE",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 57,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 57,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 57,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        },
+        {
+          "index": 3,
+          "type": "dropset",
+          "weight_kg": 50,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        }
+      ],
+      "rest_seconds": 120
+    },
+    {
+      "index": 7,
+      "title": "Hip Adduction (Machine)",
+      "notes": "Sets: 2 Working Sets.\n\nTarget: 8-12 reps @ RPE 10.\n\nRest: 2m 0s\n\nTempo: 3-second eccentric phase on the opening of the legs.\n\nRange of Motion: Allow the machine to stretch the adductors as far open as structurally comfortable before initiating the concentric drive.",
+      "exercise_template_id": "8BEBFED6",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 43,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 12
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 43,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 8,
+            "end": 12
+          }
+        }
+      ],
+      "rest_seconds": 120
+    },
+    {
+      "index": 8,
+      "title": "Crunch (Machine)",
+      "notes": "",
+      "exercise_template_id": "EB43ADD4",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 0,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 0,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 0,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 10,
+            "end": 15
+          }
+        }
+      ],
+      "rest_seconds": 120
+    }
+  ]
+}

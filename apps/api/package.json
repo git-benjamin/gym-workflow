@@ -9,6 +9,9 @@
     "dump-latest": "tsx src/scripts/dump-latest.ts",
     "post-workout": "tsx src/scripts/post-workout.ts",
     "apply-proposed": "tsx src/scripts/apply-proposed.ts",
+    "fetch-year": "tsx src/scripts/fetch-year.ts",
+    "combine-year": "tsx src/scripts/combine-year.ts",
+    "trend-report": "tsx src/scripts/build-trend-report.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

@@ -1,0 +1,266 @@
+{
+  "id": "b63d04da-93d0-4909-a785-1339bdd22677",
+  "title": "2026: Pull",
+  "routine_id": "8e7268e0-7617-4798-bf50-3dd421196dbd",
+  "description": "",
+  "start_time": "2026-04-26T06:53:46+00:00",
+  "end_time": "2026-04-26T08:03:20+00:00",
+  "updated_at": "2026-04-26T08:03:00.286Z",
+  "created_at": "2026-04-26T08:03:00.286Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Face Pull",
+      "notes": "Stopped set 1 early adjusting height for beter clearance to forehead.\n\nSet 2 trying pulley height 7, seat about 45 degrees. Rope can come through top of seat.\nSet 3 trting lower pulley height 6.",
+      "exercise_template_id": "BE640BA0",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 9.1,
+          "reps": 9,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 6,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 9.1,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 9.1,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "dropset",
+          "weight_kg": 9.1,
+          "reps": 2,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Iso-Lateral Row (Machine)",
+      "notes": "Matrix plate loaded seated row - assuming total base resistance is 11.3kg.\n\nSet 1: bicep bottle neck at around 10 reps\nSet 2: 2 min rest, bicep bottle neck at around 6 reps\nSet 3: 2.5 min rest, bicep bottle neck at rep 5",
+      "exercise_template_id": "AA1EB7D8",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 51.3,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 51.3,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 51.3,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "dropset",
+          "weight_kg": 51.3,
+          "reps": 2,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Lat Pulldown (Cable)",
+      "notes": "Doing this prior to assisted pull ups as none available.\n\nusing double v handle (aka prone grip) with smaller side of grip facing me\n\nSet 1 on rep 5 bicep bottlenexk\nSet 2 rested 2.5 mins instead of 2, bicep bottleneck rep 5\nSet 3 rested 2.5 mins instead of 2, bicep bottleneck rep 5/6 \nSet 4 limit testing, slow and controlled, at rep 14 i thought i was 6 RPE, but kept going (evidence of extremely skewed RPE gauge), bicep bottleneck at rep 32",
+      "exercise_template_id": "6A6C31A5",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 52,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 47.3,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 45,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "failure",
+          "weight_kg": 25,
+          "reps": 33,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Preacher Curl (Barbell)",
+      "notes": "always EZ bar as always at preacher curls, add to routine notes\n\nrest default is 1.5m lets change to 2min\n\nbiceps gassed after set 2 at the bottom, couldnt even get into position for partials",
+      "exercise_template_id": "4F942934",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 12.5,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 12.5,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Rear Delt Reverse Fly (Machine)",
+      "notes": "What angle do my arms need to be to the floor? Parallel or slightly downafds/upwards\n\nSet 1, had the seat higher than usual arms are parallel with floor, towards end of set can feel it in my mid right back",
+      "exercise_template_id": "D8281C62",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 32,
+          "reps": 17,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 32,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "dropset",
+          "weight_kg": 32,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "title": "Cable Core Palloff Press",
+      "notes": "Add to notes i always start with left side closer to cable, with handle on left hand\n\nSet 1 held 4 reps 10 seconds , last workout was 3 reps 15 seconds - was struggling already at 10 likely torched \nset 2 rest 1 min default, 3 reps of 10 seconds\nset 3 rest 2 min for data, 3 reps of 15 seconds,",
+      "exercise_template_id": "CC55119B",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": 4,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": 3,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": 3,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}
