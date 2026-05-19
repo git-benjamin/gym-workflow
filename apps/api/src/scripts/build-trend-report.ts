@@ -3,10 +3,11 @@
  * Combines:
  *   1. Body weight — all-time, from weight_data/Measurement-Summary-*.csv
  *   2. Nutrition — current-year weekly averages, from nutrition_data/nutrition.csv
- *   3. Pre-year monthly aggregate — from data_migration/final/summary_by_month.csv
- *   4. Pre-year per-exercise monthly bests — from data_migration/final/exercises_by_month.csv
- *   5. Medication log — free-form journal at medication_data/retatrutide.md
- *   6. Current-year workouts — full set-level detail, from data/workouts/{year}/*.json
+ *   3. Nutrition baseline protocol — meals + supplements + macros on a good day
+ *   4. Pre-year monthly aggregate — from data_migration/final/summary_by_month.csv
+ *   5. Pre-year per-exercise monthly bests — from data_migration/final/exercises_by_month.csv
+ *   6. Medication log — free-form journal at medication_data/retatrutide.md
+ *   7. Current-year workouts — full set-level detail, from data/workouts/{year}/*.json
  *
  * Output: data/trend-report-{YYYY-MM-DD}.md
  */
@@ -25,6 +26,7 @@ const NUTRITION_CSV = resolve(ROOT, "nutrition_data/nutrition.csv");
 const PRE_SUMMARY_CSV = resolve(ROOT, "data_migration/final/summary_by_month.csv");
 const PRE_EXERCISES_CSV = resolve(ROOT, "data_migration/final/exercises_by_month.csv");
 const MEDICATION_MD = resolve(ROOT, "medication_data/retatrutide.md");
+const BASELINE_MD = resolve(ROOT, "nutrition_data/baseline_protocol.md");
 const WORKOUTS_DIR = resolve(ROOT, "data/workouts", String(YEAR));
 
 const OUT = resolve(ROOT, `data/trend-report-${TODAY}.md`);
@@ -79,12 +81,24 @@ function sectionNutrition(): string {
   ].join("\n");
 }
 
-// ── Section 3: pre-year monthly aggregate ───────────────────────────────
+// ── Section 3: nutrition baseline protocol ──────────────────────────────
+function sectionBaseline(): string {
+  const raw = readFileSync(BASELINE_MD, "utf8").trimEnd();
+  return [
+    `## 3. Nutrition — baseline protocol`,
+    ``,
+    `Target daily intake on a "good day" — meals, supplements, macros, hydration, cost. Treat as the upper bound of adherence; Section 2's weekly averages are the realised behaviour.`,
+    ``,
+    raw,
+  ].join("\n");
+}
+
+// ── Section 4: pre-year monthly aggregate ───────────────────────────────
 function sectionPreYearSummary(): string {
   const [header, ...rows] = readCsv(PRE_SUMMARY_CSV);
   const pre = rows.filter((r) => Number(r[0]!.slice(0, 4)) < YEAR);
   return [
-    `## 3. Workouts before ${YEAR} — monthly aggregate`,
+    `## 4. Workouts before ${YEAR} — monthly aggregate`,
     ``,
     `${pre.length} months from ${pre[0]?.[0] ?? "(none)"} → ${pre[pre.length - 1]?.[0] ?? "(none)"}. Body-weight column is sparse pre-2019 (only logged ad-hoc).`,
     ``,
@@ -92,7 +106,7 @@ function sectionPreYearSummary(): string {
   ].join("\n");
 }
 
-// ── Section 4: pre-year per-exercise monthly bests ──────────────────────
+// ── Section 5: pre-year per-exercise monthly bests ──────────────────────
 function sectionPreYearExercises(): string {
   const [header, ...rows] = readCsv(PRE_EXERCISES_CSV);
   // header: month,exercise,exercise_template_id,max_volume_kg,max_weight_kg,e1rm_kg
@@ -101,7 +115,7 @@ function sectionPreYearExercises(): string {
   const trimmedHeader = [header![0]!, header![1]!, header![3]!, header![4]!, header![5]!];
   const trimmed = pre.map((r) => [r[0]!, r[1]!, r[3]!, r[4]!, r[5]!]);
   return [
-    `## 4. Workouts before ${YEAR} — per-exercise monthly bests`,
+    `## 5. Workouts before ${YEAR} — per-exercise monthly bests`,
     ``,
     `For each (month, exercise) pair: heaviest set volume, heaviest weight used, estimated 1RM (Epley). Captures strength progression across years.`,
     ``,
@@ -111,11 +125,11 @@ function sectionPreYearExercises(): string {
   ].join("\n");
 }
 
-// ── Section 5: medication log ────────────────────────────────────────────
+// ── Section 6: medication log ────────────────────────────────────────────
 function sectionMedication(): string {
   const raw = readFileSync(MEDICATION_MD, "utf8").trimEnd();
   return [
-    `## 5. Medication — retatrutide log`,
+    `## 6. Medication — retatrutide log`,
     ``,
     `Free-form journal of retatrutide dosing and side effects. Dates are DD/MM/YYYY. Doses given in syringe-units (50 units = 1 mL) and mg; vial concentration changes are noted inline ("new batch", "/10mg" etc).`,
     ``,
@@ -125,7 +139,7 @@ function sectionMedication(): string {
   ].join("\n");
 }
 
-// ── Section 6: current-year workouts (full detail) ──────────────────────
+// ── Section 7: current-year workouts (full detail) ──────────────────────
 interface Set { type: string; weight_kg: number | null; reps: number | null; rpe: number | null }
 interface Exercise { title: string; notes: string | null; sets: Set[] }
 interface Workout {
@@ -174,7 +188,7 @@ function sectionCurrentYear(): string {
     .sort((a, b) => a.start_time.localeCompare(b.start_time));
 
   const head = [
-    `## 6. ${YEAR} workouts — full detail`,
+    `## 7. ${YEAR} workouts — full detail`,
     ``,
     `${workouts.length} workouts from ${workouts[0]?.start_time.slice(0, 10) ?? "(none)"} → ${workouts[workouts.length - 1]?.start_time.slice(0, 10) ?? "(none)"}.`,
     ``,
@@ -196,6 +210,10 @@ const md = [
   `---`,
   ``,
   sectionNutrition(),
+  ``,
+  `---`,
+  ``,
+  sectionBaseline(),
   ``,
   `---`,
   ``,
