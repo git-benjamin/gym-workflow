@@ -7,8 +7,9 @@
  *   4. Nutrition baseline protocol — meals + supplements + macros on a good day
  *   5. Pre-year monthly aggregate — from data_migration/final/summary_by_month.csv
  *   6. Pre-year per-exercise monthly bests — from data_migration/final/exercises_by_month.csv
- *   7. Medication log — free-form journal at medication_data/retatrutide.md
- *   8. Current-year workouts — full set-level detail, from data/workouts/{year}/*.json
+ *   7. Cycling history — rides 2023-2024 from cycling_data/cycling_data.md
+ *   8. Medication log — free-form journal at medication_data/retatrutide.md
+ *   9. Current-year workouts — full set-level detail, from data/workouts/{year}/*.json
  *
  * Output: data/trend-report-{YYYY-MM-DD}.md
  */
@@ -29,6 +30,7 @@ const PRE_EXERCISES_CSV = resolve(ROOT, "data_migration/final/exercises_by_month
 const PROFILE_MD = resolve(ROOT, "profile.md");
 const MEDICATION_MD = resolve(ROOT, "medication_data/retatrutide.md");
 const BASELINE_MD = resolve(ROOT, "nutrition_data/baseline_protocol.md");
+const CYCLING_MD = resolve(ROOT, "cycling_data/cycling_data.md");
 const WORKOUTS_DIR = resolve(ROOT, "data/workouts", String(YEAR));
 
 const OUT = resolve(ROOT, `data/trend-report-${TODAY}.md`);
@@ -142,11 +144,79 @@ function sectionPreYearExercises(): string {
   ].join("\n");
 }
 
-// ── Section 6: medication log ────────────────────────────────────────────
+// ── Section 7: cycling history ──────────────────────────────────────────
+interface Ride {
+  date: string; // YYYY-MM-DD
+  title: string;
+  durationSec: number;
+  distanceKm: number;
+  elevationM: number;
+}
+
+function parseDurationToSec(s: string): number {
+  const parts = s.split(":").map((p) => Number(p));
+  if (parts.length === 3) return parts[0]! * 3600 + parts[1]! * 60 + parts[2]!;
+  if (parts.length === 2) return parts[0]! * 60 + parts[1]!;
+  return 0;
+}
+
+function formatHm(sec: number): string {
+  const h = Math.floor(sec / 3600);
+  const m = Math.round((sec % 3600) / 60);
+  return h > 0 ? `${h}h ${m}m` : `${m}m`;
+}
+
+function sectionCycling(): string {
+  const raw = readFileSync(CYCLING_MD, "utf8");
+  const rides: Ride[] = [];
+  for (const line of raw.split(/\r?\n/)) {
+    if (!line.trim() || line.trim() === "Sport") continue;
+    const fields = line.split("\t").map((f) => f.trim()).filter((f) => f.length > 0);
+    // expect: Ride, "Day, M/D/YYYY", title, duration, "NN.NN km", "NN m"
+    if (fields[0] !== "Ride" || fields.length < 6) continue;
+    const dateStr = fields[1]!.replace(/^[A-Za-z]+,\s*/, ""); // strip "Sun, "
+    const [m, d, y] = dateStr.split("/").map((p) => Number(p));
+    if (!y || !m || !d) continue;
+    rides.push({
+      date: `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`,
+      title: fields[2]!,
+      durationSec: parseDurationToSec(fields[3]!),
+      distanceKm: parseFloat(fields[4]!.replace(/\s*km/, "")),
+      elevationM: parseFloat(fields[5]!.replace(/\s*m/, "")),
+    });
+  }
+  rides.sort((a, b) => a.date.localeCompare(b.date));
+
+  const totalDistance = rides.reduce((s, r) => s + r.distanceKm, 0);
+  const totalElev = rides.reduce((s, r) => s + r.elevationM, 0);
+  const totalDur = rides.reduce((s, r) => s + r.durationSec, 0);
+
+  const rows = rides.map((r) => [
+    r.date,
+    r.title,
+    formatHm(r.durationSec),
+    r.distanceKm.toFixed(2),
+    String(r.elevationM),
+  ]);
+
+  return [
+    `## 7. Cycling — historical rides`,
+    ``,
+    `${rides.length} rides from ${rides[0]?.date ?? "(none)"} → ${rides[rides.length - 1]?.date ?? "(none)"}. Cycling was a regular cardio modality during this window but has not been logged since; treat as historical cardiovascular context.`,
+    ``,
+    `- total distance: **${totalDistance.toFixed(1)} km**`,
+    `- total elevation: **${totalElev.toLocaleString("en-US")} m**`,
+    `- total moving time: **${formatHm(totalDur)}**`,
+    ``,
+    table(["date", "title", "duration", "distance (km)", "elevation (m)"], rows),
+  ].join("\n");
+}
+
+// ── Section 8: medication log ────────────────────────────────────────────
 function sectionMedication(): string {
   const raw = readFileSync(MEDICATION_MD, "utf8").trimEnd();
   return [
-    `## 7. Medication — retatrutide log`,
+    `## 8. Medication — retatrutide log`,
     ``,
     `Free-form journal of retatrutide dosing and side effects. Dates are DD/MM/YYYY. Doses given in syringe-units (50 units = 1 mL) and mg; vial concentration changes are noted inline ("new batch", "/10mg" etc).`,
     ``,
@@ -156,7 +226,7 @@ function sectionMedication(): string {
   ].join("\n");
 }
 
-// ── Section 7: current-year workouts (full detail) ──────────────────────
+// ── Section 9: current-year workouts (full detail) ──────────────────────
 interface Set { type: string; weight_kg: number | null; reps: number | null; rpe: number | null }
 interface Exercise { title: string; notes: string | null; sets: Set[] }
 interface Workout {
@@ -205,7 +275,7 @@ function sectionCurrentYear(): string {
     .sort((a, b) => a.start_time.localeCompare(b.start_time));
 
   const head = [
-    `## 8. ${YEAR} workouts — full detail`,
+    `## 9. ${YEAR} workouts — full detail`,
     ``,
     `${workouts.length} workouts from ${workouts[0]?.start_time.slice(0, 10) ?? "(none)"} → ${workouts[workouts.length - 1]?.start_time.slice(0, 10) ?? "(none)"}.`,
     ``,
@@ -243,6 +313,10 @@ const md = [
   `---`,
   ``,
   sectionPreYearExercises(),
+  ``,
+  `---`,
+  ``,
+  sectionCycling(),
   ``,
   `---`,
   ``,

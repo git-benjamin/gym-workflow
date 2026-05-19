@@ -1683,7 +1683,67 @@ For each (month, exercise) pair: heaviest set volume, heaviest weight used, esti
 
 ---
 
-## 7. Medication — retatrutide log
+## 7. Cycling — historical rides
+
+47 rides from 2023-08-12 → 2024-04-28. Cycling was a regular cardio modality during this window but has not been logged since; treat as historical cardiovascular context.
+
+- total distance: **1404.4 km**
+- total elevation: **7,831 m**
+- total moving time: **71h 53m**
+
+| date | title | duration | distance (km) | elevation (m) |
+| --- | --- | --- | --- | --- |
+| 2023-08-12 | Afternoon Ride | 8m | 2.36 | 12 |
+| 2023-08-13 | Afternoon Ride | 23m | 7.01 | 20 |
+| 2023-08-16 | Lunch Ride | 24m | 7.17 | 20 |
+| 2023-08-17 | Night Ride | 24m | 7.32 | 25 |
+| 2023-08-26 | Morning Ride | 1h 13m | 22.25 | 82 |
+| 2023-08-27 | Evening Ride | 38m | 11.13 | 54 |
+| 2023-08-28 | Evening Ride | 55m | 17.55 | 80 |
+| 2023-08-29 | Evening Ride | 1h 3m | 18.03 | 95 |
+| 2023-08-30 | Morning Ride | 36m | 10.30 | 48 |
+| 2023-08-31 | Evening Ride | 1h 5m | 20.57 | 103 |
+| 2023-09-02 | Lunch Ride | 1h 34m | 28.23 | 145 |
+| 2023-09-03 | Afternoon Ride | 1h 3m | 18.39 | 127 |
+| 2023-09-04 | Evening Ride | 1h 43m | 32.05 | 98 |
+| 2023-09-05 | Evening Ride | 57m | 16.51 | 97 |
+| 2023-09-06 | Evening Ride | 1h 37m | 30.65 | 112 |
+| 2023-09-07 | Evening Ride | 48m | 13.61 | 70 |
+| 2023-09-08 | Evening Ride | 1h 44m | 35.72 | 186 |
+| 2023-09-11 | Evening Ride | 1h 35m | 31.41 | 159 |
+| 2023-09-12 | Evening Ride | 1h 56m | 38.18 | 217 |
+| 2023-09-14 | Evening Ride | 2h 2m | 40.42 | 240 |
+| 2023-09-19 | Evening Ride | 1h 35m | 29.62 | 154 |
+| 2023-09-22 | Evening Ride | 1h 54m | 40.19 | 237 |
+| 2023-10-04 | cold af | 1h 32m | 29.13 | 156 |
+| 2023-10-10 | Evening Ride | 47m | 16.42 | 120 |
+| 2023-10-11 | Morning Ride | 1h 47m | 36.69 | 203 |
+| 2023-10-17 | Afternoon Ride | 2h 15m | 43.79 | 284 |
+| 2023-10-18 | Afternoon Ride | 1h 20m | 24.50 | 235 |
+| 2023-10-24 | Morning Ride | 49m | 16.64 | 135 |
+| 2023-10-31 | Afternoon Ride | 1h 25m | 29.12 | 116 |
+| 2023-11-06 | Evening Ride | 1h 30m | 29.15 | 106 |
+| 2023-11-08 | Evening Ride | 1h 55m | 36.72 | 128 |
+| 2023-11-10 | Evening Ride | 2h 17m | 45.77 | 184 |
+| 2023-11-13 | Afternoon Ride | 2h 24m | 50.03 | 195 |
+| 2023-11-15 | Afternoon Ride | 2h 22m | 50.17 | 229 |
+| 2023-12-09 | Morning Ride | 2h 24m | 48.81 | 277 |
+| 2024-01-11 | Morning Ride | 43m | 13.06 | 98 |
+| 2024-01-31 | Morning Ride | 1h 9m | 22.85 | 137 |
+| 2024-03-19 | Afternoon Ride | 1h 22m | 26.03 | 176 |
+| 2024-03-21 | Morning Ride | 1h 39m | 29.58 | 170 |
+| 2024-03-25 | Evening Ride | 2h 13m | 45.53 | 216 |
+| 2024-03-28 | Evening Ride | 2h 43m | 53.16 | 256 |
+| 2024-04-01 | Evening Ride | 2h 31m | 53.19 | 252 |
+| 2024-04-05 | Afternoon Ride | 3h 4m | 60.58 | 312 |
+| 2024-04-07 | Morning Ride | 1h 41m | 34.98 | 198 |
+| 2024-04-14 | 10 metres of nooseberry hill | 1h 48m | 30.26 | 376 |
+| 2024-04-25 | Afternoon Ride | 2h 24m | 53.26 | 259 |
+| 2024-04-28 | Perth Hills Gran Fondo - Piccolo | 2h 28m | 46.31 | 632 |
+
+---
+
+## 8. Medication — retatrutide log
 
 Free-form journal of retatrutide dosing and side effects. Dates are DD/MM/YYYY. Doses given in syringe-units (50 units = 1 mL) and mg; vial concentration changes are noted inline ("new batch", "/10mg" etc).
 
@@ -1729,7 +1789,7 @@ Mon 1/6/26 4mg 100/100 units
 
 ---
 
-## 8. 2026 workouts — full detail
+## 9. 2026 workouts — full detail
 
 35 workouts from 2026-03-21 → 2026-05-18.
 ### 2026-03-21 — 2025 D2: Posterior & Push
