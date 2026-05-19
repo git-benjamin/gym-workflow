@@ -76,7 +76,17 @@ Static context: training goals, biomechanics, restrictions, programming philosop
 
 ---
 
-## 2. Body weight — all entries
+## 2. Body weight & body composition
+
+### 2a. Body-composition snapshots
+
+Dated measurements that include body-fat %. Sparse — most days are scale-only (Section 2b).
+
+| date | weight_kg | body_fat_pct | method | notes |
+| --- | --- | --- | --- | --- |
+| 2022-05-20 | 114.0 | 23.5 | DEXA |  |
+
+### 2b. Daily weigh-ins — all entries
 
 326 measurements, 2014-12-11 → 2026-05-19.
 

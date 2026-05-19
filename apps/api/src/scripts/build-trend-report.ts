@@ -24,6 +24,7 @@ const ROOT = repoRoot();
 
 // ── Inputs ───────────────────────────────────────────────────────────────
 const WEIGHT_CSV = resolve(ROOT, "weight_data/Measurement-Summary-2014-12-11-to-2026-05-06.csv");
+const BODYCOMP_CSV = resolve(ROOT, "weight_data/body_composition.csv");
 const NUTRITION_CSV = resolve(ROOT, "nutrition_data/nutrition.csv");
 const PRE_SUMMARY_CSV = resolve(ROOT, "data_migration/final/summary_by_month.csv");
 const PRE_EXERCISES_CSV = resolve(ROOT, "data_migration/final/exercises_by_month.csv");
@@ -73,8 +74,19 @@ function sectionWeight(): string {
     if (e.weight > max.weight) max = e;
   }
   const latest = parsed[parsed.length - 1]!;
+
+  const [bcHeader, ...bcRows] = readCsv(BODYCOMP_CSV);
+
   const lines = [
-    `## 2. Body weight — all entries`,
+    `## 2. Body weight & body composition`,
+    ``,
+    `### 2a. Body-composition snapshots`,
+    ``,
+    `Dated measurements that include body-fat %. Sparse — most days are scale-only (Section 2b).`,
+    ``,
+    table(bcHeader!, bcRows),
+    ``,
+    `### 2b. Daily weigh-ins — all entries`,
     ``,
     `${parsed.length} measurements, ${parsed[0]!.date} → ${latest.date}.`,
     ``,
