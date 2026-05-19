@@ -5,7 +5,8 @@
  *   2. Nutrition — current-year weekly averages, from nutrition_data/nutrition.csv
  *   3. Pre-year monthly aggregate — from data_migration/final/summary_by_month.csv
  *   4. Pre-year per-exercise monthly bests — from data_migration/final/exercises_by_month.csv
- *   5. Current-year workouts — full set-level detail, from data/workouts/{year}/*.json
+ *   5. Medication log — free-form journal at medication_data/retatrutide.md
+ *   6. Current-year workouts — full set-level detail, from data/workouts/{year}/*.json
  *
  * Output: data/trend-report-{YYYY-MM-DD}.md
  */
@@ -23,6 +24,7 @@ const WEIGHT_CSV = resolve(ROOT, "weight_data/Measurement-Summary-2014-12-11-to-
 const NUTRITION_CSV = resolve(ROOT, "nutrition_data/nutrition.csv");
 const PRE_SUMMARY_CSV = resolve(ROOT, "data_migration/final/summary_by_month.csv");
 const PRE_EXERCISES_CSV = resolve(ROOT, "data_migration/final/exercises_by_month.csv");
+const MEDICATION_MD = resolve(ROOT, "medication_data/retatrutide.md");
 const WORKOUTS_DIR = resolve(ROOT, "data/workouts", String(YEAR));
 
 const OUT = resolve(ROOT, `data/trend-report-${TODAY}.md`);
@@ -109,7 +111,21 @@ function sectionPreYearExercises(): string {
   ].join("\n");
 }
 
-// ── Section 5: current-year workouts (full detail) ──────────────────────
+// ── Section 5: medication log ────────────────────────────────────────────
+function sectionMedication(): string {
+  const raw = readFileSync(MEDICATION_MD, "utf8").trimEnd();
+  return [
+    `## 5. Medication — retatrutide log`,
+    ``,
+    `Free-form journal of retatrutide dosing and side effects. Dates are DD/MM/YYYY. Doses given in syringe-units (50 units = 1 mL) and mg; vial concentration changes are noted inline ("new batch", "/10mg" etc).`,
+    ``,
+    "```",
+    raw,
+    "```",
+  ].join("\n");
+}
+
+// ── Section 6: current-year workouts (full detail) ──────────────────────
 interface Set { type: string; weight_kg: number | null; reps: number | null; rpe: number | null }
 interface Exercise { title: string; notes: string | null; sets: Set[] }
 interface Workout {
@@ -158,7 +174,7 @@ function sectionCurrentYear(): string {
     .sort((a, b) => a.start_time.localeCompare(b.start_time));
 
   const head = [
-    `## 5. ${YEAR} workouts — full detail`,
+    `## 6. ${YEAR} workouts — full detail`,
     ``,
     `${workouts.length} workouts from ${workouts[0]?.start_time.slice(0, 10) ?? "(none)"} → ${workouts[workouts.length - 1]?.start_time.slice(0, 10) ?? "(none)"}.`,
     ``,
@@ -188,6 +204,10 @@ const md = [
   `---`,
   ``,
   sectionPreYearExercises(),
+  ``,
+  `---`,
+  ``,
+  sectionMedication(),
   ``,
   `---`,
   ``,
