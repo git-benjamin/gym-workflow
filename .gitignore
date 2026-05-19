@@ -3,7 +3,6 @@
 .env
 .env.*
 !.env.example
-profile.md
 reviews/
 chats/
 

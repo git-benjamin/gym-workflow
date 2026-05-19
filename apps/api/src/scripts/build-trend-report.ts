@@ -1,13 +1,14 @@
 /** Build a single markdown report for a trend-analysis agent.
  *
  * Combines:
- *   1. Body weight — all-time, from weight_data/Measurement-Summary-*.csv
- *   2. Nutrition — current-year weekly averages, from nutrition_data/nutrition.csv
- *   3. Nutrition baseline protocol — meals + supplements + macros on a good day
- *   4. Pre-year monthly aggregate — from data_migration/final/summary_by_month.csv
- *   5. Pre-year per-exercise monthly bests — from data_migration/final/exercises_by_month.csv
- *   6. Medication log — free-form journal at medication_data/retatrutide.md
- *   7. Current-year workouts — full set-level detail, from data/workouts/{year}/*.json
+ *   1. Profile — goals, biomechanics, programming philosophy, from profile.md
+ *   2. Body weight — all-time, from weight_data/Measurement-Summary-*.csv
+ *   3. Nutrition — current-year weekly averages, from nutrition_data/nutrition.csv
+ *   4. Nutrition baseline protocol — meals + supplements + macros on a good day
+ *   5. Pre-year monthly aggregate — from data_migration/final/summary_by_month.csv
+ *   6. Pre-year per-exercise monthly bests — from data_migration/final/exercises_by_month.csv
+ *   7. Medication log — free-form journal at medication_data/retatrutide.md
+ *   8. Current-year workouts — full set-level detail, from data/workouts/{year}/*.json
  *
  * Output: data/trend-report-{YYYY-MM-DD}.md
  */
@@ -25,6 +26,7 @@ const WEIGHT_CSV = resolve(ROOT, "weight_data/Measurement-Summary-2014-12-11-to-
 const NUTRITION_CSV = resolve(ROOT, "nutrition_data/nutrition.csv");
 const PRE_SUMMARY_CSV = resolve(ROOT, "data_migration/final/summary_by_month.csv");
 const PRE_EXERCISES_CSV = resolve(ROOT, "data_migration/final/exercises_by_month.csv");
+const PROFILE_MD = resolve(ROOT, "profile.md");
 const MEDICATION_MD = resolve(ROOT, "medication_data/retatrutide.md");
 const BASELINE_MD = resolve(ROOT, "nutrition_data/baseline_protocol.md");
 const WORKOUTS_DIR = resolve(ROOT, "data/workouts", String(YEAR));
@@ -44,7 +46,22 @@ function table(headers: string[], rows: string[][]): string {
   return [headers, sep, ...rows].map((r) => `| ${r.join(" | ")} |`).join("\n");
 }
 
-// ── Section 1: body weight (all entries) ─────────────────────────────────
+// ── Section 1: profile ──────────────────────────────────────────────────
+function sectionProfile(): string {
+  // profile.md leads with "# Profile" — drop that line so it nests cleanly
+  // under our "## 1. Profile" header instead of becoming a competing H1.
+  const raw = readFileSync(PROFILE_MD, "utf8").trimEnd();
+  const stripped = raw.replace(/^#\s+Profile\s*\n+/i, "").trimStart();
+  return [
+    `## 1. Profile`,
+    ``,
+    `Static context: training goals, biomechanics, restrictions, programming philosophy, equipment access. The trend agent should treat this as the lens through which the time-series data is interpreted.`,
+    ``,
+    stripped,
+  ].join("\n");
+}
+
+// ── Section 2: body weight (all entries) ─────────────────────────────────
 function sectionWeight(): string {
   const rows = readCsv(WEIGHT_CSV).slice(1); // drop header
   const parsed = rows.map(([date, w]) => ({ date: date!, weight: parseFloat(w!) }));
@@ -55,7 +72,7 @@ function sectionWeight(): string {
   }
   const latest = parsed[parsed.length - 1]!;
   const lines = [
-    `## 1. Body weight — all entries`,
+    `## 2. Body weight — all entries`,
     ``,
     `${parsed.length} measurements, ${parsed[0]!.date} → ${latest.date}.`,
     ``,
@@ -73,7 +90,7 @@ function sectionNutrition(): string {
   const [header, ...rows] = readCsv(NUTRITION_CSV);
   const inYear = rows.filter((r) => r[0]!.startsWith(`${YEAR}-`));
   return [
-    `## 2. Nutrition — weekly averages, ${YEAR}`,
+    `## 3. Nutrition — weekly averages, ${YEAR}`,
     ``,
     `${inYear.length} weeks of data.`,
     ``,
@@ -85,7 +102,7 @@ function sectionNutrition(): string {
 function sectionBaseline(): string {
   const raw = readFileSync(BASELINE_MD, "utf8").trimEnd();
   return [
-    `## 3. Nutrition — baseline protocol`,
+    `## 4. Nutrition — baseline protocol`,
     ``,
     `Target daily intake on a "good day" — meals, supplements, macros, hydration, cost. Treat as the upper bound of adherence; Section 2's weekly averages are the realised behaviour.`,
     ``,
@@ -98,7 +115,7 @@ function sectionPreYearSummary(): string {
   const [header, ...rows] = readCsv(PRE_SUMMARY_CSV);
   const pre = rows.filter((r) => Number(r[0]!.slice(0, 4)) < YEAR);
   return [
-    `## 4. Workouts before ${YEAR} — monthly aggregate`,
+    `## 5. Workouts before ${YEAR} — monthly aggregate`,
     ``,
     `${pre.length} months from ${pre[0]?.[0] ?? "(none)"} → ${pre[pre.length - 1]?.[0] ?? "(none)"}. Body-weight column is sparse pre-2019 (only logged ad-hoc).`,
     ``,
@@ -115,7 +132,7 @@ function sectionPreYearExercises(): string {
   const trimmedHeader = [header![0]!, header![1]!, header![3]!, header![4]!, header![5]!];
   const trimmed = pre.map((r) => [r[0]!, r[1]!, r[3]!, r[4]!, r[5]!]);
   return [
-    `## 5. Workouts before ${YEAR} — per-exercise monthly bests`,
+    `## 6. Workouts before ${YEAR} — per-exercise monthly bests`,
     ``,
     `For each (month, exercise) pair: heaviest set volume, heaviest weight used, estimated 1RM (Epley). Captures strength progression across years.`,
     ``,
@@ -129,7 +146,7 @@ function sectionPreYearExercises(): string {
 function sectionMedication(): string {
   const raw = readFileSync(MEDICATION_MD, "utf8").trimEnd();
   return [
-    `## 6. Medication — retatrutide log`,
+    `## 7. Medication — retatrutide log`,
     ``,
     `Free-form journal of retatrutide dosing and side effects. Dates are DD/MM/YYYY. Doses given in syringe-units (50 units = 1 mL) and mg; vial concentration changes are noted inline ("new batch", "/10mg" etc).`,
     ``,
@@ -188,7 +205,7 @@ function sectionCurrentYear(): string {
     .sort((a, b) => a.start_time.localeCompare(b.start_time));
 
   const head = [
-    `## 7. ${YEAR} workouts — full detail`,
+    `## 8. ${YEAR} workouts — full detail`,
     ``,
     `${workouts.length} workouts from ${workouts[0]?.start_time.slice(0, 10) ?? "(none)"} → ${workouts[workouts.length - 1]?.start_time.slice(0, 10) ?? "(none)"}.`,
     ``,
@@ -202,6 +219,10 @@ const md = [
   `# Training & body-composition trend report`,
   ``,
   `_Generated ${TODAY}. Source-of-truth for ${YEAR} workouts: Hevy API. Source-of-truth for pre-${YEAR} workouts: Strong + Repcount CSV exports imported into Hevy on 2026-05-06._`,
+  ``,
+  `---`,
+  ``,
+  sectionProfile(),
   ``,
   `---`,
   ``,
