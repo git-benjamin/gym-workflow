@@ -9634,5 +9634,1213 @@
         ]
       }
     ]
+  },
+  {
+    "id": "6360fcf6-63a9-47fb-a922-65231953fb5f",
+    "title": "2026: Pull [Bicep Bypass]",
+    "routine_id": "8e7268e0-7617-4798-bf50-3dd421196dbd",
+    "description": "",
+    "start_time": "2026-05-19T12:52:59+00:00",
+    "end_time": "2026-05-19T14:15:29+00:00",
+    "updated_at": "2026-05-20T06:38:52.740Z",
+    "created_at": "2026-05-19T14:14:44.778Z",
+    "exercises": [
+      {
+        "index": 0,
+        "title": "Straight Arm Lat Pulldown (Cable)",
+        "notes": "versa grips pro\nset 1: 4s eccentric\nset 2: 4s eccentrics\nset 3:",
+        "exercise_template_id": "D2387AB1",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 20.4,
+            "reps": 15,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 24.9,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 24.9,
+            "reps": 5,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "title": "Pull Up (Assisted)",
+        "notes": "3s eccentrics + versa gripps pro",
+        "exercise_template_id": "2C37EC5E",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 61.2,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 61.2,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "title": "Iso-Lateral Row (Machine)",
+        "notes": "3s eccentrics + versa gripps pro",
+        "exercise_template_id": "AA1EB7D8",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 51.3,
+            "reps": 12,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 51.3,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 51.3,
+            "reps": 9,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "title": "Lat Pulldown (Cable)",
+        "notes": "4s eccentrics + versa gripps pro",
+        "exercise_template_id": "6A6C31A5",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 45,
+            "reps": 9,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 45,
+            "reps": 10,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "title": "Rear Delt Reverse Fly (Machine)",
+        "notes": "3s eccentrics",
+        "exercise_template_id": "D8281C62",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 45,
+            "reps": 15,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 45,
+            "reps": 13,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 45,
+            "reps": 10,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "title": "Face Pull",
+        "notes": "3s eccentrics + chest supported bench",
+        "exercise_template_id": "BE640BA0",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": 10,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": 10,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": 9,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "title": "Behind the Back Curl (Cable)",
+        "notes": "3s eccentric, standing, pulley at 5, not lowest",
+        "exercise_template_id": "2DBCA395",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 9,
+            "reps": 12,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 9,
+            "reps": 11,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 9,
+            "reps": 9,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "title": "Hammer Curl (Cable)",
+        "notes": "4s eccentric, more controlled for total length, standing directly above pulley, not stepping backwards",
+        "exercise_template_id": "36E8F14E",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 9,
+            "reps": 14,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 9,
+            "reps": 12,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 8,
+        "title": "Cable Core Pallof Holds",
+        "notes": "set1 and 2: Feet are losing grip, slipping first\nset 3: left upper thigh cramping and gave up\nset 4: losing grip in left foot first and then could frel left upper thigh begin to cramp\nset 5: outer (right) lower abs/oblique gave up first\nset 6: right(inner) glute gave up first\n\nwhy is anti rotation weaker today compared to last?",
+        "exercise_template_id": "ea7381ca-4846-4d9a-918d-b11c1aa86e8f",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": 43,
+            "rpe": null,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": 40,
+            "rpe": null,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": 28,
+            "rpe": null,
+            "custom_metric": null
+          },
+          {
+            "index": 3,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": 40,
+            "rpe": null,
+            "custom_metric": null
+          },
+          {
+            "index": 4,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": 44,
+            "rpe": null,
+            "custom_metric": null
+          },
+          {
+            "index": 5,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": 22,
+            "rpe": null,
+            "custom_metric": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "48c7c6c9-8a85-4cc8-8cdf-2ae22d1d0ec1",
+    "title": "2026: Legs",
+    "routine_id": "9533968d-07e6-4cdf-a3f5-a58a9cd86fe1",
+    "description": "",
+    "start_time": "2026-05-23T06:23:54+00:00",
+    "end_time": "2026-05-23T07:19:51+00:00",
+    "updated_at": "2026-05-24T12:37:38.258Z",
+    "created_at": "2026-05-23T07:19:02.592Z",
+    "exercises": [
+      {
+        "index": 0,
+        "title": "Seated Leg Curl (Machine)",
+        "notes": "4s eccentric\nset 2 rep 5 started freling in left hip",
+        "exercise_template_id": "11A123F3",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 45,
+            "reps": 12,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 9,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 50,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "title": "Hip Thrust (Machine)",
+        "notes": "band above knees + 3s holds",
+        "exercise_template_id": "68CE0B9B",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "warmup",
+            "weight_kg": 22.7,
+            "reps": 4,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": null,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 62.7,
+            "reps": 12,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 62.7,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 3,
+            "type": "failure",
+            "weight_kg": 62.7,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "title": "Glute Kickback (Machine)",
+        "notes": "3s holds - quads are taking over\n\nloweing chest support and bending supporting knee",
+        "exercise_template_id": "CBA02382",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 18,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 9,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 9,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "title": "Hip Abduction (Machine)",
+        "notes": "3s hold",
+        "exercise_template_id": "F4B4C6EE",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 57,
+            "reps": 10,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 57,
+            "reps": 9,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 50,
+            "reps": 10,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "title": "Hip Adduction (Machine)",
+        "notes": "3s eccentric",
+        "exercise_template_id": "8BEBFED6",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 43,
+            "reps": 13,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 43,
+            "reps": 13,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "title": "Leg Extension (Machine)",
+        "notes": "3s eccentric / quads shaking during eccentric",
+        "exercise_template_id": "75A4F6C4",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 46,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 46,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 46,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "5e0a3800-4a36-4d45-bab8-0b392b341a56",
+    "title": "2026: Push [Tricep Bypass]",
+    "routine_id": "78e56183-a158-419b-80d9-b76d1350a679",
+    "description": "",
+    "start_time": "2026-05-24T12:31:56+00:00",
+    "end_time": "2026-05-24T13:39:24+00:00",
+    "updated_at": "2026-05-26T12:32:48.175Z",
+    "created_at": "2026-05-24T13:38:33.921Z",
+    "exercises": [
+      {
+        "index": 0,
+        "title": "Chest Fly (Machine)",
+        "notes": "Increased from 3 to 4s eccentrics",
+        "exercise_template_id": "78683336",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 93,
+            "reps": 12,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 93,
+            "reps": 9,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 93,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "title": "Incline Chest Press (Machine)",
+        "notes": "increased from 3 to 4s eccentrics",
+        "exercise_template_id": "FBF92739",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 65.4,
+            "reps": 9,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 65.4,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 65.4,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "title": "Lateral Raise (Cable)",
+        "notes": "Used ankle cuffs; increased from 3 to 4s eccentrics",
+        "exercise_template_id": "BE289E45",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 2.3,
+            "reps": 15,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 9.5,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 2.3,
+            "reps": 15,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 3.55,
+            "reps": 13,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "title": "Shoulder Press (Machine Plates)",
+        "notes": "Increased from 3 to 4s eccentric\nSet 2 lower than last time, likely due to increase in lat raise volume + increase to 4s eccentrics across the board",
+        "exercise_template_id": "059E835D",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 45.4,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 45.4,
+            "reps": 5,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 45.4,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "title": "Overhead Triceps Extension (Cable)",
+        "notes": "increase to 4s eccentrics\n\nset1,2 height 13\nset 3 height 12 (better stretch)",
+        "exercise_template_id": "B5EFBF9C",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "title": "Triceps Pushdown",
+        "notes": "4s eccentric",
+        "exercise_template_id": "93A552C6",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 15.9,
+            "reps": 13,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 15.9,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 13.6,
+            "reps": 10,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2b473d29-3442-4aac-a413-b3ca2543660d",
+    "title": "2026: Pull [Bicep Bypass]",
+    "routine_id": "8e7268e0-7617-4798-bf50-3dd421196dbd",
+    "description": "",
+    "start_time": "2026-05-26T12:53:14+00:00",
+    "end_time": "2026-05-26T14:07:14+00:00",
+    "updated_at": "2026-05-26T14:06:21.696Z",
+    "created_at": "2026-05-26T14:06:21.696Z",
+    "exercises": [
+      {
+        "index": 0,
+        "title": "Straight Arm Lat Pulldown (Cable)",
+        "notes": "increased from 3 to 4s eccentrics + versa gripps pro",
+        "exercise_template_id": "D2387AB1",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 24.9,
+            "reps": 10,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 24.9,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 24.9,
+            "reps": 6,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "title": "Pull Up (Assisted)",
+        "notes": "increaes from 3 to 4s eccentrics + versa gripps pro",
+        "exercise_template_id": "2C37EC5E",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 61.2,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 61.2,
+            "reps": 6,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "title": "Iso-Lateral Row (Machine)",
+        "notes": "increased from 3 to 4s eccentrics + versa gripps pro",
+        "exercise_template_id": "AA1EB7D8",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 51.3,
+            "reps": 10,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 51.3,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 51.3,
+            "reps": 6,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "title": "Lat Pulldown (Cable)",
+        "notes": "increased from 3 to 4s eccentrics + versa gripps pro",
+        "exercise_template_id": "6A6C31A5",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 45,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 41.3,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "title": "Rear Delt Reverse Fly (Machine)",
+        "notes": "increased from 3 to 4s eccentrics",
+        "exercise_template_id": "D8281C62",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 45,
+            "reps": 9,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 45,
+            "reps": 8,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 45,
+            "reps": 6,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "title": "Face Pull",
+        "notes": "increases from 3 to 4s eccentric + chest supported bench",
+        "exercise_template_id": "BE640BA0",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": 9,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": 9,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": 7,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "title": "Cable Core Pallof Holds",
+        "notes": "",
+        "exercise_template_id": "ea7381ca-4846-4d9a-918d-b11c1aa86e8f",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": 34,
+            "rpe": null,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": 33,
+            "rpe": null,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": 32,
+            "rpe": null,
+            "custom_metric": null
+          },
+          {
+            "index": 3,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": 30,
+            "rpe": null,
+            "custom_metric": null
+          },
+          {
+            "index": 4,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": 29,
+            "rpe": null,
+            "custom_metric": null
+          },
+          {
+            "index": 5,
+            "type": "failure",
+            "weight_kg": 6.8,
+            "reps": null,
+            "distance_meters": null,
+            "duration_seconds": 34,
+            "rpe": null,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "title": "Behind the Back Curl (Cable)",
+        "notes": "increased from 3 to 4s eccentric standing pulley at 5",
+        "exercise_template_id": "2DBCA395",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 9,
+            "reps": 10,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 9,
+            "reps": 10,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 2,
+            "type": "failure",
+            "weight_kg": 9,
+            "reps": 9,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      },
+      {
+        "index": 8,
+        "title": "Hammer Curl (Cable)",
+        "notes": "4s eccentric",
+        "exercise_template_id": "36E8F14E",
+        "superset_id": null,
+        "sets": [
+          {
+            "index": 0,
+            "type": "failure",
+            "weight_kg": 9,
+            "reps": 11,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          },
+          {
+            "index": 1,
+            "type": "failure",
+            "weight_kg": 9,
+            "reps": 9,
+            "distance_meters": null,
+            "duration_seconds": null,
+            "rpe": 10,
+            "custom_metric": null
+          }
+        ]
+      }
+    ]
   }
 ]
