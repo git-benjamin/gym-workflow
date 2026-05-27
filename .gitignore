@@ -5,6 +5,7 @@
 !.env.example
 reviews/
 chats/
+garmin_export/
 
 # Tooling state
 .claude/*
