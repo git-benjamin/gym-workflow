@@ -33,6 +33,8 @@ Mon 4/5/26 4mg 40/100 units new batch
 didn’t really notice much but i’ve been eating a lot more protein approx 180g and fibre approx 20-30g
 Mon 11/5/26 4mg 80/100 units
 Mon 18/5/26 4mg 100/100 units + 20/100
-Mon 25/5/26 4mg 60/100 units
-Mon 1/6/26 4mg 100/100 units
+Mon 25/5/26 3mg 60/100 units
+Mon 1/6/26 2mg 100/100 units
+Mon 8/6/26 2mg
+Mon 15/6/26 1mg
 
