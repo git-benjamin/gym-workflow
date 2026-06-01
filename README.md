@@ -1,14 +1,92 @@
-# TODO:
-- Check out Hermes Agent https://hermes-agent.nousresearch.com/docs/
-- Check out Z AI
+# gym-workflow (archived)
 
-# gym-workflow
+> **Archived 2026-06-01.** The personal health-data warehouse half of this
+> repo has been migrated into the `os` life-OS repo under `health/`,
+> `tools/`, and `garmin_export/`. The Hevy webhook + chat agent (`app/`)
+> remains here in maintenance mode; no further work is expected. The
+> sections below describe the repo as it stood before the migration and
+> are preserved for context.
 
-Personal workflow that fires when a [Hevy](https://www.hevyapp.com/) workout
-completes, reviews the session against the planned routine using Gemini, and
-surfaces ad-hoc questions over the user's training history through a chat
-agent. The optimiser may suggest edits to routine notes, planned weights, and
-rep ranges — but never adds, removes, or reorders exercises in routines.
+A personal health-data warehouse plus a Hevy webhook subsystem that feeds
+training data into it. Started as a Hevy post-workout review tool, now
+primarily a place to land, derive, and analyse data from every health
+signal the author tracks.
+
+## Layout
+
+```
+profile.md                    Training + biomechanics context (used by app + analyses)
+README.md                     This file
+
+app/                          Hevy webhook + chat agent (TypeScript / pnpm)
+  api/                          Hono server, Hevy client, Gemini reviewer
+  ui/                           Expo app (chat over /api/chat)
+  shared/                       Zod schemas shared between api and ui
+  examples/                     Reference Hevy artefacts (workout, routine, review, diff)
+  hevy-openapi.yaml             Hevy API spec
+
+health/                       Personal health warehouse
+  training/                     Hevy training data (raw + combined + trend reports)
+    workouts/{year}/              Per-workout JSONs (one file per session)
+    workouts-{year}.json          Combined yearly file
+    routines/                     Per-routine JSONs (deduped)
+    trend-reports/                Generated yearly trend reports
+  body/                         Weight + body comp (Renpho CSV, DEXA snapshots)
+  sleep/                        CPAP — ResMed report + OSCAR exports + per-night drill-downs
+  garmin/                       Garmin GDPR export distilled into plot-ready CSVs + analyses
+  nutrition/                    Daily/weekly nutrition + baseline protocol
+  meds/                         Prescription log (currently retatrutide)
+  vitamins/                     Supplement protocol
+  cardio/                       Cycling history
+  reports/                      Cross-domain syntheses (GP letter, holistic analysis)
+
+tools/                        One-shot scripts not tied to a specific data domain
+  data_migration/               Strong + Repcount CSVs → Hevy-importable CSV
+
+garmin_export/                Raw Garmin GDPR dump (gitignored, 35 MB)
+chats/, reviews/              App runtime state (gitignored)
+docs/                         Design specs + project docs
+```
+
+Most analyses live next to their data. `health/garmin/ingest.py` walks
+`garmin_export/` and writes the distilled CSVs alongside it.
+`health/sleep/oscar_analyse.py` reads the OSCAR CSV and emits the
+trend-level analysis in the same folder. Same pattern for HR and sleep
+analyses. The exception is the Hevy app, which is too large to inline.
+
+## Health analyses — what's where
+
+| Path | What |
+|---|---|
+| [health/garmin/ingest.py](health/garmin/ingest.py) | Distil GDPR export → `daily_metrics.csv`, `sleep_summary.csv`, `vo2max.csv`, `workout_hr_aligned.csv`, `sleep_cpap_compare.md` |
+| [health/garmin/analyse_hr.py](health/garmin/analyse_hr.py) | RHR / HRV by reta phase, dose, workout, sleep → `hr_analysis.md` |
+| [health/garmin/analyse_sleep.py](health/garmin/analyse_sleep.py) | Sleep duration / quality / continuity → `sleep_analysis.md` |
+| [health/sleep/oscar_analyse.py](health/sleep/oscar_analyse.py) | 7 years of CPAP data trend analysis → `oscar_analysis.md` |
+| [health/sleep/oscar_details_analyse.py](health/sleep/oscar_details_analyse.py) | Per-night event clustering on representative dates → `details_analysis.md` |
+| [tools/data_migration/migrate.py](tools/data_migration/migrate.py) | One-shot Strong + Repcount → Hevy CSV migration |
+
+Re-run any analysis with `python3 <path>` from the repo root.
+
+## Health reports — for sharing
+
+- [health/reports/gp-letter-2026-05-27.md](health/reports/gp-letter-2026-05-27.md) — patient-prepared brief for GP consult
+- [health/reports/holistic-health-analysis-2026-05-27.md](health/reports/holistic-health-analysis-2026-05-27.md) — personal synthesis across all data sources
+
+## Design specs
+
+Repo restructure spec:
+[docs/superpowers/specs/2026-05-27-repo-restructure-design.md](docs/superpowers/specs/2026-05-27-repo-restructure-design.md)
+
+---
+
+# App (Hevy webhook + chat agent)
+
+A workflow that fires when a [Hevy](https://www.hevyapp.com/) workout
+completes, reviews the session against the planned routine using Gemini,
+and surfaces ad-hoc questions over the user's training history through a
+chat agent. The optimiser may suggest edits to routine notes, planned
+weights, and rep ranges — but never adds, removes, or reorders exercises
+in routines.
 
 ## The loop
 
@@ -62,15 +140,15 @@ If the agent ever proposes a note that drops existing content,
 `compute_routine_update` refuses the edit and surfaces it in the `errors`
 array — so the rule is a guarantee, not a hope.
 
-### Reference artifacts in [`examples/`](examples)
+### Reference artifacts in [`app/examples/`](app/examples)
 
 Generated by `pnpm api:post-workout` against the latest workout:
 
-- [`examples/workout.json`](examples/workout.json) — Hevy workout shape
-- [`examples/routine.json`](examples/routine.json) — Hevy routine shape
-- [`examples/review.json`](examples/review.json) — `WorkoutReview` (rating, summary, per-exercise + structured edits)
-- [`examples/proposed-routine-update.json`](examples/proposed-routine-update.json) — body to `PUT` to `/v1/routines/{id}`
-- [`examples/post-workout-diff.md`](examples/post-workout-diff.md) — human-readable diff
+- [`app/examples/workout.json`](app/examples/workout.json) — Hevy workout shape
+- [`app/examples/routine.json`](app/examples/routine.json) — Hevy routine shape
+- [`app/examples/review.json`](app/examples/review.json) — `WorkoutReview` (rating, summary, per-exercise + structured edits)
+- [`app/examples/proposed-routine-update.json`](app/examples/proposed-routine-update.json) — body to `PUT` to `/v1/routines/{id}`
+- [`app/examples/post-workout-diff.md`](app/examples/post-workout-diff.md) — human-readable diff
 
 Re-run `pnpm api:dump-latest` (workout + routine only) or `pnpm api:post-workout`
 (full flow including review + proposed update) whenever a new reference is needed.
@@ -90,9 +168,9 @@ the patch payload.
 
 ```
                           ┌────────────────────┐
-   Hevy ──webhook──▶      │    apps/api        │
+   Hevy ──webhook──▶      │     app/api        │
                           │  Hono + Gemini     │
-   apps/ui (Expo) ──────▶ │  POST /webhook/hevy│
+   app/ui (Expo) ───────▶ │  POST /webhook/hevy│
    chat over /api/chat    │  POST /api/chat    │
                           └─────────┬──────────┘
                                     │
@@ -104,13 +182,13 @@ the patch payload.
 
 | Path | What |
 | --- | --- |
-| [apps/api/src/hevy.ts](apps/api/src/hevy.ts) | Hevy client: typed errors, retry on 429/5xx, Zod-validated responses |
-| [apps/api/src/review.ts](apps/api/src/review.ts) | Gemini-backed reviewer with structured output + longitudinal exercise history |
-| [apps/api/src/chat-agent.ts](apps/api/src/chat-agent.ts) | Function-calling agent for the chat surface |
-| [apps/api/src/store.ts](apps/api/src/store.ts) | Local JSON store: `reviews/{workoutId}.json`, `chats/{sessionId}.json` |
-| [apps/api/src/server.ts](apps/api/src/server.ts) | Hono server, bearer auth on `/api/*` |
-| [apps/ui](apps/ui) | Expo app (iOS / Android / web) |
-| [packages/shared](packages/shared) | Zod schemas shared between api and ui |
+| [app/api/src/hevy.ts](app/api/src/hevy.ts) | Hevy client: typed errors, retry on 429/5xx, Zod-validated responses |
+| [app/api/src/review.ts](app/api/src/review.ts) | Gemini-backed reviewer with structured output + longitudinal exercise history |
+| [app/api/src/chat-agent.ts](app/api/src/chat-agent.ts) | Function-calling agent for the chat surface |
+| [app/api/src/store.ts](app/api/src/store.ts) | Local JSON store: `reviews/{workoutId}.json`, `chats/{sessionId}.json` |
+| [app/api/src/server.ts](app/api/src/server.ts) | Hono server, bearer auth on `/api/*` |
+| [app/ui](app/ui) | Expo app (iOS / Android / web) |
+| [app/shared](app/shared) | Zod schemas shared between api and ui |
 
 ## Setup
 
@@ -125,8 +203,11 @@ API_TOKEN=...                     # any random string; bearer for /api/*
 GEMINI_MODEL=gemini-2.5-flash     # optional; flash-lite has higher free-tier RPD
 
 pnpm api:smoke         # verify Hevy client against your account
-pnpm api:dump-latest   # dump latest workout + routine to examples/
-pnpm api:post-workout  # full review + proposed-update artifacts in examples/
+pnpm api:dump-latest   # dump latest workout + routine to app/examples/
+pnpm api:post-workout  # full review + proposed-update artifacts in app/examples/
+pnpm api:fetch-year    # pull all workouts + routines for the current year
+pnpm api:combine-year  # combine into health/training/workouts-{year}.json
+pnpm api:trend-report  # build a full trend report
 pnpm api:dev           # start the server on http://localhost:3000
 pnpm ui:dev            # start the Expo dev server
 ```
@@ -138,7 +219,7 @@ required.
 
 ### Schema notes
 
-Response wrapping is inconsistent across endpoints — [packages/shared](packages/shared/src/hevy.ts)
+Response wrapping is inconsistent across endpoints — [app/shared](app/shared/src/hevy.ts)
 encodes each shape as a Zod schema and the client unwraps where useful:
 
 | Endpoint | Shape |
@@ -158,7 +239,7 @@ not by `index` — workout order may differ from routine order.
 
 ### Error handling & retry
 
-[apps/api/src/hevy.ts](apps/api/src/hevy.ts) maps HTTP status to typed
+[app/api/src/hevy.ts](app/api/src/hevy.ts) maps HTTP status to typed
 exception classes:
 
 - `AuthenticationError` (401/403), `ValidationError` (400),
@@ -183,7 +264,7 @@ Hevy POSTs to a subscribed URL when a workout is saved. Payload:
 ```
 
 Must respond `200 OK` within 5 seconds.
-[apps/api/src/routes/webhook.ts](apps/api/src/routes/webhook.ts) acks
+[app/api/src/routes/webhook.ts](app/api/src/routes/webhook.ts) acks
 immediately and runs the review in the background — Gemini takes 5-15s.
 Idempotency is free: the reviewer short-circuits on cached reviews, so Hevy
 retries don't double-bill Gemini.
