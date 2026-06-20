@@ -45,3 +45,9 @@ jobs:
           SUPABASE_S3_SECRET: ${{ secrets.SUPABASE_S3_SECRET }}
           SUPABASE_S3_REGION: ${{ secrets.SUPABASE_S3_REGION }}
         run: python sync.py
+
+      - name: Ingest workout sets into Supabase Postgres
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: python pg_ingest.py
