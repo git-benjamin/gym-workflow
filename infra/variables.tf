@@ -4,6 +4,12 @@ variable "supabase_db_url" {
   sensitive   = true
 }
 
+variable "supabase_management_token" {
+  description = "Supabase personal access token — from supabase.com/dashboard/account/tokens"
+  type        = string
+  sensitive   = true
+}
+
 variable "supabase_url" {
   description = "Supabase project URL (e.g. https://<ref>.supabase.co)"
   type        = string

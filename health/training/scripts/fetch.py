@@ -2,8 +2,9 @@
 fetch.py — Pull workouts and routines from Hevy API to JSON files.
 
 Usage:
-  python fetch.py                        # paginate all workouts for current year
-  python fetch.py --workout-id <id>      # fetch single workout by ID
+  python fetch.py                          # paginate all workouts for current year
+  python fetch.py --workout-id <id>        # fetch single workout by ID
+  python fetch.py --start-year 2020        # backfill all workouts from 2020 onwards
 """
 from __future__ import annotations
 import argparse
@@ -96,27 +97,57 @@ def fetch_all_workouts(api_key: str, year: int, workouts_dir: Path) -> list[dict
     return results
 
 
+def fetch_all_workouts_since(api_key: str, start_year: int, training_dir: Path) -> dict[int, list[dict]]:
+    """Fetch all workouts from start_year to now, saving to per-year dirs. Idempotent."""
+    cutoff = f"{start_year}-01-01T00:00:00"
+    page, page_count = 1, 1
+    by_year: dict[int, list[dict]] = {}
+
+    while page <= page_count:
+        data = _get(f"{BASE_URL}/v1/workouts", api_key, page=page, pageSize=PAGE_SIZE)
+        page_count = data["page_count"]
+        for w in data["workouts"]:
+            if w["start_time"] < cutoff:
+                continue
+            year = int(w["start_time"][:4])
+            workouts_dir = training_dir / "workouts" / str(year)
+            workouts_dir.mkdir(parents=True, exist_ok=True)
+            save_workout(w, workouts_dir)
+            by_year.setdefault(year, []).append(w)
+        page += 1
+
+    return by_year
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--workout-id", default="")
+    parser.add_argument("--start-year", type=int, default=0)
     args = parser.parse_args()
 
     api_key = os.environ["HEVY_API_KEY"]
-    year = datetime.now(timezone.utc).year
-    workouts_dir = TRAINING_DIR / "workouts" / str(year)
     routines_dir = TRAINING_DIR / "routines"
-    workouts_dir.mkdir(parents=True, exist_ok=True)
     routines_dir.mkdir(parents=True, exist_ok=True)
 
     if args.workout_id:
+        year = datetime.now(timezone.utc).year
+        workouts_dir = TRAINING_DIR / "workouts" / str(year)
+        workouts_dir.mkdir(parents=True, exist_ok=True)
         workout = fetch_by_id(args.workout_id, api_key)
         save_workout(workout, workouts_dir)
-        workouts = [workout]
+        all_workouts = [workout]
+    elif args.start_year:
+        by_year = fetch_all_workouts_since(api_key, args.start_year, TRAINING_DIR)
+        all_workouts = [w for ws in by_year.values() for w in ws]
+        print(f"backfill: {sum(len(v) for v in by_year.values())} workouts across years {sorted(by_year)}")
     else:
-        workouts = fetch_all_workouts(api_key, year, workouts_dir)
+        year = datetime.now(timezone.utc).year
+        workouts_dir = TRAINING_DIR / "workouts" / str(year)
+        workouts_dir.mkdir(parents=True, exist_ok=True)
+        all_workouts = fetch_all_workouts(api_key, year, workouts_dir)
 
     seen_routine_ids: set[str] = set()
-    for w in workouts:
+    for w in all_workouts:
         rid = w.get("routine_id")
         if rid and rid not in seen_routine_ids:
             routine = fetch_routine(rid, api_key)
@@ -124,7 +155,7 @@ def main():
                 save_routine(routine, routines_dir)
             seen_routine_ids.add(rid)
 
-    print(f"done: {len(workouts)} workouts processed")
+    print(f"done: {len(all_workouts)} workouts processed")
 
 
 if __name__ == "__main__":

@@ -19,10 +19,11 @@ terraform {
     access_key = "70e52c460591b6a3555704cb91766b91"
     secret_key = "5114d2cc221b8809a45f0c4d65721785bc50868412ce91bd0d69338c2e917d39"
 
-    skip_credentials_validation = true
-    skip_metadata_api_check     = true
-    skip_region_validation      = true
-    force_path_style            = true
+    skip_credentials_validation  = true
+    skip_metadata_api_check      = true
+    skip_region_validation       = true
+    skip_requesting_account_id   = true
+    use_path_style               = true
   }
 
   required_providers {

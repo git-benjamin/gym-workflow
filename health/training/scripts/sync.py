@@ -3,8 +3,13 @@ sync.py — Read workout/routine JSON files and write consolidated Parquet to Su
 
 Idempotent: safe to re-run. Workouts deduplicated by workout_id.
 Routines append-only: new version rows added only when updated_at changes.
+
+Usage:
+  python sync.py                   # sync current year
+  python sync.py --start-year 2020 # sync all years from 2020 onwards
 """
 from __future__ import annotations
+import argparse
 import json
 import os
 from datetime import datetime, timezone
@@ -138,11 +143,24 @@ def sync_routines(conn: duckdb.DuckDBPyConnection, routines_dir: Path):
 
 
 def main():
-    year = datetime.now(timezone.utc).year
-    workouts_dir = TRAINING_DIR / "workouts" / str(year)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--start-year", type=int, default=0)
+    args = parser.parse_args()
+
+    current_year = datetime.now(timezone.utc).year
     routines_dir = TRAINING_DIR / "routines"
     conn = get_conn()
-    sync_workouts(conn, workouts_dir, year)
+
+    if args.start_year:
+        years = range(args.start_year, current_year + 1)
+    else:
+        years = [current_year]
+
+    for year in years:
+        workouts_dir = TRAINING_DIR / "workouts" / str(year)
+        if workouts_dir.exists():
+            sync_workouts(conn, workouts_dir, year)
+
     sync_routines(conn, routines_dir)
 
 

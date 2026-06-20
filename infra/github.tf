@@ -17,5 +17,5 @@ resource "github_actions_secret" "hevy_analytics" {
 
   repository      = var.github_repo
   secret_name     = each.key
-  plaintext_value = each.value
+  value = each.value
 }

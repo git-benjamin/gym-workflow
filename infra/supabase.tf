@@ -1,5 +1,4 @@
-# analyses table — psql via Supabase connection string
-# Connection string format: postgresql://postgres:[password]@db.[ref].supabase.co:5432/postgres
+# analyses table — via Supabase Management API (avoids direct DB IPv6 connectivity requirement)
 resource "null_resource" "analyses_table" {
   triggers = {
     schema_hash = sha256(<<-SQL
@@ -19,18 +18,11 @@ resource "null_resource" "analyses_table" {
 
   provisioner "local-exec" {
     command = <<-BASH
-      psql "${var.supabase_db_url}" -c "
-        CREATE TABLE IF NOT EXISTS public.analyses (
-          id           SERIAL PRIMARY KEY,
-          type         TEXT        NOT NULL,
-          workout_id   TEXT        NOT NULL UNIQUE,
-          generated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-          content      TEXT        NOT NULL,
-          model        TEXT        NOT NULL,
-          tokens_used  INTEGER
-        );
-        GRANT SELECT, INSERT, UPDATE, DELETE ON public.analyses TO service_role;
-      "
+      curl -sf -X POST "https://api.supabase.com/v1/projects/jpykvykkiyeblcfzrdio/database/query" \
+        -H "Authorization: Bearer ${var.supabase_management_token}" \
+        -H "Content-Type: application/json" \
+        -d '{"query":"CREATE TABLE IF NOT EXISTS public.analyses (id SERIAL PRIMARY KEY, type TEXT NOT NULL, workout_id TEXT NOT NULL UNIQUE, generated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), content TEXT NOT NULL, model TEXT NOT NULL, tokens_used INTEGER); GRANT SELECT, INSERT, UPDATE, DELETE ON public.analyses TO service_role;"}' \
+        && echo "analyses table ready"
     BASH
   }
 }

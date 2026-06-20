@@ -1,4 +1,4 @@
-resource "cloudflare_worker_script" "hevy_webhook" {
+resource "cloudflare_workers_script" "hevy_webhook" {
   account_id = var.cloudflare_account_id
   name       = "hevy-webhook"
   content    = file("${path.module}/../cloudflare/hevy-webhook/worker.js")
