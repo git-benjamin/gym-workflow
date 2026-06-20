@@ -1,0 +1,334 @@
+{
+  "id": "208825c5-d4d8-4963-85ea-06d2afeb6c04",
+  "title": "2026: Pull [Bicep Bypass]",
+  "routine_id": "8e7268e0-7617-4798-bf50-3dd421196dbd",
+  "description": "",
+  "start_time": "2026-06-18T12:42:28+00:00",
+  "end_time": "2026-06-18T14:04:28+00:00",
+  "updated_at": "2026-06-18T14:04:32.782Z",
+  "created_at": "2026-06-18T14:04:32.782Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Straight Arm Lat Pulldown (Cable)",
+      "notes": "assume: 3s eccentrics with versa grips pro at neutral grip on all pull exercises",
+      "exercise_template_id": "D2387AB1",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 24.9,
+          "reps": 9,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 22.7,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 20.4,
+          "reps": 9,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Pull Up (Assisted)",
+      "notes": "",
+      "exercise_template_id": "2C37EC5E",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 61.2,
+          "reps": 9,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 61.2,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Iso-Lateral Row (Machine)",
+      "notes": "",
+      "exercise_template_id": "AA1EB7D8",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 51.3,
+          "reps": 9,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 51.3,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 51.3,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Lat Pulldown (Cable)",
+      "notes": "",
+      "exercise_template_id": "6A6C31A5",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 39,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 39,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Rear Delt Reverse Fly (Cable)",
+      "notes": "",
+      "exercise_template_id": "C315DC2A",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 4.6,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 4.6,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "title": "Face Pull",
+      "notes": "",
+      "exercise_template_id": "BE640BA0",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": 11,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": 9,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "title": "Cable Core Pallof Holds",
+      "notes": "",
+      "exercise_template_id": "ea7381ca-4846-4d9a-918d-b11c1aa86e8f",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 38,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 38,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 41,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 38,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 39,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 5,
+          "type": "failure",
+          "weight_kg": 6.8,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 41,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "title": "Behind the Back Curl (Cable)",
+      "notes": "",
+      "exercise_template_id": "2DBCA395",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 9,
+          "reps": 13,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 9,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 13.6,
+          "reps": 9,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "failure",
+          "weight_kg": 13.6,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+terraform {
+  required_version = ">= 1.6"
+
+  # State stored in Supabase Storage (S3-compatible) — same infra as workout Parquet.
+  # Before first `terraform init`, create a bucket named "terraform-state" in Supabase
+  # Storage dashboard (one-time manual step — can't bootstrap with Terraform itself).
+  # Then set env vars or fill in the values below from Project Settings > Storage > S3.
+  backend "s3" {
+    bucket = "terraform-state"
+    key    = "gym-workflow/terraform.tfstate"
+    region = "ap-southeast-2"  # your Supabase project region
+
+    # Supabase S3 endpoint — from Storage > S3 Connection in Supabase dashboard
+    # Format: {ref}.supabase.co/storage/v1/s3  (no https://)
+    endpoints = {
+      s3 = "https://jpykvykkiyeblcfzrdio.storage.supabase.co/storage/v1/s3"
+    }
+
+    access_key = "70e52c460591b6a3555704cb91766b91"
+    secret_key = "5114d2cc221b8809a45f0c4d65721785bc50868412ce91bd0d69338c2e917d39"
+
+    skip_credentials_validation  = true
+    skip_metadata_api_check      = true
+    skip_region_validation       = true
+    skip_requesting_account_id   = true
+    use_path_style               = true
+  }
+
+  required_providers {
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.0"
+    }
+    github = {
+      source  = "integrations/github"
+      version = "~> 6.0"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.0"
+    }
+  }
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
+}
+
+provider "github" {
+  token = var.github_token
+  owner = var.github_owner
+}

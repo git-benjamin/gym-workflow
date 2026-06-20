@@ -1,0 +1,55 @@
+name: Hevy Backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      start_year:
+        description: 'Fetch and sync all workouts from this year onwards'
+        required: true
+        default: '2015'
+        type: string
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: health/training/scripts
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: health/training/scripts/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch all workouts from Hevy
+        env:
+          HEVY_API_KEY: ${{ secrets.HEVY_API_KEY }}
+        run: python fetch.py --start-year ${{ inputs.start_year }}
+
+      - name: Sync all years to Parquet on Supabase Storage
+        env:
+          SUPABASE_BUCKET: ${{ secrets.SUPABASE_BUCKET }}
+          SUPABASE_S3_ENDPOINT: ${{ secrets.SUPABASE_S3_ENDPOINT }}
+          SUPABASE_S3_KEY: ${{ secrets.SUPABASE_S3_KEY }}
+          SUPABASE_S3_SECRET: ${{ secrets.SUPABASE_S3_SECRET }}
+          SUPABASE_S3_REGION: ${{ secrets.SUPABASE_S3_REGION }}
+        run: python sync.py --start-year ${{ inputs.start_year }}
+
+      - name: Analyse all unanalysed workouts
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SUPABASE_BUCKET: ${{ secrets.SUPABASE_BUCKET }}
+          SUPABASE_S3_ENDPOINT: ${{ secrets.SUPABASE_S3_ENDPOINT }}
+          SUPABASE_S3_KEY: ${{ secrets.SUPABASE_S3_KEY }}
+          SUPABASE_S3_SECRET: ${{ secrets.SUPABASE_S3_SECRET }}
+          SUPABASE_S3_REGION: ${{ secrets.SUPABASE_S3_REGION }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python analyse.py
