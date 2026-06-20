@@ -1,15 +1,11 @@
 name: Hevy AI Analysis
 
 on:
-  workflow_run:
-    workflows: ["Hevy Sync"]
-    types: [completed]
   workflow_dispatch:
 
 jobs:
   analyse:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     defaults:
       run:
         working-directory: health/training/scripts
