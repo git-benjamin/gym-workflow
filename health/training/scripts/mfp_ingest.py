@@ -35,7 +35,7 @@ def ingest_weight(client: myfitnesspal.Client, sb, start_date: date) -> int:
         return 0
 
     rows = [
-        {"date": str(d), "weight_kg": round(float(v) * 0.453592, 2) if v else None}
+        {"date": str(d), "weight_kg": round(float(v), 2) if v else None}
         for d, v in measurements.items()
         if v is not None
     ]
