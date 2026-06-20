@@ -132,12 +132,6 @@ def build_prompt(workout_df: pd.DataFrame, prior_df: pd.DataFrame, routine_df: p
     )
 
 
-def get_unanalysed_workout_ids(all_ids: list[str], supabase_client) -> list[str]:
-    result = supabase_client.table("analyses").select("workout_id").execute()
-    analysed = {r["workout_id"] for r in result.data}
-    return [wid for wid in all_ids if wid not in analysed]
-
-
 def load_context(conn, workout_id: str, year: int):
     workouts_path = s3_path(f"data/workouts_{year}.parquet")
     routines_path = s3_path("data/routines.parquet")
@@ -245,15 +239,24 @@ def main():
     supabase_client = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_KEY"])
 
     workouts_path = s3_path(f"data/workouts_{year}.parquet")
-    all_ids = conn.execute(f"""
-        SELECT DISTINCT workout_id FROM read_parquet('{workouts_path}')
-    """).df()["workout_id"].tolist()
+    latest = conn.execute(f"""
+        SELECT workout_id FROM read_parquet('{workouts_path}')
+        ORDER BY start_time DESC
+        LIMIT 1
+    """).df()
 
-    to_analyse = get_unanalysed_workout_ids(all_ids, supabase_client)
-    print(f"Found {len(to_analyse)} workouts to analyse.")
+    if latest.empty:
+        print("No workouts found.")
+        return
 
-    for wid in to_analyse:
-        analyse_workout(wid, conn, supabase_client, gemini_client, year)
+    workout_id = latest["workout_id"].iloc[0]
+
+    existing = supabase_client.table("analyses").select("workout_id").eq("workout_id", workout_id).execute()
+    if existing.data:
+        print(f"{workout_id}: already analysed.")
+        return
+
+    analyse_workout(workout_id, conn, supabase_client, gemini_client, year)
 
 
 if __name__ == "__main__":
