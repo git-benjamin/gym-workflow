@@ -1,0 +1,551 @@
+{
+  "id": "8f83dfd1-95d1-460f-b2b4-f7e178f192be",
+  "title": "Ryan Humiston - Push",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2022-02-05T09:11:44+00:00",
+  "end_time": "2022-02-05T10:42:44+00:00",
+  "updated_at": "2026-05-06T00:31:55.843Z",
+  "created_at": "2026-05-06T00:31:55.843Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Cable Crossover (Low)",
+      "notes": "",
+      "exercise_template_id": "ed312223-c6b3-4721-a554-f8e1fe5a40fa",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 6.25,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 6.25,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 6.25,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Cable Fly Crossovers",
+      "notes": "",
+      "exercise_template_id": "651F844C",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 8.75,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 8.75,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 8.75,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Cable Crossover (High)",
+      "notes": "",
+      "exercise_template_id": "bf83e68e-b6a0-47ca-aa48-68b048950e59",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 11.25,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 11.25,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 11.25,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Incline Bench Press (Barbell)",
+      "notes": "",
+      "exercise_template_id": "50DFDFAB",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 80,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 80,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 80,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Front Raise (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "8293E554",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "title": "Lateral Raise (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "422B08F1",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "title": "Rear Delt Extensions",
+      "notes": "",
+      "exercise_template_id": "ed34caff-4682-4259-ab1e-0db1c3597fe4",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 5,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "title": "Kneeling Push Up",
+      "notes": "",
+      "exercise_template_id": "B74A95BB",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "title": "Butterfly (Pec Deck)",
+      "notes": "",
+      "exercise_template_id": "9DCE2D64",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 77,
+          "reps": 11,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 77,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 77,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 77,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 68,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "title": "Triceps Pushdown",
+      "notes": "",
+      "exercise_template_id": "93A552C6",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 21.25,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 21.25,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 21.25,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 21.25,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "title": "Cable Kickback",
+      "notes": "",
+      "exercise_template_id": "9979dffd-f7b0-4a2d-ab21-3cf9eef05fa1",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 3.75,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 3.75,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 3.75,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 3.75,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

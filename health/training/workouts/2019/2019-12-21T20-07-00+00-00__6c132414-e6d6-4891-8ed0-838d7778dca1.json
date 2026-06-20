@@ -1,0 +1,248 @@
+{
+  "id": "6c132414-e6d6-4891-8ed0-838d7778dca1",
+  "title": "Chest",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2019-12-21T20:07:00+00:00",
+  "end_time": "2019-12-21T21:13:00+00:00",
+  "updated_at": "2026-05-06T00:30:23.036Z",
+  "created_at": "2026-05-06T00:30:23.036Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Bench Press",
+      "notes": "",
+      "exercise_template_id": "f8a3998a-8d21-4c87-964a-6d9cbe80783e",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 55,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 55,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 55,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 55,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 55,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Cable Crossovers",
+      "notes": "",
+      "exercise_template_id": "9bfee4e8-dec2-4a26-9195-30e97d169cbd",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 6.25,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 6.25,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 6.25,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 6.25,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 6.25,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Triceps Cable Pushdown",
+      "notes": "",
+      "exercise_template_id": "7cd7ad01-175b-461d-9fa6-e551d1d8085b",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 18,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 18,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 18,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 18,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 18,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Incline Dumbbell Press",
+      "notes": "",
+      "exercise_template_id": "96ecab88-6a52-496b-8e61-9a7b1c9b7fa6",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 18,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 18,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 18,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 18,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 18,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

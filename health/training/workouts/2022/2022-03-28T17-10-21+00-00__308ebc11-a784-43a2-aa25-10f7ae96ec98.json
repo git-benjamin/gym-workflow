@@ -1,0 +1,286 @@
+{
+  "id": "308ebc11-a784-43a2-aa25-10f7ae96ec98",
+  "title": "Pull (Built With Science)",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2022-03-28T17:10:21+00:00",
+  "end_time": "2022-03-28T18:08:21+00:00",
+  "updated_at": "2026-05-06T00:32:18.143Z",
+  "created_at": "2026-05-06T00:32:18.143Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Deadlift (Barbell)",
+      "notes": "",
+      "exercise_template_id": "C6272009",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 100,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 100,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 100,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 100,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 100,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Bent Over Row (Barbell)",
+      "notes": "",
+      "exercise_template_id": "55E6546F",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 77,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 77,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 77,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 77,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 77,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Shrug (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "ABEC557F",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 30,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 35,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 35,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 35,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Seated Bicep Curl (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "ba15b8a7-ae04-41db-a22f-23f84aa9ca48",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 15,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 15,
+          "reps": 4,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 10,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 10,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Hammer Curl (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "7E3BC8B6",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 10,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 10,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 10,
+          "reps": 20,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "title": "Overhand Dumbbell Curl",
+      "notes": "",
+      "exercise_template_id": "45abf1e5-ea1a-483c-8733-c6e0d927c21c",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 10,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

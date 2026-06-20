@@ -1,0 +1,178 @@
+{
+  "id": "c7dec1db-8e83-4801-8d25-32c63d6f6c83",
+  "title": "Legs (Built With Science)",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2022-05-07T13:51:44+00:00",
+  "end_time": "2022-05-07T14:53:44+00:00",
+  "updated_at": "2026-05-06T00:32:38.371Z",
+  "created_at": "2026-05-06T00:32:38.371Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Hip Thrust (Barbell)",
+      "notes": "",
+      "exercise_template_id": "D57C2EC7",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 20,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 14,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Good Morning (Barbell)",
+      "notes": "",
+      "exercise_template_id": "4180C405",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 20,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 30,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 30,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 30,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Squat (Barbell)",
+      "notes": "",
+      "exercise_template_id": "D04AC939",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 30,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 30,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Glute Medius Kickback (Machine)",
+      "notes": "",
+      "exercise_template_id": "ef0f3ffb-268b-4d61-88f8-0d3c0f4f9c36",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 8.75,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 8.75,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 8.75,
+          "reps": 20,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

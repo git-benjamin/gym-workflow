@@ -1,0 +1,70 @@
+{
+  "id": "f62b608d-0db7-47bb-b9a4-c26d221f553a",
+  "title": "Evening workout \ud83c\udfcb\ufe0f",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2022-05-17T12:19:58+00:00",
+  "end_time": "2022-05-17T12:32:52+00:00",
+  "updated_at": "2022-05-17T12:32:56.812Z",
+  "created_at": "2022-05-17T12:32:56.812Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Standing Cable Glute Kickbacks",
+      "notes": "",
+      "exercise_template_id": "ACB2751D",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 11.25,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 11.25,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Cable Hip Abduction",
+      "notes": "",
+      "exercise_template_id": "fb246ed6-ed85-4eb5-b511-56e854578944",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 3.75,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 3.75,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

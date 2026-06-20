@@ -1,0 +1,297 @@
+{
+  "id": "dc6163e8-4706-469e-b2e1-9556ad176a97",
+  "title": "JN Pull (Jul 10 2023)",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2024-09-18T05:46:44+00:00",
+  "end_time": "2024-09-18T06:35:07+00:00",
+  "updated_at": "2024-09-18T06:35:08.763Z",
+  "created_at": "2024-09-18T06:35:08.763Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Bent Over Row (Barbell)",
+      "notes": "",
+      "exercise_template_id": "55E6546F",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 20,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "failure",
+          "weight_kg": 70,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "failure",
+          "weight_kg": 70,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Lat Pulldown (Cable)",
+      "notes": "",
+      "exercise_template_id": "6A6C31A5",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 45,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 52,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 52,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "failure",
+          "weight_kg": 45,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Single Arm Cable Row",
+      "notes": "",
+      "exercise_template_id": "D0C4A899",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 18,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 18,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 25,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "failure",
+          "weight_kg": 25,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "failure",
+          "weight_kg": 32,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 5,
+          "type": "failure",
+          "weight_kg": 32,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 6,
+          "type": "failure",
+          "weight_kg": 39,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 7,
+          "type": "failure",
+          "weight_kg": 39,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Rear Delt Reverse Fly (Machine)",
+      "notes": "",
+      "exercise_template_id": "D8281C62",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 52,
+          "reps": 11,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 52,
+          "reps": 9,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 52,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "failure",
+          "weight_kg": 52,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Bicep Curl (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "37FCC2BB",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 20,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 20,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 20,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

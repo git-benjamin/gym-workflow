@@ -1,0 +1,325 @@
+{
+  "id": "69fab22c-0456-4506-9a2b-95a5fb2d43d0",
+  "title": "D2: Upper Body (Strength)",
+  "routine_id": "9533968d-07e6-4cdf-a3f5-a58a9cd86fe1",
+  "description": "",
+  "start_time": "2024-11-06T10:00:30+00:00",
+  "end_time": "2024-11-06T10:57:01+00:00",
+  "updated_at": "2024-11-07T07:11:16.920Z",
+  "created_at": "2024-11-07T07:11:16.920Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Bench Press (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "3601968B",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 35,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 70,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 70,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "failure",
+          "weight_kg": 70,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Incline Chest Press (Machine)",
+      "notes": "",
+      "exercise_template_id": "FBF92739",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 40,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 60,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 70,
+          "reps": 4,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Lat Pulldown (Cable)",
+      "notes": "",
+      "exercise_template_id": "6A6C31A5",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 66,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 79,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 86,
+          "reps": 4,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "failure",
+          "weight_kg": 79,
+          "reps": 4,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Cable Fly Crossovers",
+      "notes": "",
+      "exercise_template_id": "651F844C",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 13.6,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 13.6,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 18.2,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Shoulder Press (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "878CD1D0",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 25,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 55,
+          "reps": 4,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 55,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "title": "Seated Cable Row - V Grip (Cable)",
+      "notes": "",
+      "exercise_template_id": "0393F233",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 18,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 77.6,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 77.6,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "failure",
+          "weight_kg": 77.6,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "title": "Pull Up (Assisted)",
+      "notes": "",
+      "exercise_template_id": "2C37EC5E",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 66.2,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 47.6,
+          "reps": 6,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 47.6,
+          "reps": 4,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

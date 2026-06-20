@@ -1,0 +1,226 @@
+{
+  "id": "5746a3e1-fb27-4f39-8dc4-7f4322a9a607",
+  "title": "Legs (Glute Focus)",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2022-05-08T03:52:07+00:00",
+  "end_time": "2022-05-08T05:21:18+00:00",
+  "updated_at": "2022-05-08T05:21:45.268Z",
+  "created_at": "2022-05-08T05:21:45.268Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Glute Bridge (Barbell)",
+      "notes": "Feet closer to body and push through heels",
+      "exercise_template_id": "12d39577-cf6f-47bb-9cc0-b2a0a809b5be",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Squat (Barbell) (Hip Glute Dominant)",
+      "notes": "Hips extended out first.",
+      "exercise_template_id": "446711c4-e799-460e-8ff8-f35ae3fa795c",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Good Morning (Barbell)",
+      "notes": "",
+      "exercise_template_id": "4180C405",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 20,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 20,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 30,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Standing Cable Glute Kickbacks",
+      "notes": "Externally rotate kicking foot, kick on a slight angle outwards at approximatley 30 degrees.",
+      "exercise_template_id": "ACB2751D",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 11.25,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 13.75,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 13.75,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Cable Hip Abduction",
+      "notes": "Stand a full arm\u2019s length away.\nLean body inwards.\nInwards foot in front, and rotated inwards.\nKicking toe and kicking hip turned in.",
+      "exercise_template_id": "cef9a5d1-c715-4cea-9548-6b1712417dad",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 3.75,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 3.75,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 3.75,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "title": "Treadmill",
+      "notes": "",
+      "exercise_template_id": "243710DE",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": 1460,
+          "duration_seconds": 1201,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

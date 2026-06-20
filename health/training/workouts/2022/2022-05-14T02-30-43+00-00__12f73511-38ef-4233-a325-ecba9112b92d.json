@@ -1,0 +1,216 @@
+{
+  "id": "12f73511-38ef-4233-a325-ecba9112b92d",
+  "title": "DY4: Legs",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2022-05-14T02:30:43+00:00",
+  "end_time": "2022-05-14T03:40:09+00:00",
+  "updated_at": "2022-05-14T03:40:23.151Z",
+  "created_at": "2022-05-14T03:40:23.151Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Squat (Barbell)",
+      "notes": "",
+      "exercise_template_id": "D04AC939",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 50,
+          "reps": 14,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "warmup",
+          "weight_kg": 50,
+          "reps": 14,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 70,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Hip Thrust (Barbell)",
+      "notes": "",
+      "exercise_template_id": "D57C2EC7",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 50,
+          "reps": 14,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "warmup",
+          "weight_kg": 50,
+          "reps": 14,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 70,
+          "reps": 11,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Seated Leg Curl (Machine)",
+      "notes": "",
+      "exercise_template_id": "11A123F3",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 45,
+          "reps": 14,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "warmup",
+          "weight_kg": 45,
+          "reps": 14,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 59,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Romanian Deadlift (Barbell)",
+      "notes": "",
+      "exercise_template_id": "2B4B7310",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 50,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 70,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Standing Cable Glute Kickbacks",
+      "notes": "",
+      "exercise_template_id": "ACB2751D",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 6.25,
+          "reps": 14,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 13.75,
+          "reps": 13,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "title": "Cable Hip Abduction",
+      "notes": "",
+      "exercise_template_id": "fb246ed6-ed85-4eb5-b511-56e854578944",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 3.75,
+          "reps": 14,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 6.25,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

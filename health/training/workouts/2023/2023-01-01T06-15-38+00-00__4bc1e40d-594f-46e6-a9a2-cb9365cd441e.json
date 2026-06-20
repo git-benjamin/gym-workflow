@@ -1,0 +1,70 @@
+{
+  "id": "4bc1e40d-594f-46e6-a9a2-cb9365cd441e",
+  "title": "Stretch Routine (T-Nation's Yoga, Yes Yoga, For Big Bastards)",
+  "routine_id": "7c447bf5-b8a2-4995-aaca-738de1eab8c3",
+  "description": "",
+  "start_time": "2023-01-01T06:15:38+00:00",
+  "end_time": "2023-01-01T06:19:02+00:00",
+  "updated_at": "2023-01-02T21:21:15.085Z",
+  "created_at": "2023-01-01T06:19:06.031Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Pigeon Pose (Stretch)",
+      "notes": "",
+      "exercise_template_id": "3743207c-8c42-4bc2-9827-3f49c31da6e5",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Hero Pose (Virasana) (Stretch)",
+      "notes": "",
+      "exercise_template_id": "e11289c3-3d12-4592-bf66-97a4e0293823",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 28,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 32,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

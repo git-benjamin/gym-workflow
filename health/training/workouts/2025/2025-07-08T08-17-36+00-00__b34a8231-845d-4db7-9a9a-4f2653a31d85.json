@@ -1,0 +1,179 @@
+{
+  "id": "b34a8231-845d-4db7-9a9a-4f2653a31d85",
+  "title": "2025 D2: Posterior & Push",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2025-07-08T08:17:36+00:00",
+  "end_time": "2025-07-08T09:06:19+00:00",
+  "updated_at": "2025-07-08T09:06:20.534Z",
+  "created_at": "2025-07-08T09:06:20.534Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Romanian Deadlift (Barbell)",
+      "notes": "",
+      "exercise_template_id": "2B4B7310",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 20,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 8,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 20,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 8,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 40,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 8.5,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 50,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 50,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9.5,
+          "custom_metric": null
+        },
+        {
+          "index": 5,
+          "type": "normal",
+          "weight_kg": 50,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Lat Pulldown (Machine)",
+      "notes": "Half reps, pausing at bottom for 2-3 seconds",
+      "exercise_template_id": "473CF5B8",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 40,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 8.5,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 8.5,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 80,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 80,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Shoulder Press (Machine Plates)",
+      "notes": "",
+      "exercise_template_id": "059E835D",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 10.8,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 7,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 30.8,
+          "reps": 13,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 40.8,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 40.8,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

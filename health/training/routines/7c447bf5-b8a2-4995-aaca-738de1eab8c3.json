@@ -1,0 +1,177 @@
+{
+  "id": "7c447bf5-b8a2-4995-aaca-738de1eab8c3",
+  "title": "Stretch Routine (T-Nation's Yoga, Yes Yoga, For Big Bastards)",
+  "folder_id": null,
+  "updated_at": "2025-07-02T12:43:30.023Z",
+  "created_at": "2022-05-07T15:42:46.039Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Pigeon Pose (Stretch)",
+      "notes": "This position is great for stretching the piriformis and opening up the hips. I do these often and they've helped tremendously with my lower back pain.\n\nTo begin this stretch, you're going to begin on all fours. Extend one leg straight back, while keeping the other leg bent. The foot on your bent leg should be close to the opposite hip flexor. You should feel a good stretch going right across the middle of your ass on the leg that isn't extended. Stop there and hold.\n\nIf you can, try to bring your leg underneath your body, so you can achieve an even deeper stretch. This also works on your IT band. Hold it for about 20 seconds.",
+      "exercise_template_id": "3743207c-8c42-4bc2-9827-3f49c31da6e5",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "custom_metric": null
+        }
+      ],
+      "rest_seconds": 0
+    },
+    {
+      "index": 1,
+      "title": "Hero Pose (Virasana) (Stretch)",
+      "notes": "This pose stretches the quadriceps, anterior tibialis, and patellofemoral joint, a.k.a. the knee.\n\nYou're going to get into a kneeling position, pushing your knees out as far as possible. Try to get the tops of your feet flat on the floor behind you. Let the hips sink down. You should feel a stretch in your quads and anterior tibialis (shin). If you can't keep the tops of your feet flat on the floor behind you, widen the distance between your knees.\n\nYour hips should be sunk low and your ass should be touching the back of your lower legs.",
+      "exercise_template_id": "e11289c3-3d12-4592-bf66-97a4e0293823",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 28,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 32,
+          "custom_metric": null
+        }
+      ],
+      "rest_seconds": 0
+    },
+    {
+      "index": 2,
+      "title": "Supine Abdominal Twist (Stretch)",
+      "notes": "This stretches the lower back and is supposed to hydrate the spinal discs (that's a good thing). This will also stretch out your chest, shoulders, and arms.\n\nLie on your back with your knees bent and your feet close to your ass. Let your knees fall over to one side, making sure they stay together, and keep your alternate shoulder flat on the ground with your arm fully extended out to your side. You should feel a stretch from your hips to your lower back and all the way up to the forearms.",
+      "exercise_template_id": "3b6bc2bd-949a-4914-befa-52d3d4d4316f",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "custom_metric": null
+        }
+      ],
+      "rest_seconds": 0
+    },
+    {
+      "index": 3,
+      "title": "Upward Dog (Stretch)",
+      "notes": "This pose will open up the chest and stretch the abdominals, as well as the hip flexors.\n\nLie flat on your stomach, fully extended in the prone position. Bring your hands up to your sides like you're going to do a push up. Push up, but keep your pelvis on the floor and raise your chest and head as high as you can. Squeeze and hold for 30 seconds.",
+      "exercise_template_id": "31a5781b-9753-4eed-b25d-ed1bda47cd44",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": 0,
+          "duration_seconds": 60,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": 0,
+          "duration_seconds": 1,
+          "custom_metric": null
+        }
+      ],
+      "rest_seconds": 0
+    },
+    {
+      "index": 4,
+      "title": "Prayer Squat Pose (Stretch)",
+      "notes": "Just like it sounds. It's basically a squat, except a little different.\n\nYou're going to squat down so that both feet are flat on the ground. You're then going to bring your arms in between your knees and push your knees out with your elbows, bringing your hands together in the middle. You should be able to feel a good stretch in your groin. If you don't, push your knees further out with your elbows until you do feel the stretch.",
+      "exercise_template_id": "60197ffc-3d1d-43d7-913d-45cf0714d77b",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "custom_metric": null
+        }
+      ],
+      "rest_seconds": 0
+    },
+    {
+      "index": 5,
+      "title": "Bird Dog",
+      "notes": "This helps to strengthen the core because you're using alternate stabilizing muscles to stay balanced, and it's a good warm up before heavy deadlifts or squats.\n\nFirst, get on all fours and fully extend one leg behind you. Next, lift your alternate arm straight out in front of you. In other words, if you extend your left leg, you also extend your right arm. Hold this position for about 20 seconds and then switch.",
+      "exercise_template_id": "BD0AD077",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 30,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 30,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null
+        }
+      ],
+      "rest_seconds": 0
+    }
+  ]
+}

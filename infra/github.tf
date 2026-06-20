@@ -8,7 +8,7 @@ locals {
     SUPABASE_S3_KEY      = var.supabase_s3_key
     SUPABASE_S3_SECRET   = var.supabase_s3_secret
     SUPABASE_S3_REGION   = var.supabase_s3_region
-    ANTHROPIC_API_KEY    = var.anthropic_api_key
+    GEMINI_API_KEY       = var.gemini_api_key
   }
 }
 

@@ -1,0 +1,353 @@
+{
+  "id": "16808383-4f7d-48e5-8b56-212e3e06b2a2",
+  "title": "DY3: Chest, Biceps, and Abs",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2022-05-13T07:00:04+00:00",
+  "end_time": "2022-05-13T08:13:27+00:00",
+  "updated_at": "2022-05-13T08:13:47.952Z",
+  "created_at": "2022-05-13T08:13:47.952Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Incline Bench Press (Barbell)",
+      "notes": "Bar 11\nSafety 15",
+      "exercise_template_id": "50DFDFAB",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 40,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "warmup",
+          "weight_kg": 40,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 60,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Chest Press (Machine)",
+      "notes": "Vertical grip",
+      "exercise_template_id": "7EB3F7C3",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 43,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "warmup",
+          "weight_kg": 43,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 70,
+          "reps": 9,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Bench Press (Barbell)",
+      "notes": "Bar 11\nSafety 16",
+      "exercise_template_id": "79D0BB3A",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 40,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "warmup",
+          "weight_kg": 40,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 60,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Incline Chest Fly (Dumbbell)",
+      "notes": "Arch back with chest up\nLocked elbows, not straight or too curved\nDon\u2019t come up all the way, rotate gottom of dumbell inwards on way up",
+      "exercise_template_id": "D3E2AB55",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 5,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "warmup",
+          "weight_kg": 5,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 7.5,
+          "reps": 17,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Chest Fly (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "12017185",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 7.5,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "warmup",
+          "weight_kg": 7.5,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 10,
+          "reps": 9,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "title": "Cable Fly Crossovers",
+      "notes": "",
+      "exercise_template_id": "651F844C",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 8.75,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "warmup",
+          "weight_kg": 8.75,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 11.25,
+          "reps": 11,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "title": "Seated Incline Curl (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "8BAB2735",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 7.5,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "warmup",
+          "weight_kg": 7.5,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 10,
+          "reps": 16,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "title": "EZ Bar Biceps Curl",
+      "notes": "Derby bar is 7.5kg",
+      "exercise_template_id": "01A35BF9",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 12.5,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "warmup",
+          "weight_kg": 12.5,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 22.5,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "title": "Preacher Curl (Barbell)",
+      "notes": "EZ BAR",
+      "exercise_template_id": "4F942934",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 12.5,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 22.5,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

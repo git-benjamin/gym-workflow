@@ -1,0 +1,177 @@
+{
+  "id": "88d14f2d-3713-47a4-a1af-76baf62229ea",
+  "title": "Morning workout \u2600\ufe0f",
+  "routine_id": "7c447bf5-b8a2-4995-aaca-738de1eab8c3",
+  "description": "",
+  "start_time": "2022-09-03T02:52:59+00:00",
+  "end_time": "2022-09-03T03:36:21+00:00",
+  "updated_at": "2022-09-03T03:36:29.790Z",
+  "created_at": "2022-09-03T03:36:29.790Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Foam Roller Hamstring Stretch",
+      "notes": "",
+      "exercise_template_id": "b2a29e53-274d-4e9d-a643-bb1f05e48c77",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 3,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 3,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 2,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Shoulder Band Stretch",
+      "notes": "",
+      "exercise_template_id": "2aaeed29-22ec-409c-ab04-be1e4dcb376a",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 3,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 3,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Pigeon Pose (Stretch)",
+      "notes": "",
+      "exercise_template_id": "3743207c-8c42-4bc2-9827-3f49c31da6e5",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Hero Pose (Virasana) (Stretch)",
+      "notes": "",
+      "exercise_template_id": "e11289c3-3d12-4592-bf66-97a4e0293823",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Supine Abdominal Twist (Stretch)",
+      "notes": "",
+      "exercise_template_id": "3b6bc2bd-949a-4914-befa-52d3d4d4316f",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

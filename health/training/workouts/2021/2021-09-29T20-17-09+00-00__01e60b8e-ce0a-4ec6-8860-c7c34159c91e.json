@@ -1,0 +1,31 @@
+{
+  "id": "01e60b8e-ce0a-4ec6-8860-c7c34159c91e",
+  "title": "Evening Workout",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2021-09-29T20:17:09+00:00",
+  "end_time": "2021-09-29T22:17:09+00:00",
+  "updated_at": "2026-05-06T00:30:54.255Z",
+  "created_at": "2026-05-06T00:30:54.255Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Bench Press (Barbell)",
+      "notes": "",
+      "exercise_template_id": "79D0BB3A",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 60,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

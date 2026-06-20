@@ -15,7 +15,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-import anthropic
+import google.generativeai as genai
 import pandas as pd
 from dotenv import load_dotenv
 from supabase import create_client
@@ -192,7 +192,7 @@ def load_context(conn, workout_id: str, year: int):
     return workout_df, prior_sets_df, routine_df
 
 
-def analyse_workout(workout_id: str, conn, supabase_client, anthropic_client, year: int):
+def analyse_workout(workout_id: str, conn, supabase_client, year: int):
     workout_df, prior_df, routine_df = load_context(conn, workout_id, year)
     if workout_df is None or workout_df.empty:
         print(f"  {workout_id}: not found in Parquet — skipping.")
@@ -200,22 +200,23 @@ def analyse_workout(workout_id: str, conn, supabase_client, anthropic_client, ye
 
     prompt = build_prompt(workout_df, prior_df, routine_df)
 
-    response = anthropic_client.messages.create(
-        model="claude-haiku-4-5-20251001",
-        max_tokens=2048,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": prompt}],
+    model_name = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash-lite")
+    model = genai.GenerativeModel(
+        model_name=model_name,
+        system_instruction=SYSTEM_PROMPT,
+        generation_config={"max_output_tokens": 2048},
     )
+    response = model.generate_content(prompt)
 
-    content = response.content[0].text
-    tokens = response.usage.input_tokens + response.usage.output_tokens
+    content = response.text
+    tokens = getattr(response.usage_metadata, "total_token_count", None)
 
     supabase_client.table("analyses").insert({
         "type": "post_workout",
         "workout_id": workout_id,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "content": content,
-        "model": "claude-haiku-4-5-20251001",
+        "model": model_name,
         "tokens_used": tokens,
     }).execute()
 
@@ -224,9 +225,9 @@ def analyse_workout(workout_id: str, conn, supabase_client, anthropic_client, ye
 
 def main():
     year = datetime.now(timezone.utc).year
+    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
     conn = get_conn()
     supabase_client = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_KEY"])
-    anthropic_client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
     workouts_path = s3_path(f"data/workouts_{year}.parquet")
     all_ids = conn.execute(f"""
@@ -237,7 +238,7 @@ def main():
     print(f"Found {len(to_analyse)} workouts to analyse.")
 
     for wid in to_analyse:
-        analyse_workout(wid, conn, supabase_client, anthropic_client, year)
+        analyse_workout(wid, conn, supabase_client, year)
 
 
 if __name__ == "__main__":

@@ -89,8 +89,8 @@ variable "supabase_s3_region" {
   default     = "ap-southeast-2"
 }
 
-variable "anthropic_api_key" {
-  description = "Anthropic API key for Claude Haiku"
+variable "gemini_api_key" {
+  description = "Google Gemini API key"
   type        = string
   sensitive   = true
 }

@@ -1,0 +1,219 @@
+{
+  "id": "7adf5c32-1b9e-47f2-a2ab-c777253f438b",
+  "title": "2025 D1: Glute & Shoulders",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2025-07-10T03:04:16+00:00",
+  "end_time": "2025-07-10T03:46:49+00:00",
+  "updated_at": "2025-07-10T03:46:51.194Z",
+  "created_at": "2025-07-10T03:46:51.194Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Hip Thrust (Machine)",
+      "notes": "",
+      "exercise_template_id": "68CE0B9B",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 22.7,
+          "reps": 15,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 7.5,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 42.7,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 8.5,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 52.7,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 62.7,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 62.7,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Glute Kickback (Machine)",
+      "notes": "",
+      "exercise_template_id": "CBA02382",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 9,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 9,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 9,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 9,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 14,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 5,
+          "type": "normal",
+          "weight_kg": 14,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 6,
+          "type": "normal",
+          "weight_kg": 14,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 7,
+          "type": "normal",
+          "weight_kg": 14,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Shoulder Press (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "878CD1D0",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 30,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9.5,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 30,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9.5,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 50,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 50,
+          "reps": 4,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 50,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "id": "9d78532f-b4aa-4b0d-9b41-fe2f937e3e27",
+  "title": "Stretch Routine (T-Nation's Yoga, Yes Yoga, For Big Bastards)",
+  "routine_id": "7c447bf5-b8a2-4995-aaca-738de1eab8c3",
+  "description": "",
+  "start_time": "2022-05-11T08:48:14+00:00",
+  "end_time": "2022-05-11T09:00:14+00:00",
+  "updated_at": "2022-05-11T09:00:56.698Z",
+  "created_at": "2022-05-11T09:00:56.698Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Pigeon Pose (Stretch)",
+      "notes": "",
+      "exercise_template_id": "3743207c-8c42-4bc2-9827-3f49c31da6e5",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Hero Pose (Virasana) (Stretch)",
+      "notes": "",
+      "exercise_template_id": "e11289c3-3d12-4592-bf66-97a4e0293823",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Supine Abdominal Twist (Stretch)",
+      "notes": "",
+      "exercise_template_id": "3b6bc2bd-949a-4914-befa-52d3d4d4316f",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Upward Dog (Stretch)",
+      "notes": "",
+      "exercise_template_id": "31a5781b-9753-4eed-b25d-ed1bda47cd44",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": 0,
+          "duration_seconds": 60,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": 0,
+          "duration_seconds": 1,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "title": "Prayer Squat Pose (Stretch)",
+      "notes": "",
+      "exercise_template_id": "60197ffc-3d1d-43d7-913d-45cf0714d77b",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": 30,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "title": "Bird Dog",
+      "notes": "",
+      "exercise_template_id": "BD0AD077",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 30,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": null,
+          "reps": 30,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

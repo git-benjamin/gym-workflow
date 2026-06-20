@@ -1,0 +1,51 @@
+{
+  "id": "0d30065b-1253-4494-a333-0795738f123b",
+  "title": "Evening Workout",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2021-10-21T20:23:18+00:00",
+  "end_time": "2021-10-21T22:23:18+00:00",
+  "updated_at": "2026-05-06T00:31:04.359Z",
+  "created_at": "2026-05-06T00:31:04.359Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Overhead Press (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "6AC96645",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 20,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 20,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 22.5,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": null,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

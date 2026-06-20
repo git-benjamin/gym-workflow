@@ -1,0 +1,238 @@
+{
+  "id": "8beecc32-9f52-4082-904a-ec91b1788619",
+  "title": "2025 D1: Glute & Shoulders",
+  "routine_id": null,
+  "description": "",
+  "start_time": "2025-07-04T05:00:41+00:00",
+  "end_time": "2025-07-04T06:22:00+00:00",
+  "updated_at": "2025-07-04T06:22:01.322Z",
+  "created_at": "2025-07-04T06:22:01.322Z",
+  "exercises": [
+    {
+      "index": 0,
+      "title": "Hip Thrust (Machine)",
+      "notes": "",
+      "exercise_template_id": "68CE0B9B",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 22.7,
+          "reps": 12,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 6,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 42.7,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 42.7,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9.5,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 42.7,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 42.7,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "title": "Shoulder Press (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "878CD1D0",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "warmup",
+          "weight_kg": 30,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 8.5,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 30,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9.5,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 40,
+          "reps": 10,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 50,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 50,
+          "reps": 5,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "title": "Glute Kickback (Machine)",
+      "notes": "",
+      "exercise_template_id": "CBA02382",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 23,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 23,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 23,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9.5,
+          "custom_metric": null
+        },
+        {
+          "index": 3,
+          "type": "normal",
+          "weight_kg": 23,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9.5,
+          "custom_metric": null
+        },
+        {
+          "index": 4,
+          "type": "normal",
+          "weight_kg": 14,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 5,
+          "type": "normal",
+          "weight_kg": 14,
+          "reps": 7,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "title": "Seated Lateral Raise (Dumbbell)",
+      "notes": "",
+      "exercise_template_id": "9372FFAA",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "normal",
+          "weight_kg": 8,
+          "reps": 13,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 9.5,
+          "custom_metric": null
+        },
+        {
+          "index": 1,
+          "type": "normal",
+          "weight_kg": 8,
+          "reps": 9,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        },
+        {
+          "index": 2,
+          "type": "normal",
+          "weight_kg": 8,
+          "reps": 8,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "rpe": 10,
+          "custom_metric": null
+        }
+      ]
+    }
+  ]
+}

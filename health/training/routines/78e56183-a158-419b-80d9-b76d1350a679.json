@@ -2,7 +2,7 @@
   "id": "78e56183-a158-419b-80d9-b76d1350a679",
   "title": "2026: Push [Tricep Bypass]",
   "folder_id": null,
-  "updated_at": "2026-05-18T14:06:01.644Z",
+  "updated_at": "2026-06-20T10:32:25.323Z",
   "created_at": "2022-08-08T09:27:42.832Z",
   "exercises": [
     {
@@ -15,7 +15,7 @@
         {
           "index": 0,
           "type": "failure",
-          "weight_kg": 93,
+          "weight_kg": 100,
           "reps": null,
           "distance_meters": null,
           "duration_seconds": null,
@@ -28,7 +28,7 @@
         {
           "index": 1,
           "type": "failure",
-          "weight_kg": 93,
+          "weight_kg": 100,
           "reps": null,
           "distance_meters": null,
           "duration_seconds": null,
@@ -41,7 +41,7 @@
         {
           "index": 2,
           "type": "failure",
-          "weight_kg": 93,
+          "weight_kg": 100,
           "reps": null,
           "distance_meters": null,
           "duration_seconds": null,
@@ -105,104 +105,6 @@
     },
     {
       "index": 2,
-      "title": "Incline Chest Press (Machine)",
-      "notes": "Incline Chest Press (Machine) OR Iso-Lateral Chest Press\n\nSets: 3 Working Sets.\n\nTarget: 6-10 reps @ RPE 10.\n\nRest: 3m 0s (Increased from 2m 0s for heavy compound ATP replenishment).\n\nTempo: 3-second eccentric drop deep into the stretch.\n\nBase weight: 5.4kg\n\nThe Tricep Bypass: Push explosively out of the bottom, but do not lock your elbows. Stop the movement while there is still a 15-degree bend in the arm, then immediately begin the 3-second lowering phase. Keep the tension trapped in the pectoral muscle.",
-      "exercise_template_id": "FBF92739",
-      "superset_id": null,
-      "sets": [
-        {
-          "index": 0,
-          "type": "failure",
-          "weight_kg": 65.4,
-          "reps": null,
-          "distance_meters": null,
-          "duration_seconds": null,
-          "custom_metric": null,
-          "rep_range": {
-            "start": 6,
-            "end": 10
-          }
-        },
-        {
-          "index": 1,
-          "type": "failure",
-          "weight_kg": 65.4,
-          "reps": null,
-          "distance_meters": null,
-          "duration_seconds": null,
-          "custom_metric": null,
-          "rep_range": {
-            "start": 6,
-            "end": 10
-          }
-        },
-        {
-          "index": 2,
-          "type": "failure",
-          "weight_kg": 65.4,
-          "reps": null,
-          "distance_meters": null,
-          "duration_seconds": null,
-          "custom_metric": null,
-          "rep_range": {
-            "start": 6,
-            "end": 10
-          }
-        }
-      ],
-      "rest_seconds": 180
-    },
-    {
-      "index": 3,
-      "title": "Iso-Lateral Chest Press (Machine)",
-      "notes": "Incline Chest Press (Machine) OR Iso-Lateral Chest Press\n\nSets: 3 Working Sets.\n\nTarget: 6-10 reps @ RPE 10.\n\nRest: 3m 0s (Increased from 2m 0s for heavy compound ATP replenishment).\n\nTempo: 3-second eccentric drop deep into the stretch.\n\nBase weight: 5.4kg\n\nThe Tricep Bypass: Push explosively out of the bottom, but do not lock your elbows. Stop the movement while there is still a 15-degree bend in the arm, then immediately begin the 3-second lowering phase. Keep the tension trapped in the pectoral muscle.",
-      "exercise_template_id": "24706DCD",
-      "superset_id": null,
-      "sets": [
-        {
-          "index": 0,
-          "type": "failure",
-          "weight_kg": 46.8,
-          "reps": null,
-          "distance_meters": null,
-          "duration_seconds": null,
-          "custom_metric": null,
-          "rep_range": {
-            "start": 6,
-            "end": 10
-          }
-        },
-        {
-          "index": 1,
-          "type": "failure",
-          "weight_kg": 46.8,
-          "reps": null,
-          "distance_meters": null,
-          "duration_seconds": null,
-          "custom_metric": null,
-          "rep_range": {
-            "start": 6,
-            "end": 10
-          }
-        },
-        {
-          "index": 2,
-          "type": "failure",
-          "weight_kg": 46.8,
-          "reps": null,
-          "distance_meters": null,
-          "duration_seconds": null,
-          "custom_metric": null,
-          "rep_range": {
-            "start": 6,
-            "end": 10
-          }
-        }
-      ],
-      "rest_seconds": 180
-    },
-    {
-      "index": 4,
       "title": "Lateral Raise (Cable)",
       "notes": "Sets: 3 Working Sets + 1 Drop Set.\n\nTarget: 10-15 reps @ RPE 10.\n\nRest: 1m 30s\n\nSystemic Note: Placed here to give the triceps a 5-minute biological rest before the overhead press.\n\nHardware Setup: Pulley set to Height #7. Use Ankle Cuffs strapped around the forearms to bypass grip.",
       "exercise_template_id": "BE289E45",
@@ -211,7 +113,7 @@
         {
           "index": 0,
           "type": "failure",
-          "weight_kg": 2.3,
+          "weight_kg": 4.5,
           "reps": null,
           "distance_meters": null,
           "duration_seconds": null,
@@ -224,7 +126,7 @@
         {
           "index": 1,
           "type": "failure",
-          "weight_kg": 2.3,
+          "weight_kg": 4.5,
           "reps": null,
           "distance_meters": null,
           "duration_seconds": null,
@@ -237,7 +139,7 @@
         {
           "index": 2,
           "type": "failure",
-          "weight_kg": 2.3,
+          "weight_kg": 4.5,
           "reps": null,
           "distance_meters": null,
           "duration_seconds": null,
@@ -264,7 +166,7 @@
       "rest_seconds": 90
     },
     {
-      "index": 5,
+      "index": 3,
       "title": "Shoulder Press (Machine Plates)",
       "notes": "Sets: 3 Working Sets.\n\nTarget: 8-12 reps @ RPE 10.\n\nRest: 3m 0s\n\nBase weight: 5.4kg\n\nSequencing: Executed here while triceps are still relatively fresh to maximize mechanical load.\n\nGrip: Vertical handles. Neutral grip.\n\nPillar: Squeeze glutes. \"Double Chin\" position. Prevent lower back arching.\n\nRange: Drive the weight up, but stop just short of elbow lockout to protect the heavily taxed triceps. Drop back down to ear-level.",
       "exercise_template_id": "059E835D",
@@ -313,9 +215,58 @@
       "rest_seconds": 180
     },
     {
-      "index": 6,
+      "index": 4,
+      "title": "Incline Chest Press (Machine)",
+      "notes": "Incline Chest Press (Machine) | Magnum Incline Bench Press\n\nSets: 3 Working Sets.\n\nTarget: 6-10 reps @ RPE 10.\n\nRest: 3m 0s (Increased from 2m 0s for heavy compound ATP replenishment).\n\nTempo: 3-second eccentric drop deep into the stretch.\n\nBase weight: 5.4kg\n\nThe Tricep Bypass: Push explosively out of the bottom, but do not lock your elbows. Stop the movement while there is still a 15-degree bend in the arm, then immediately begin the 3-second lowering phase. Keep the tension trapped in the pectoral muscle.",
+      "exercise_template_id": "FBF92739",
+      "superset_id": null,
+      "sets": [
+        {
+          "index": 0,
+          "type": "failure",
+          "weight_kg": 80.4,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 6,
+            "end": 10
+          }
+        },
+        {
+          "index": 1,
+          "type": "failure",
+          "weight_kg": 77.9,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 6,
+            "end": 10
+          }
+        },
+        {
+          "index": 2,
+          "type": "failure",
+          "weight_kg": 77.9,
+          "reps": null,
+          "distance_meters": null,
+          "duration_seconds": null,
+          "custom_metric": null,
+          "rep_range": {
+            "start": 6,
+            "end": 10
+          }
+        }
+      ],
+      "rest_seconds": 180
+    },
+    {
+      "index": 5,
       "title": "Overhead Triceps Extension (Cable)",
-      "notes": "Sets: 3 Working Sets (Cut from 4 sets).\n\nTarget: 8-12 reps @ RPE 10.\n\nRest: 2m 0s\n\nNow that the chest and shoulders are destroyed, we force the triceps to grow via the lengthened partial (maximum stretch).\n\nPostural Goal: Force thoracic extension. Let the cable pull hands deep behind the head.\n\nAnchor: Glue upper arms to ears. Keep stationary. Only forearms move",
+      "notes": "Sets: 3 Working Sets (Cut from 4 sets).\n\nTarget: 8-12 reps @ RPE 10.\n\nRest: 2m 0s\n\nYour elbows are the hinge, they don't move at all. Only your forearms move. If your elbows are drifting or dropping during the rep, you're using shoulder to compensate.\n\nSetup (seated version removes the instability):\n- Sit on a bench facing away from the cable stack\n- Pull the rope/handle over your head, elbows pointing to the ceiling\n- Upper arms stay vertical, close to your head \u2014 don't let them drift forward or flare out\n- Extend forearms up until straight, squeeze, then controlled 3s down\n- The bench gives you a fixed reference so elbow height becomes automatic\n",
       "exercise_template_id": "B5EFBF9C",
       "superset_id": null,
       "sets": [
@@ -362,7 +313,7 @@
       "rest_seconds": 120
     },
     {
-      "index": 7,
+      "index": 6,
       "title": "Triceps Pushdown",
       "notes": "Sets: 2 Working Sets.\n\nTarget: 10-15 reps @ RPE 10.\n\nRest: 1m 30s\n\nHardware Pivot: Utilize a fixed straight bar or V-bar. Abandon the rope to eliminate the cognitive overhead of \"tearing\" the handles apart. Focus 100% of CNS output on driving the weight downward.\n\nPostural Guardrail: No shrugging. Shoulders locked down away from ears.\n\nLockout: Pin elbows to ribs. Full lockout at bottom.",
       "exercise_template_id": "93A552C6",
@@ -371,7 +322,7 @@
         {
           "index": 0,
           "type": "failure",
-          "weight_kg": 13.6,
+          "weight_kg": 18.1,
           "reps": null,
           "distance_meters": null,
           "duration_seconds": null,
@@ -384,7 +335,7 @@
         {
           "index": 1,
           "type": "failure",
-          "weight_kg": 15.9,
+          "weight_kg": 18.1,
           "reps": null,
           "distance_meters": null,
           "duration_seconds": null,
