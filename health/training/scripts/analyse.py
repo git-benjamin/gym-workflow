@@ -15,7 +15,10 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-import google.generativeai as genai
+import time
+
+from google import genai
+from google.genai import types
 import pandas as pd
 from dotenv import load_dotenv
 from supabase import create_client
@@ -192,21 +195,33 @@ def load_context(conn, workout_id: str, year: int):
     return workout_df, prior_sets_df, routine_df
 
 
-def analyse_workout(workout_id: str, conn, supabase_client, year: int):
+def analyse_workout(workout_id: str, conn, supabase_client, gemini_client, year: int):
     workout_df, prior_df, routine_df = load_context(conn, workout_id, year)
     if workout_df is None or workout_df.empty:
         print(f"  {workout_id}: not found in Parquet — skipping.")
         return
 
     prompt = build_prompt(workout_df, prior_df, routine_df)
-
     model_name = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash-lite")
-    model = genai.GenerativeModel(
-        model_name=model_name,
-        system_instruction=SYSTEM_PROMPT,
-        generation_config={"max_output_tokens": 2048},
-    )
-    response = model.generate_content(prompt)
+
+    for attempt in range(5):
+        try:
+            response = gemini_client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=SYSTEM_PROMPT,
+                    max_output_tokens=2048,
+                ),
+            )
+            break
+        except Exception as e:
+            if "RESOURCE_EXHAUSTED" in str(e) and attempt < 4:
+                wait = 60 * (attempt + 1)
+                print(f"  {workout_id}: rate limited, waiting {wait}s (attempt {attempt + 1}/5)")
+                time.sleep(wait)
+            else:
+                raise
 
     content = response.text
     tokens = getattr(response.usage_metadata, "total_token_count", None)
@@ -225,7 +240,7 @@ def analyse_workout(workout_id: str, conn, supabase_client, year: int):
 
 def main():
     year = datetime.now(timezone.utc).year
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+    gemini_client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
     conn = get_conn()
     supabase_client = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_KEY"])
 
@@ -238,7 +253,7 @@ def main():
     print(f"Found {len(to_analyse)} workouts to analyse.")
 
     for wid in to_analyse:
-        analyse_workout(wid, conn, supabase_client, year)
+        analyse_workout(wid, conn, supabase_client, gemini_client, year)
 
 
 if __name__ == "__main__":

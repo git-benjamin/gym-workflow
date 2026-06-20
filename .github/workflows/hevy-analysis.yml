@@ -1,15 +1,15 @@
-name: Hevy Sync
+name: Hevy AI Analysis
 
 on:
-  repository_dispatch:
-    types: [hevy_workout_created]
-  schedule:
-    - cron: '0 10 * * *'   # 6pm AWST = 10:00 UTC, daily fallback
+  workflow_run:
+    workflows: ["Hevy Sync"]
+    types: [completed]
   workflow_dispatch:
 
 jobs:
-  sync:
+  analyse:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     defaults:
       run:
         working-directory: health/training/scripts
@@ -26,22 +26,14 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Fetch workouts from Hevy
+      - name: Analyse new workouts
         env:
-          HEVY_API_KEY: ${{ secrets.HEVY_API_KEY }}
-        run: |
-          WORKOUT_ID="${{ github.event.client_payload.workoutId }}"
-          if [ -n "$WORKOUT_ID" ]; then
-            python fetch.py --workout-id "$WORKOUT_ID"
-          else
-            python fetch.py
-          fi
-
-      - name: Sync JSON to Parquet on Supabase Storage
-        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           SUPABASE_BUCKET: ${{ secrets.SUPABASE_BUCKET }}
           SUPABASE_S3_ENDPOINT: ${{ secrets.SUPABASE_S3_ENDPOINT }}
           SUPABASE_S3_KEY: ${{ secrets.SUPABASE_S3_KEY }}
           SUPABASE_S3_SECRET: ${{ secrets.SUPABASE_S3_SECRET }}
           SUPABASE_S3_REGION: ${{ secrets.SUPABASE_S3_REGION }}
-        run: python sync.py
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python analyse.py
