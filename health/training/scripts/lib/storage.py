@@ -8,10 +8,14 @@ load_dotenv(Path(__file__).parent.parent.parent.parent.parent / ".envrc", overri
 
 
 def get_conn() -> duckdb.DuckDBPyConnection:
+    # DuckDB s3_endpoint expects host only — strip protocol prefix from the full URL
+    raw_endpoint = os.environ["SUPABASE_S3_ENDPOINT"]
+    endpoint = raw_endpoint.removeprefix("https://").removeprefix("http://")
+
     conn = duckdb.connect()
     conn.execute("INSTALL httpfs; LOAD httpfs; INSTALL parquet; LOAD parquet;")
     conn.execute(f"""
-        SET s3_endpoint='{os.environ["SUPABASE_S3_ENDPOINT"]}';
+        SET s3_endpoint='{endpoint}';
         SET s3_access_key_id='{os.environ["SUPABASE_S3_KEY"]}';
         SET s3_secret_access_key='{os.environ["SUPABASE_S3_SECRET"]}';
         SET s3_region='{os.environ["SUPABASE_S3_REGION"]}';

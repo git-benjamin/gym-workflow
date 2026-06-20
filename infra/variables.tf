@@ -1,10 +1,5 @@
-variable "supabase_db_host" {
-  description = "Supabase direct database host (e.g. db.<ref>.supabase.co)"
-  type        = string
-}
-
-variable "supabase_db_password" {
-  description = "Supabase database password (postgres user)"
+variable "supabase_db_url" {
+  description = "Supabase PostgreSQL connection string — get from Project Settings > Database > Connection string (URI format)"
   type        = string
   sensitive   = true
 }

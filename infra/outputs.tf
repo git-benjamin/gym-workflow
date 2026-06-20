@@ -1,4 +1,4 @@
 output "cloudflare_worker_name" {
-  description = "Cloudflare Worker name — configure this as the webhook URL in Hevy"
+  description = "Worker name. Webhook URL: https://{worker-name}.{account-subdomain}.workers.dev — find your subdomain at dash.cloudflare.com > Workers & Pages > Overview"
   value       = cloudflare_worker_script.hevy_webhook.name
 }

@@ -18,13 +18,3 @@ resource "cloudflare_worker_script" "hevy_webhook" {
     text = var.github_token
   }
 }
-
-resource "cloudflare_worker_domain" "hevy_webhook" {
-  account_id = var.cloudflare_account_id
-  hostname   = "hevy-webhook.workers.dev"
-  service    = cloudflare_worker_script.hevy_webhook.name
-
-  lifecycle {
-    ignore_changes = [hostname]
-  }
-}

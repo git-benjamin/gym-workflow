@@ -1,7 +1,7 @@
 # Copy to terraform.tfvars and fill in values. Never commit terraform.tfvars.
 
-supabase_db_host     = "db.<ref>.supabase.co"
-supabase_db_password = "your-postgres-password"
+# From Supabase > Project Settings > Database > Connection string (URI)
+supabase_db_url      = "postgresql://postgres:[password]@db.<ref>.supabase.co:5432/postgres"
 supabase_url         = "https://<ref>.supabase.co"
 supabase_service_key = "your-service-role-key"
 supabase_bucket      = "hevy-analytics"
