@@ -4,5 +4,6 @@ pandas>=2.2.0
 supabase>=2.4.0
 google-genai>=1.0.0
 python-dotenv>=1.0.0
+myfitnesspal>=2.0.0
 pytest>=8.0.0
 pytest-mock>=3.12.0
