@@ -6,7 +6,7 @@ on:
       start_year:
         description: 'Fetch and sync all workouts from this year onwards'
         required: true
-        default: '2020'
+        default: '2015'
         type: string
 
 jobs:
