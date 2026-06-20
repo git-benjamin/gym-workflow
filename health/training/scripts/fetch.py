@@ -48,8 +48,7 @@ def _get(url: str, api_key: str, **params) -> dict:
 
 
 def fetch_by_id(workout_id: str, api_key: str) -> dict:
-    data = _get(f"{BASE_URL}/v1/workouts/{workout_id}", api_key)
-    return data["workout"]
+    return _get(f"{BASE_URL}/v1/workouts/{workout_id}", api_key)
 
 
 def save_workout(workout: dict, workouts_dir: Path) -> Path:
