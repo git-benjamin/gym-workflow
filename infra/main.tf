@@ -13,12 +13,11 @@ terraform {
     # Supabase S3 endpoint — from Storage > S3 Connection in Supabase dashboard
     # Format: {ref}.supabase.co/storage/v1/s3  (no https://)
     endpoints = {
-      s3 = "https://{ref}.supabase.co/storage/v1/s3"
+      s3 = "https://jpykvykkiyeblcfzrdio.storage.supabase.co/storage/v1/s3"
     }
 
-    # Credentials from Storage > S3 Connection
-    access_key = "your-s3-access-key-id"
-    secret_key = "your-s3-secret"
+    access_key = "70e52c460591b6a3555704cb91766b91"
+    secret_key = "5114d2cc221b8809a45f0c4d65721785bc50868412ce91bd0d69338c2e917d39"
 
     skip_credentials_validation = true
     skip_metadata_api_check     = true

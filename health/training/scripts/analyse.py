@@ -162,10 +162,11 @@ def load_context(conn, workout_id: str, year: int):
     prior_sets_df = pd.DataFrame()
     if type_filter:
         prior_ids_df = conn.execute(f"""
-            SELECT DISTINCT workout_id FROM read_parquet('{workouts_path}')
+            SELECT workout_id FROM read_parquet('{workouts_path}')
             WHERE workout_title {type_filter}
               AND workout_id != '{workout_id}'
-            ORDER BY MIN(start_time) DESC
+            GROUP BY workout_id
+            ORDER BY MAX(start_time) DESC
             LIMIT 3
         """).df()
 
