@@ -1,5 +1,6 @@
 requests>=2.31.0
 markdown>=3.5.0
+matplotlib>=3.8.0
 duckdb>=0.10.0
 pandas>=2.2.0
 supabase>=2.4.0
