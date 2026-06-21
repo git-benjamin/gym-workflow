@@ -265,21 +265,55 @@ Reusable prompt templates for manual queries against the Parquet store via DuckD
 
 ## Blog Dot Points (technical, narrative TBD)
 
-- Hevy API → Python → Parquet on Supabase Storage → DuckDB → Claude API → `analyses` table
-- Open table format: consolidated annual Parquet (`workouts_2026.parquet`, `routines.parquet`) on S3-compatible storage — portable, not locked to any DB engine
+- Hevy API → Python → Parquet on Supabase Storage → DuckDB → Gemini API → `analyses` table → Resend email
+- Open table format: consolidated annual Parquet (`workouts_*.parquet`, `routines.parquet`) on S3-compatible storage — portable, not locked to any DB engine
 - Three scripts: `fetch.py`, `sync.py`, `analyse.py` — all idempotent
 - Trigger: Hevy webhook → Cloudflare Worker (validates auth, forwards to GitHub `repository_dispatch`) → GitHub Actions. Daily cron as fallback. Near-instant analysis after each workout save.
 - `fetch.py` accepts `--workout-id`: on webhook runs fetches only the new workout via `GET /v1/workouts/{id}`; on cron runs paginates all
 - GitHub Actions free tier: ~115 min/month at current training volume, limit is 2,000
 - Routine versioning: each detected change appends new rows (differentiated by `synced_at`) — append-only, full version history retained in single file
 - Planned vs actual: DuckDB join between routine Parquet and workout Parquet on `exercise_template_id`, diff weight/reps
-- Post-workout LLM prompt: six modules — progression, planned vs actual, strategy validation, qualitative signal extraction, flags, one next action
-- Workout type classification: `routine_id` primary, title heuristic fallback
-- Plateau detection: DuckDB query across workout Parquet, flag if weight + reps static for 3+ sessions on same exercise
+- Post-workout LLM prompt: MBB pyramid structure (SESSION VERDICT → KEY FINDINGS → six analysis modules). Conclusion first.
+- Workout type classification: title heuristic (`ILIKE '%Push%'` etc.)
+- Plateau detection: DuckDB query across full same-type history, flag if weight + reps static
 - Pain pattern extraction: parse set-level notes for location, onset rep, radiation pattern
 - Ad-hoc question library: six named prompt templates for manual analysis
 - **Storage sizing:** 45 workouts = 305KB JSON. Per-workout Parquet is not more efficient at this scale — Parquet metadata overhead (~3KB/file) dominates when rows per file are low. Consolidated annual Parquet (~27KB/year vs ~900KB for per-file) wins because columnar compression only kicks in across many rows. This is the same trade-off Databricks OPTIMIZE solves at enterprise scale by compacting small files — we make the decision upfront by design.
-- Stack cost: Supabase free tier (1GB Storage, ~39,000 years to fill at current training volume) + GitHub Actions free tier + Claude Haiku ~$0.002/analysis
+- Stack cost: Supabase free tier (1GB Storage, ~39,000 years to fill at current training volume) + GitHub Actions free tier + Gemini free tier (250K TPM, 20 RPD on 2.5 Flash)
+
+---
+
+## Kinks and Gotchas (lessons for the blog post)
+
+### 1. `max_output_tokens` too low for thinking models
+Gemini 3.5 Flash uses internal reasoning tokens that count against the output budget. With `max_output_tokens=2048`, the model consumed ~2K tokens on internal thinking and returned 387 characters of visible output — sentence cut off mid-word. Fix: set `max_output_tokens=8192`. Rule of thumb: thinking models need 3-4x the token budget you'd give a non-thinking model.
+
+### 2. Schema drift across Parquet years breaks DuckDB reads
+`routine_id` was written as INTEGER in 2024 Parquet files but as VARCHAR in 2026. DuckDB's default `read_parquet()` raises `ConversionException` when types collide across a multi-file glob. Fix: `read_parquet('data/workouts_*.parquet', union_by_name=true)`. This merges schemas by column name instead of position — columns not present in a file are filled with NULL. Required on every `read_parquet()` call in the script, not just the first one.
+
+### 3. Multi-year glob: single-year path is a silent footgun
+The original design used `workouts_{year}.parquet`. This silently excluded all historical data when analysing cross-year progression. The fix — switching to `workouts_*.parquet` — revealed the schema drift bug above. Two bugs, one root cause: never scope a glob to the current year when the analysis needs full history.
+
+### 4. Markdown tables don't survive naive regex email formatting
+Initial `format_email_html()` used regex replacement (`\n---\n` → `<hr>`, etc.). Tables rendered as raw pipe characters. Fix: `markdown.markdown(content, extensions=["tables", "fenced_code", "nl2br"])`. The `tables` extension is not enabled by default; without it, `|col|col|` renders as literal text. The `nl2br` extension preserves single newlines inside table cells.
+
+### 5. Chart background clash on dark email clients
+White matplotlib figures on a dark email client background look broken — the chart sits in a white rectangle island. Fix: set figure and axes facecolor to `#1a1a1a`, text to `#e0e0e0`, spines to `#3a3a3a`. Matplotlib's `Agg` backend renders headless; `fig.savefig(..., facecolor=BG)` must pass the background explicitly or the PNG defaults to white regardless of `ax.set_facecolor()`.
+
+### 6. Multiple charts combined into one image loses per-exercise readability
+A 2×2 subplot grid returned as a single PNG made each exercise trend too small to read at email width. Fix: return one `(title, base64_png)` tuple per exercise from `generate_charts()`. The email template iterates the list and embeds each image separately with its own margin.
+
+### 7. Language directive placement in system prompt
+Gemini 3.5 Flash output was in Turkish on the first GitHub Actions run — the model apparently inferred language from some signal in the workout data or internal state. The system prompt already said "Use Australian English" but it was buried in the communication style section at the bottom. Fix: add an explicit directive as the first line: `LANGUAGE DIRECTIVE: All output MUST be in English. Do not use any other language regardless of the language of input data.` Placement matters — LLMs attend more strongly to early context.
+
+### 8. Idempotency check blocks `--force` re-runs in CI
+The `already analysed` check against the Supabase `analyses` table is correct for production (don't waste API calls on already-processed workouts). But it made manual re-runs in CI invisible — the workflow exited in 8 seconds with no email and no error. Fix: `--force` flag bypasses the check. For debugging CI, delete the row from Supabase directly, or pass `--force` in the workflow dispatch inputs.
+
+### 9. Token budget arithmetic at 250K TPM
+Gemini 2.5 Flash Lite free tier: 250K tokens per minute. A single analysis call uses ~180K input + ~8K output + ~12K thinking ≈ 200K tokens — 80% of the per-minute budget. Two calls in the same minute would fail. The model fallback chain (`gemini-3.5-flash` → ... → `gemini-2.5-flash-lite`) handles `RESOURCE_EXHAUSTED` errors, but the real lesson is: at 20 RPD, you get one analysis per day per model. Design for that constraint upfront, not after hitting the limit.
+
+### 10. Working directory dependency when running scripts locally
+`lib/storage.py` is a relative import. Running `python3 health/training/scripts/analyse.py` from the repo root raises `ModuleNotFoundError: No module named 'lib'`. Must `cd health/training/scripts` first, or add the scripts dir to `PYTHONPATH`. The GitHub Actions workflow sets `working-directory: health/training/scripts` to handle this cleanly.
 
 ---
 
