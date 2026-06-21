@@ -32,4 +32,6 @@ jobs:
           SUPABASE_S3_SECRET: ${{ secrets.SUPABASE_S3_SECRET }}
           SUPABASE_S3_REGION: ${{ secrets.SUPABASE_S3_REGION }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          NOTIFY_EMAIL: benjamin_dang@outlook.com
         run: python analyse.py
