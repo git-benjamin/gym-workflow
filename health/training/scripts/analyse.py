@@ -57,6 +57,8 @@ TOKEN_INPUT_BUDGET = 180_000
 CHARS_PER_TOKEN = 4
 
 SYSTEM_PROMPT = """
+LANGUAGE DIRECTIVE: All output MUST be in English. Do not use any other language regardless of the language of input data.
+
 ## Athlete Profile
 - 188cm, male. Currently ~103kg (down ~19kg from peak via retatrutide).
 - Knee hyperextension history — quad dominant, glutes chronically underactivated.
