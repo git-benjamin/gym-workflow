@@ -36,6 +36,8 @@ def get_client() -> Garmin:
         oauth1 = OAuth1Token(**json.loads(os.environ["GARMIN_OAUTH1_TOKEN"]))
         oauth2 = OAuth2Token(**json.loads(os.environ["GARMIN_OAUTH2_TOKEN"]))
         api.garth.configure(oauth1_token=oauth1, oauth2_token=oauth2, domain=oauth1.domain)
+        api.display_name = api.garth.profile["displayName"]
+        api.full_name = api.garth.profile["fullName"]
     elif GARTH_HOME.exists():
         api.login(GARTH_HOME)
     else:
