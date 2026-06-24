@@ -1,23 +1,24 @@
 """
 garmin_ingest.py — Ingest Garmin Connect daily activity, steps, and heart rate into Supabase.
 
-MANUAL ONLY — requires Garmin Connect credentials.
-
-First-time auth: run with --login to save session token to ~/.garth/
-  python garmin_ingest.py --login
-
-Usage:
+Local usage (requires ~/.garth/ session):
   python garmin_ingest.py                          # last 90 days
   python garmin_ingest.py --start-date 2022-08-28  # from when Apple Watch data ends
+  python garmin_ingest.py --login                  # force re-auth
+
+CI usage (GitHub Actions):
+  Set GARMIN_OAUTH1_TOKEN and GARMIN_OAUTH2_TOKEN secrets (JSON strings from ~/.garth/).
 """
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import time
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
+import garth
 from dotenv import load_dotenv
 from garminconnect import Garmin
 from supabase import create_client
@@ -29,8 +30,13 @@ GARTH_HOME = Path.home() / ".garth"
 
 
 def get_client() -> Garmin:
-    if GARTH_HOME.exists():
-        api = Garmin()
+    api = Garmin()
+    if os.environ.get("GARMIN_OAUTH1_TOKEN"):
+        # CI path: tokens passed as JSON env vars
+        oauth1 = garth.OAuth1Token(**json.loads(os.environ["GARMIN_OAUTH1_TOKEN"]))
+        oauth2 = garth.OAuth2Token(**json.loads(os.environ["GARMIN_OAUTH2_TOKEN"]))
+        api.garth.configure(oauth1_token=oauth1, oauth2_token=oauth2, domain=oauth1.domain)
+    elif GARTH_HOME.exists():
         api.login(GARTH_HOME)
     else:
         email = os.environ.get("GARMIN_EMAIL") or input("Garmin email: ")
