@@ -18,7 +18,7 @@ import time
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
-import garth
+from garth.auth_tokens import OAuth1Token, OAuth2Token
 from dotenv import load_dotenv
 from garminconnect import Garmin
 from supabase import create_client
@@ -33,8 +33,8 @@ def get_client() -> Garmin:
     api = Garmin()
     if os.environ.get("GARMIN_OAUTH1_TOKEN"):
         # CI path: tokens passed as JSON env vars
-        oauth1 = garth.OAuth1Token(**json.loads(os.environ["GARMIN_OAUTH1_TOKEN"]))
-        oauth2 = garth.OAuth2Token(**json.loads(os.environ["GARMIN_OAUTH2_TOKEN"]))
+        oauth1 = OAuth1Token(**json.loads(os.environ["GARMIN_OAUTH1_TOKEN"]))
+        oauth2 = OAuth2Token(**json.loads(os.environ["GARMIN_OAUTH2_TOKEN"]))
         api.garth.configure(oauth1_token=oauth1, oauth2_token=oauth2, domain=oauth1.domain)
     elif GARTH_HOME.exists():
         api.login(GARTH_HOME)
