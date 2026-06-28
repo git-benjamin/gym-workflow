@@ -300,6 +300,8 @@ def estimate_tokens(text: str) -> int:
 
 
 def trim_to_budget(df: pd.DataFrame, budget_tokens: int) -> tuple[pd.DataFrame, int]:
+    """Trim oldest rows (head) to fit budget. Assumes df is sorted ASC by time,
+    so keeping the tail = keeping the most recent rows."""
     if df.empty:
         return df, 0
     text = df.to_string(index=False)
@@ -308,11 +310,11 @@ def trim_to_budget(df: pd.DataFrame, budget_tokens: int) -> tuple[pd.DataFrame, 
     lo, hi = 1, len(df)
     while lo < hi:
         mid = (lo + hi + 1) // 2
-        if estimate_tokens(df.head(mid).to_string(index=False)) <= budget_tokens:
+        if estimate_tokens(df.tail(mid).to_string(index=False)) <= budget_tokens:
             lo = mid
         else:
             hi = mid - 1
-    trimmed = df.head(lo)
+    trimmed = df.tail(lo)
     dropped = len(df) - lo
     print(f"  token trim: dropped {dropped} oldest rows to fit budget")
     return trimmed, estimate_tokens(trimmed.to_string(index=False))
@@ -321,10 +323,12 @@ def trim_to_budget(df: pd.DataFrame, budget_tokens: int) -> tuple[pd.DataFrame, 
 def load_context(conn, workout_id: str):
     all_parquet = s3_path("data/workouts_*.parquet")
 
+    # Order by exercise_index THEN set_index so exercises appear in performed sequence.
+    # Ordering by set_index alone scrambles exercises across exercise boundaries.
     workout_df = conn.execute(f"""
         SELECT * FROM read_parquet('{all_parquet}', union_by_name=true)
         WHERE workout_id = '{workout_id}'
-        ORDER BY set_index
+        ORDER BY exercise_index, set_index
     """).df()
 
     if workout_df.empty:
@@ -336,11 +340,13 @@ def load_context(conn, workout_id: str):
 
     same_type_df = pd.DataFrame()
     if workout_type != "Unknown":
+        # Sort chronologically ASC so the LLM reads progression forward in time.
+        # Within each workout, preserve performed exercise/set order.
         same_type_df = conn.execute(f"""
             SELECT * FROM read_parquet('{all_parquet}', union_by_name=true)
             WHERE LOWER(workout_title) LIKE '%{workout_type.lower()}%'
               AND workout_id != '{workout_id}'
-            ORDER BY start_time DESC
+            ORDER BY start_time ASC, exercise_index, set_index
         """).df()
 
     recent_ids = conn.execute(f"""
@@ -358,7 +364,7 @@ def load_context(conn, workout_id: str):
         recent_df = conn.execute(f"""
             SELECT * FROM read_parquet('{all_parquet}', union_by_name=true)
             WHERE workout_id IN {ids_sql}
-            ORDER BY start_time DESC
+            ORDER BY start_time ASC, exercise_index, set_index
         """).df()
 
     routine_df = pd.DataFrame()
