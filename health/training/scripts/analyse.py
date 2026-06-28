@@ -34,6 +34,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import matplotlib.dates as mdates
+from datetime import timedelta
 
 from google import genai
 from google.genai import types
@@ -56,33 +58,71 @@ MODELS = [
 TOKEN_INPUT_BUDGET = 180_000
 CHARS_PER_TOKEN = 4
 
-SYSTEM_PROMPT = """
+SYSTEM_PROMPT_TEMPLATE = """
 LANGUAGE DIRECTIVE: All output MUST be in English. Do not use any other language regardless of the language of input data.
 
 ## Athlete Profile
-- 188cm, male. Currently ~103kg (down ~19kg from peak via retatrutide).
-- Knee hyperextension history — quad dominant, glutes chronically underactivated.
-  Do NOT flag standing hip hinge under heavy load as a regression.
-- Chest overdeveloped relative to shoulders and triceps.
+- 188cm, male, 29 years old. Vietnamese / South East Asian.
+- Current weight: {weight_str}.
+- Knee hyperextension history (both knees) — barbell squat, hack squat, leg press,
+  and leg extension are PERMANENTLY EXCLUDED. Do NOT suggest these.
+- Left glute underactivation — right-side dominant. Bilateral movements let right
+  glute compensate. Single-leg work is the asymmetry-correction strategy.
+- Chest and back are significantly stronger than triceps and biceps.
 
 ## Training Goals (priority order)
-1. Address tricep bottleneck on Push sessions.
-2. Address bicep bottleneck on Pull sessions.
-3. Build glutes — compensating for years of knee hyperextension and quad dominance.
-4. Lateral delt width and trap/rhomboid activation for posture correction.
-5. Maximise hypertrophy across all muscle groups.
-6. Body recomposition — preserve muscle through continued weight loss on retatrutide.
+1. Glute hypertrophy — primary aesthetic goal; correcting years of underactivation.
+2. Posterior chain development (hamstrings, back).
+3. Address tricep bottleneck on Push sessions.
+4. Address bicep bottleneck on Pull sessions.
+5. Lateral delt width and trap/rhomboid activation for posture.
+6. Body recomposition — preserve muscle through continued weight loss.
 
-## Session Strategies
-- Push (Tricep Bypass): pec dec first to pre-exhaust chest; compound press then
-  targets triceps and anterior delts as primary movers.
-- Pull (Bicep Bypass): versa grips on all compound pulls to remove bicep bottleneck;
-  isolate biceps fresh at end of session.
-- Legs: seated leg curl first to pre-exhaust hamstrings; hip thrust targets glutes
-  as primary mover.
+## Session Strategy: Tricep Bypass (Push)
+Chest is much stronger than triceps. Goal: gas the chest deep enough via
+pre-exhaust isolation (Chest Fly first, fresh, to failure) so that on
+compound presses the triceps become the limiting factor — forcing
+hypertrophy stimulus on the bottleneck rather than the dominant chest.
+Direct tricep isolation is minimised (overhead extensions excluded);
+triceps already receive heavy stimulus from compound presses with
+fatigued chest.
+
+## Session Strategy: Bicep Bypass (Pull)
+Back is much stronger than biceps. Goal: gas the back deep enough via
+pre-exhaust (Straight Arm Lat Pulldown first, fresh, to failure) and
+versa grips on compound pulls so that lats/mid-back become the
+limiting factor — not biceps. Biceps receive sufficient indirect
+stimulus from compound pulls; direct bicep work is kept minimal
+(behind-the-back curl + hammer curl only; barbell preacher curl
+dropped). Flag any session that has >3 direct bicep exercises as a
+protocol violation.
+
+## Session Strategy: Legs
+Seated leg curl first (3s eccentric retained) to pre-exhaust hamstrings.
+Single-leg hip thrust at slot 2 (fresh, left-first) for asymmetry.
+Heavy bilateral hip thrust at slot 3 (1-2s eccentric, NO holds, NO band).
+RDL for posterior chain stretch. Back extension (glute-biased) for
+stretched-position glute stimulus. Glute kickback for isolation
+(light load, form priority). Hip abduction last, no isometric holds
+while monitoring recent pain pattern. Hip adduction dropped.
+
+## Training Phase (Jun 2026 onwards)
+**Phase 2: Mechanical Tension Loading.** Transitioned out of 3-second
+eccentrics on compounds in favour of 1-2 second controlled eccentrics
+to maximise load progression. Slow tempo (3-4s eccentric / iso-hold)
+retained ONLY on isolation movements where load is inherently light
+(chest fly, rear delt fly, leg curl) and TUT matters more than load.
+**Do NOT recommend re-adding 3-4s eccentrics to compound lifts.**
+
+## Medication Context (Retatrutide)
+Tapering off retatrutide (GLP-1/GIP/glucagon triple agonist) due to
+supply chain issue. Currently at low dose. Possible Mounjaro backup if
+new batch fails verification. Appetite suppression has been wearing
+off; calorie intake naturally rising. Crash days in April were
+drug-mediated, not poor adherence.
 
 ## Training Style
-RPE 10, sets to failure. 3-4s eccentrics and iso holds where noted.
+RPE 10, sets to failure. Tempos as per Phase 2 above.
 Qualitative notes logged per set — treat these as primary signal over raw numbers.
 
 ## Biomechanical Frameworks (apply to every session)
@@ -95,13 +135,16 @@ Qualitative notes logged per set — treat these as primary signal over raw numb
    Bilateral deficits or lower-body pain flags must be evaluated for upstream effect on
    upper-body kinetic chain stability (hip → spinal alignment → shoulder girdle).
 
-3. Connective Tissue Lag: When instability ("shaking", "loose") or joint pain is logged,
-   factor in tendon/ligament adaptation lag behind myonuclear growth. Flag as structural
-   risk vs. temporary strength ceiling.
+3. Instability Reporting: When instability ("shaking", "loose") or joint pain is logged,
+   report it factually and flag as structural risk. Do NOT speculate on tendon/myonuclear
+   adaptation mechanisms — stick to what was observed.
 
 4. Cumulative Synergist Fatigue: Trace the session's exercise sequence to identify the
    true failure point. If a secondary synergist (triceps on press, biceps on pull) fails
    before the target muscle, evaluate whether order of operations was optimal.
+   For Tricep Bypass / Bicep Bypass sessions: this is the INTENDED outcome — chest/back
+   fatigued first so triceps/biceps become limiter on compounds. Do not flag this as a
+   problem; flag it as protocol working.
 
 ## Communication Style
 Zero fluff. Clinical, objective, mathematically grounded. Use tables for comparisons.
@@ -110,8 +153,66 @@ Lead with the most important finding. Quantify where possible.
 Use Australian English spelling throughout (analyse, optimise, programme, colour, etc.).
 """.strip()
 
+
+def build_system_prompt(weight_kg: float | None) -> str:
+    if weight_kg:
+        weight_str = f"{weight_kg:.1f}kg"
+    else:
+        weight_str = "weight unavailable from weight_logs"
+    return SYSTEM_PROMPT_TEMPLATE.format(weight_str=weight_str)
+
+
+def get_current_weight(supabase_client) -> float | None:
+    try:
+        res = (
+            supabase_client.table("weight_logs")
+            .select("weight_kg,date")
+            .order("date", desc=True)
+            .limit(1)
+            .execute()
+        )
+        if res.data:
+            return float(res.data[0]["weight_kg"])
+    except Exception as e:
+        print(f"  weight lookup failed: {e}")
+    return None
+
+
+REQUIRED_SECTIONS = [
+    "## SESSION VERDICT",
+    "## KEY FINDINGS",
+    "## 1. PROGRESSION",
+    "## 5. FLAGS",
+    "## ARCHITECTURAL GOVERNANCE",
+]
+
+
+def is_complete_response(content: str) -> tuple[bool, str]:
+    if not content:
+        return False, "empty response"
+    missing = [s for s in REQUIRED_SECTIONS if s not in content]
+    if missing:
+        return False, f"missing sections: {', '.join(missing)}"
+    return True, ""
+
 ANALYSIS_TEMPLATE = """
-Today's workout ({workout_type}):
+Current bodyweight: {bodyweight_str}
+
+## TODAY VS PREVIOUS (precomputed — use this as primary comparison source)
+{comparison_block}
+
+## SET-BY-SET (every working set, in order)
+{set_by_set_block}
+
+## ROUTINE ADHERENCE
+{adherence_block}
+
+## SET NOTES (primary qualitative signal — surface these prominently)
+{notes_block}
+
+---
+
+Today's workout ({workout_type}) — raw data for reference:
 {workout_data}
 
 Full {workout_type} session history (all time, most recent first):
@@ -138,9 +239,13 @@ One sentence. The defining mechanical characteristic of this session and its pri
 ---
 
 ## 1. PROGRESSION
-Table: Exercise | Today Top Set | Previous Top Set | Delta | Status | Trend (from full history)
-Status labels: INCREASED / HELD / REGRESSED / BASELINE
+Use the precomputed TODAY VS PREVIOUS table above as the source of truth — do NOT
+recompute from raw data, do NOT guess. Reproduce that table here with one extra
+column: "Insight" — one phrase per row explaining the meaningful change (e.g.,
+"new asymmetry pattern", "load matches 2022 peak", "first time above 60kg").
 Include total session tonnage row at bottom (kg×reps, warmups excluded).
+For assisted/bodyweight exercises, the "net load" annotation in TODAY VS PREVIOUS
+is the relevant progression metric — not raw weight_kg.
 Apply Hypertrophy Opportunity Cost where tempo or load strategy deviates.
 
 ## 2. BIOMECHANICAL DEVIATIONS
@@ -164,8 +269,13 @@ Flag PAIN first if present.
 ---
 
 ## ARCHITECTURAL GOVERNANCE
-One strict mechanical adjustment for the next session of this type.
-Not a list. One change. State the exact implementation (exercise, order index, sets, load).
+One adjustment for next session of this type. Must comply with:
+- Phase 2 tempo (1-2s eccentric on compounds; slower OK only on isolation)
+- Permanently excluded: barbell squat, hack squat, leg press, leg extension
+- Bypass protocols: minimise direct arm work on Push/Pull
+- Goal priority: glute hypertrophy > posterior chain > tricep/bicep bottleneck
+If no compliant adjustment is warranted, write exactly: "Hold programme."
+Otherwise: one change, with exact implementation (exercise, order index, sets, load).
 """
 
 PAIN_KEYWORDS = re.compile(
@@ -256,27 +366,250 @@ def load_context(conn, workout_id: str):
         routines_path = s3_path("data/routines.parquet")
         start_time = str(workout_df.iloc[0].get("start_time") or "")
         try:
+            # Get ALL rows from the most recent routine snapshot at or before workout start.
+            # (Previous LIMIT 1 only returned one set of one exercise — bug.)
             routine_df = conn.execute(f"""
                 SELECT * FROM read_parquet('{routines_path}')
                 WHERE hevy_id = '{routine_id}'
-                  AND updated_at <= '{start_time}'
-                ORDER BY updated_at DESC
-                LIMIT 1
+                  AND updated_at = (
+                    SELECT MAX(updated_at) FROM read_parquet('{routines_path}')
+                    WHERE hevy_id = '{routine_id}' AND updated_at <= '{start_time}'
+                  )
+                ORDER BY exercise_index, set_index
             """).df()
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"  routine lookup failed: {e}")
 
     return workout_df, same_type_df, recent_df, routine_df, workout_type
 
 
-def build_prompt(workout_df, same_type_df, recent_df, routine_df, workout_type):
-    system_tokens = estimate_tokens(SYSTEM_PROMPT)
+ASSISTED_KEYWORDS = ("assisted",)
+BODYWEIGHT_EXERCISE_KEYWORDS = ("pull up", "chin up", "dip", "push up", "muscle up", "inverted row")
+
+
+def is_assisted(exercise_title: str) -> bool:
+    return any(k in exercise_title.lower() for k in ASSISTED_KEYWORDS)
+
+
+def is_bodyweight(exercise_title: str) -> bool:
+    t = exercise_title.lower()
+    if "machine" in t:
+        return False
+    return any(k in t for k in BODYWEIGHT_EXERCISE_KEYWORDS)
+
+
+def format_load(exercise_title: str, weight_kg, reps, bodyweight: float | None) -> str:
+    if pd.isna(weight_kg) or weight_kg is None:
+        w_s = "—"
+        w_val = 0.0
+    else:
+        w_val = float(weight_kg)
+        w_s = f"{w_val:.1f}"
+    r_s = f"{int(reps)}" if not pd.isna(reps) else "—"
+    base = f"{w_s}kg × {r_s}"
+    if not bodyweight:
+        return base
+    if is_assisted(exercise_title) and w_val:
+        net = bodyweight - w_val
+        return f"{base} [net {net:.0f}kg = bw {bodyweight:.0f} − assist {w_val:.0f}]"
+    if is_bodyweight(exercise_title) and w_val == 0:
+        return f"bw {bodyweight:.0f}kg × {r_s}"
+    return base
+
+
+def _e1rm(weight, reps, exercise_title: str | None = None, bodyweight: float | None = None):
+    """Estimated 1RM (Epley). Handles assisted/bodyweight by using net load.
+    For historical sessions, bodyweight is approximated from current — fine for ranking
+    on recent comparisons; less accurate for all-time peaks from years past."""
+    if pd.isna(weight) or pd.isna(reps) or weight is None or reps is None:
+        return 0.0
+    w = float(weight)
+    r = float(reps)
+    if exercise_title and bodyweight:
+        if is_assisted(exercise_title):
+            net = bodyweight - w
+            return net * (1 + r / 30) if net > 0 else 0.0
+        if is_bodyweight(exercise_title) and w == 0:
+            return bodyweight * (1 + r / 30)
+    return w * (1 + r / 30)
+
+
+def build_comparison_block(workout_df, same_type_df, bodyweight) -> str:
+    if workout_df.empty:
+        return "No comparison data."
+    today_id = str(workout_df["workout_id"].iloc[0])
+    lines = [
+        "| Exercise | Today top | Previous session top | All-time peak | Status |",
+        "|----------|-----------|---------------------|---------------|--------|",
+    ]
+    for ex in workout_df["exercise_title"].dropna().unique():
+        today_sets = workout_df[
+            (workout_df["exercise_title"] == ex)
+            & (workout_df["set_type"].isin(["normal", "failure"]))
+        ].copy()
+        if today_sets.empty:
+            continue
+        today_sets["e1rm"] = today_sets.apply(lambda r: _e1rm(r["weight_kg"], r["reps"], ex, bodyweight), axis=1)
+        today_top = today_sets.loc[today_sets["e1rm"].idxmax()]
+        today_load = format_load(ex, today_top["weight_kg"], today_top["reps"], bodyweight)
+        today_e = float(today_top["e1rm"])
+        today_str = f"{today_load} (e1RM {today_e:.0f})"
+
+        prev_str = "—"
+        all_time_str = "—"
+        prev_e = None
+        all_time_e = None
+        hist = same_type_df[
+            (same_type_df["exercise_title"] == ex)
+            & (same_type_df["set_type"].isin(["normal", "failure"]))
+            & (same_type_df["workout_id"].astype(str) != today_id)
+        ].copy()
+        if not hist.empty:
+            hist["e1rm"] = hist.apply(lambda r: _e1rm(r["weight_kg"], r["reps"], ex, bodyweight), axis=1)
+            hist["start_time"] = pd.to_datetime(hist["start_time"], utc=True)
+            # Previous session top set
+            most_recent_wid = hist.sort_values("start_time", ascending=False)["workout_id"].iloc[0]
+            prev_sess = hist[hist["workout_id"] == most_recent_wid]
+            prev_top = prev_sess.loc[prev_sess["e1rm"].idxmax()]
+            prev_dt = prev_top["start_time"].strftime("%b %d")
+            prev_load = format_load(ex, prev_top["weight_kg"], prev_top["reps"], bodyweight)
+            prev_e = float(prev_top["e1rm"])
+            prev_str = f"{prev_load} (e1RM {prev_e:.0f}, {prev_dt})"
+            # All-time peak e1RM
+            atb = hist.loc[hist["e1rm"].idxmax()]
+            atb_dt = atb["start_time"].strftime("%Y-%m-%d")
+            atb_load = format_load(ex, atb["weight_kg"], atb["reps"], bodyweight)
+            all_time_e = float(atb["e1rm"])
+            all_time_str = f"{atb_load} (e1RM {all_time_e:.0f}, {atb_dt})"
+
+        if prev_e is None:
+            status = "BASELINE (first time)"
+        elif today_e > prev_e * 1.02:
+            status = "INCREASED"
+        elif today_e < prev_e * 0.98:
+            status = "REGRESSED"
+        else:
+            status = "HELD"
+        if all_time_e and today_e >= all_time_e:
+            status = "NEW ALL-TIME PEAK"
+
+        lines.append(f"| {ex} | {today_str} | {prev_str} | {all_time_str} | {status} |")
+    return "\n".join(lines)
+
+
+def build_set_by_set_block(workout_df, bodyweight) -> str:
+    if workout_df.empty:
+        return "No set data."
+    lines = []
+    for ex in workout_df["exercise_title"].dropna().unique():
+        ex_sets = workout_df[workout_df["exercise_title"] == ex].sort_values("set_index")
+        set_strs = []
+        for _, s in ex_sets.iterrows():
+            w = s.get("weight_kg")
+            r = s.get("reps")
+            t = s.get("set_type")
+            rpe = s.get("rpe")
+            prefix = "W:" if t == "warmup" else ""
+            if pd.isna(w) and pd.isna(r):
+                set_strs.append(f"{prefix}(no log)")
+                continue
+            w_val = 0.0 if pd.isna(w) else float(w)
+            r_val = "—" if pd.isna(r) else f"{int(r)}"
+            if is_assisted(ex) and bodyweight and w_val:
+                net = bodyweight - w_val
+                set_strs.append(f"{prefix}{w_val:.1f}kg × {r_val} [net {net:.0f}]")
+            else:
+                set_strs.append(f"{prefix}{w_val:.1f}kg × {r_val}{f'@RPE{int(rpe)}' if rpe and not pd.isna(rpe) else ''}")
+        lines.append(f"- **{ex}**: " + " | ".join(set_strs))
+    return "\n".join(lines)
+
+
+def build_adherence_block(workout_df, routine_df) -> str:
+    if routine_df.empty:
+        return "No active routine snapshot — adherence check skipped."
+    targets = {}
+    for _, r in routine_df.iterrows():
+        title = r.get("exercise_title")
+        if not title:
+            continue
+        rec = targets.setdefault(title, {
+            "rep_lo": r.get("rep_range_start"),
+            "rep_hi": r.get("rep_range_end"),
+            "rest_s": r.get("rest_seconds"),
+            "set_count": 0,
+        })
+        rec["set_count"] += 1
+    lines = [
+        "| Exercise | Target reps × sets | Actual top reps × sets | Adherence |",
+        "|----------|-------------------|----------------------|-----------|",
+    ]
+    for ex in workout_df["exercise_title"].dropna().unique():
+        actual_sets = workout_df[
+            (workout_df["exercise_title"] == ex)
+            & (workout_df["set_type"].isin(["normal", "failure"]))
+        ]
+        n_actual = len(actual_sets)
+        actual_top_reps = int(actual_sets["reps"].max()) if not actual_sets.empty and not pd.isna(actual_sets["reps"].max()) else 0
+        target = targets.get(ex)
+        if not target:
+            lines.append(f"| {ex} | not in routine | {actual_top_reps} × {n_actual} | OFF-ROUTINE |")
+            continue
+        lo, hi, sets_target = target["rep_lo"], target["rep_hi"], target["set_count"]
+        if pd.isna(lo) or pd.isna(hi):
+            target_str = "no rep target"
+            adherence = "NO TARGET"
+        else:
+            target_str = f"{int(lo)}-{int(hi)} × {sets_target}"
+            if actual_top_reps > int(hi):
+                adherence = "ABOVE — increase load next session"
+            elif actual_top_reps < int(lo):
+                adherence = "BELOW — too heavy or under-recovered"
+            else:
+                adherence = "ON TARGET"
+            if n_actual != sets_target:
+                adherence += f" (sets: {n_actual} vs {sets_target} planned)"
+        lines.append(f"| {ex} | {target_str} | {actual_top_reps} × {n_actual} | {adherence} |")
+    return "\n".join(lines)
+
+
+def build_notes_block(workout_df) -> str:
+    if workout_df.empty:
+        return "No notes logged."
+    lines = []
+    seen = set()
+    for ex in workout_df["exercise_title"].dropna().unique():
+        ex_rows = workout_df[workout_df["exercise_title"] == ex]
+        notes_vals = ex_rows["exercise_notes"].dropna().unique()
+        for n in notes_vals:
+            s = str(n).strip()
+            if not s or s.lower() == "nan":
+                continue
+            key = (ex, s)
+            if key in seen:
+                continue
+            seen.add(key)
+            lines.append(f"### {ex}")
+            lines.append(s)
+            lines.append("")
+    return "\n".join(lines).strip() if lines else "No notes logged this session."
+
+
+def build_prompt(workout_df, same_type_df, recent_df, routine_df, workout_type, bodyweight):
+    # Precomputed analysis blocks — feed structured findings to LLM rather than
+    # forcing it to derive from raw tables.
+    comparison_block = build_comparison_block(workout_df, same_type_df, bodyweight)
+    set_by_set_block = build_set_by_set_block(workout_df, bodyweight)
+    adherence_block = build_adherence_block(workout_df, routine_df)
+    notes_block = build_notes_block(workout_df)
+
+    system_tokens = estimate_tokens(SYSTEM_PROMPT_TEMPLATE)
     template_tokens = estimate_tokens(ANALYSIS_TEMPLATE)
     workout_tokens = estimate_tokens(workout_df.to_string(index=False))
     recent_tokens = estimate_tokens(recent_df.to_string(index=False)) if not recent_df.empty else 0
     routine_tokens = estimate_tokens(routine_df.to_string(index=False)) if not routine_df.empty else 0
+    blocks_tokens = sum(estimate_tokens(b) for b in [comparison_block, set_by_set_block, adherence_block, notes_block])
 
-    fixed_tokens = system_tokens + template_tokens + workout_tokens + recent_tokens + routine_tokens
+    fixed_tokens = system_tokens + template_tokens + workout_tokens + recent_tokens + routine_tokens + blocks_tokens
     same_type_budget = TOKEN_INPUT_BUDGET - fixed_tokens
 
     same_type_df, same_type_tokens = trim_to_budget(same_type_df, same_type_budget)
@@ -290,6 +623,11 @@ def build_prompt(workout_df, same_type_df, recent_df, routine_df, workout_type):
         same_type_history=same_type_df.to_string(index=False) if not same_type_df.empty else "No prior sessions.",
         recent_sessions=recent_df.to_string(index=False) if not recent_df.empty else "No recent sessions.",
         routine_data=routine_df.to_string(index=False) if not routine_df.empty else "No routine data.",
+        bodyweight_str=f"{bodyweight:.1f}kg" if bodyweight else "unknown",
+        comparison_block=comparison_block,
+        set_by_set_block=set_by_set_block,
+        adherence_block=adherence_block,
+        notes_block=notes_block,
     )
 
 
@@ -323,7 +661,21 @@ def _save_chart(fig) -> str:
     return base64.b64encode(buf.read()).decode()
 
 
-def generate_charts(workout_df: pd.DataFrame, same_type_df: pd.DataFrame, workout_type: str) -> list[tuple[str, str]]:
+WINDOW_WEEKS = 24  # last 6 months × 4 weeks
+
+
+def _apply_date_axis(ax, window_end):
+    """Force a fixed 24-week date window so gaps appear as gaps."""
+    window_start = window_end - timedelta(weeks=WINDOW_WEEKS)
+    ax.set_xlim(window_start, window_end)
+    ax.xaxis.set_major_locator(mdates.WeekdayLocator(interval=4))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
+    for label in ax.get_xticklabels():
+        label.set_rotation(45)
+        label.set_ha("right")
+
+
+def generate_charts(workout_df: pd.DataFrame, same_type_df: pd.DataFrame, workout_type: str, bodyweight: float | None = None) -> list[tuple[str, str]]:
     """Return list of (title, base64_png) — one chart per subject."""
     charts = []
     if workout_df.empty:
@@ -336,111 +688,124 @@ def generate_charts(workout_df: pd.DataFrame, same_type_df: pd.DataFrame, workou
     all_data["reps"] = pd.to_numeric(all_data["reps"], errors="coerce")
     working = all_data[all_data["set_type"] != "warmup"].copy()
     working["tonnage"] = working["weight_kg"].fillna(0) * working["reps"].fillna(0)
+    # e1RM per set, with net-load handling for assisted/bodyweight exercises
+    working["e1rm"] = working.apply(
+        lambda r: _e1rm(r["weight_kg"], r["reps"], r.get("exercise_title"), bodyweight),
+        axis=1,
+    )
+
+    today_start = pd.to_datetime(workout_df["start_time"].iloc[0], utc=True)
+    window_end = today_start + timedelta(days=1)
+    window_start = window_end - timedelta(weeks=WINDOW_WEEKS)
 
     # ── Chart 1: Session Tonnage Trend ──────────────────────────────────────
     session_tonnage = (
         working.groupby(["workout_id", "start_time"])["tonnage"]
         .sum().reset_index()
         .sort_values("start_time")
-        .tail(20)
     )
+    session_tonnage = session_tonnage[
+        (session_tonnage["start_time"] >= window_start)
+        & (session_tonnage["start_time"] <= window_end)
+    ]
     if len(session_tonnage) >= 2:
         fig, ax = plt.subplots(figsize=(8, 3), facecolor=BG)
         colors = [C_RED if str(wid) == today_id else C_BLUE for wid in session_tonnage["workout_id"]]
-        x = list(range(len(session_tonnage)))
-        ax.bar(x, session_tonnage["tonnage"], color=colors, width=0.7, zorder=2)
+        dates = session_tonnage["start_time"]
+        ax.bar(dates, session_tonnage["tonnage"], color=colors,
+               width=2.5, zorder=2, align="center")
 
         # % change annotation on today's bar
-        today_idx = next(
-            (i for i, wid in enumerate(session_tonnage["workout_id"]) if str(wid) == today_id), None
-        )
-        if today_idx is not None and today_idx > 0:
-            today_val = float(session_tonnage.iloc[today_idx]["tonnage"])
-            prev_val = float(session_tonnage.iloc[today_idx - 1]["tonnage"])
-            if prev_val > 0:
-                pct = (today_val - prev_val) / prev_val * 100
-                sign = "+" if pct >= 0 else ""
-                ax.annotate(
-                    f"{sign}{pct:.1f}%",
-                    xy=(today_idx, today_val),
-                    xytext=(0, 6), textcoords="offset points",
-                    ha="center", color=C_GREEN if pct >= 0 else C_RED,
-                    fontsize=9, fontweight="bold",
-                )
+        today_row = session_tonnage[session_tonnage["workout_id"].astype(str) == today_id]
+        if not today_row.empty:
+            today_dt = today_row["start_time"].iloc[0]
+            today_val = float(today_row["tonnage"].iloc[0])
+            prior = session_tonnage[session_tonnage["start_time"] < today_dt]
+            if not prior.empty:
+                prev_val = float(prior.iloc[-1]["tonnage"])
+                if prev_val > 0:
+                    pct = (today_val - prev_val) / prev_val * 100
+                    sign = "+" if pct >= 0 else ""
+                    ax.annotate(
+                        f"{sign}{pct:.1f}%",
+                        xy=(today_dt, today_val),
+                        xytext=(0, 6), textcoords="offset points",
+                        ha="center", color=C_GREEN if pct >= 0 else C_RED,
+                        fontsize=9, fontweight="bold",
+                    )
 
-        labels = [t.strftime("%b %d") for t in session_tonnage["start_time"]]
-        ax.set_xticks(x)
-        ax.set_xticklabels(labels, rotation=45, ha="right")
         ax.set_ylabel("Tonnage (kg×reps)")
         ax.legend(handles=[
             mpatches.Patch(color=C_RED, label="Today"),
             mpatches.Patch(color=C_BLUE, label="Prior"),
         ], fontsize=8, facecolor=BG, edgecolor=SPINE, labelcolor=FG)
-        _dark_ax(ax, f"{workout_type} — Session Volume Trend")
+        _dark_ax(ax, f"{workout_type} — Session Volume Trend (last {WINDOW_WEEKS} weeks)")
+        _apply_date_axis(ax, window_end)
         plt.tight_layout()
         charts.append(("Volume Trend", _save_chart(fig)))
 
-    # ── Charts 2+: One chart per exercise ───────────────────────────────────
+    # ── Charts 2+: One chart per exercise (estimated 1RM) ───────────────────
     today_exercises = workout_df["exercise_title"].unique().tolist()
     hist_exercises = set(same_type_df["exercise_title"].unique()) if not same_type_df.empty else set()
     exercises_to_plot = [e for e in today_exercises if e in hist_exercises][:6]
 
     for exercise in exercises_to_plot:
         ex_data = working[working["exercise_title"] == exercise].copy()
+        # Best e1RM per session — captures progression even when reps×weight tradeoff changes
         top = (
-            ex_data.groupby(["workout_id", "start_time"])["weight_kg"]
+            ex_data.groupby(["workout_id", "start_time"])["e1rm"]
             .max().reset_index()
             .sort_values("start_time")
-            .tail(14)
         )
+        top = top[
+            (top["start_time"] >= window_start)
+            & (top["start_time"] <= window_end)
+        ]
         if len(top) < 2:
             continue
 
         fig, ax = plt.subplots(figsize=(8, 2.8), facecolor=BG)
-        x = list(range(len(top)))
-        ax.plot(x, top["weight_kg"].tolist(), color=C_BLUE, linewidth=2,
+        ax.plot(top["start_time"], top["e1rm"], color=C_BLUE, linewidth=2,
                 marker="o", markersize=5, zorder=2)
+        ax.fill_between(top["start_time"], top["e1rm"], alpha=0.15, color=C_BLUE, zorder=1)
 
-        # fill area under line
-        ax.fill_between(x, top["weight_kg"].tolist(), alpha=0.15, color=C_BLUE, zorder=1)
-
-        # highlight today with weight + % change vs previous session
+        # highlight today with e1RM + % change vs previous session
         today_mask = top["workout_id"].astype(str) == today_id
         if today_mask.any():
-            ti = int(today_mask.values.nonzero()[0][0])
-            today_w = float(top.iloc[ti]["weight_kg"])
-            ax.plot(ti, today_w, "o", color=C_RED, markersize=9, zorder=3)
+            today_row = top[today_mask].iloc[0]
+            today_dt = today_row["start_time"]
+            today_e = float(today_row["e1rm"])
+            ax.plot(today_dt, today_e, "o", color=C_RED, markersize=9, zorder=3)
             ax.annotate(
-                f"{today_w:.1f} kg",
-                xy=(ti, today_w),
+                f"{today_e:.0f} kg e1RM",
+                xy=(today_dt, today_e),
                 xytext=(6, 6), textcoords="offset points",
                 color=C_RED, fontsize=8, fontweight="bold",
             )
-            if ti > 0:
-                prev_w = float(top.iloc[ti - 1]["weight_kg"])
-                if prev_w > 0:
-                    pct = (today_w - prev_w) / prev_w * 100
+            prior = top[top["start_time"] < today_dt]
+            if not prior.empty:
+                prev_e = float(prior.iloc[-1]["e1rm"])
+                if prev_e > 0:
+                    pct = (today_e - prev_e) / prev_e * 100
                     sign = "+" if pct >= 0 else ""
                     pct_color = C_GREEN if pct >= 0 else C_RED
                     ax.annotate(
                         f"{sign}{pct:.1f}%",
-                        xy=(ti, today_w),
+                        xy=(today_dt, today_e),
                         xytext=(6, 20), textcoords="offset points",
                         color=pct_color, fontsize=8, fontweight="bold",
                     )
 
-        labels = [t.strftime("%b %d") for t in top["start_time"]]
-        ax.set_xticks(x)
-        ax.set_xticklabels(labels, rotation=45, ha="right")
-        ax.set_ylabel("kg")
-        _dark_ax(ax, exercise)
+        ax.set_ylabel("Estimated 1RM (kg)")
+        _dark_ax(ax, f"{exercise} — e1RM (last {WINDOW_WEEKS} weeks)")
+        _apply_date_axis(ax, window_end)
         plt.tight_layout()
         charts.append((exercise, _save_chart(fig)))
 
     return charts
 
 
-def call_gemini(gemini_client, prompt: str) -> tuple[str, str, int | None]:
+def call_gemini(gemini_client, prompt: str, system_prompt: str) -> tuple[str, str, int | None]:
     last_exc = None
     for model_name in MODELS:
         for attempt in range(3):
@@ -449,13 +814,19 @@ def call_gemini(gemini_client, prompt: str) -> tuple[str, str, int | None]:
                     model=model_name,
                     contents=prompt,
                     config=types.GenerateContentConfig(
-                        system_instruction=SYSTEM_PROMPT,
+                        system_instruction=system_prompt,
                         max_output_tokens=8192,
                     ),
                 )
                 tokens = getattr(response.usage_metadata, "total_token_count", None)
+                content = response.text
+                complete, reason = is_complete_response(content)
+                if not complete:
+                    print(f"  {model_name}: incomplete response ({reason}), trying next model")
+                    last_exc = RuntimeError(f"{model_name}: incomplete response — {reason}")
+                    break
                 print(f"  model: {model_name} | tokens: {tokens}")
-                return response.text, model_name, tokens
+                return content, model_name, tokens
             except Exception as e:
                 last_exc = e
                 if "RESOURCE_EXHAUSTED" in str(e) and attempt < 2:
@@ -554,11 +925,16 @@ def analyse_workout(workout_id: str, conn, supabase_client, gemini_client):
         print(f"  {workout_id}: not found in Parquet — skipping.")
         return
 
-    charts = generate_charts(workout_df, same_type_df, workout_type)
+    current_weight = get_current_weight(supabase_client)
+    if current_weight:
+        print(f"  current weight from Supabase: {current_weight:.1f}kg")
+    system_prompt = build_system_prompt(current_weight)
+
+    charts = generate_charts(workout_df, same_type_df, workout_type, current_weight)
     print(f"  generated {len(charts)} chart(s)")
 
-    prompt = build_prompt(workout_df, same_type_df, recent_df, routine_df, workout_type)
-    content, model_used, tokens = call_gemini(gemini_client, prompt)
+    prompt = build_prompt(workout_df, same_type_df, recent_df, routine_df, workout_type, current_weight)
+    content, model_used, tokens = call_gemini(gemini_client, prompt, system_prompt)
 
     workout_title = str(workout_df.iloc[0].get("workout_title") or workout_id)
     workout_date = str(workout_df.iloc[0].get("start_time") or "")[:10]
