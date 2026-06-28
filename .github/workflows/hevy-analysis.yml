@@ -5,6 +5,15 @@ on:
     workflows: ["Hevy Sync"]
     types: [completed]
   workflow_dispatch:
+    inputs:
+      workout_id:
+        description: 'Specific workout ID to analyse (default: latest)'
+        required: false
+      force:
+        description: 'Re-analyse even if already in analyses table'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   analyse:
@@ -38,4 +47,12 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           NOTIFY_EMAIL: benjamin_dang@outlook.com
-        run: python analyse.py
+        run: |
+          ARGS=""
+          if [ -n "${{ github.event.inputs.workout_id }}" ]; then
+            ARGS="$ARGS --workout-id ${{ github.event.inputs.workout_id }}"
+          fi
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+          python analyse.py $ARGS
