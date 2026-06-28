@@ -418,20 +418,43 @@ def format_load(exercise_title: str, weight_kg, reps, bodyweight: float | None) 
 
 
 def _e1rm(weight, reps, exercise_title: str | None = None, bodyweight: float | None = None):
-    """Estimated 1RM (Epley). Handles assisted/bodyweight by using net load.
-    For historical sessions, bodyweight is approximated from current — fine for ranking
-    on recent comparisons; less accurate for all-time peaks from years past."""
+    """Estimated 1RM (Epley). For loaded exercises returns standard e1RM (positive kg).
+    For assisted/bodyweight, returns 1RM RELATIVE TO BODYWEIGHT (signed):
+      - Positive: can hang this much weight on top of bw for 1 rep
+      - Negative: still needs this much assistance to do 1 strict rep
+      - Zero: exactly 1 strict unweighted rep is the max
+    Bodyweight is approximated from current for historical entries.
+    """
     if pd.isna(weight) or pd.isna(reps) or weight is None or reps is None:
         return 0.0
     w = float(weight)
     r = float(reps)
     if exercise_title and bodyweight:
         if is_assisted(exercise_title):
-            net = bodyweight - w
-            return net * (1 + r / 30) if net > 0 else 0.0
-        if is_bodyweight(exercise_title) and w == 0:
-            return bodyweight * (1 + r / 30)
+            net_load = bodyweight - w
+            if net_load <= 0:
+                # Assistance >= bw, impossible to ever do a strict rep
+                return -bodyweight
+            # 1RM relative to bw: net_load * Epley factor - bw
+            return net_load * (1 + r / 30) - bodyweight
+        if is_bodyweight(exercise_title):
+            # Pure bw (w=0) or weighted bw (vest/belt adds w)
+            return (bodyweight + w) * (1 + r / 30) - bodyweight
     return w * (1 + r / 30)
+
+
+def e1rm_label(exercise_title: str | None) -> str:
+    """Y-axis label for charts — context-aware per exercise type."""
+    if exercise_title and (is_assisted(exercise_title) or is_bodyweight(exercise_title)):
+        return "1RM relative to bodyweight (kg)"
+    return "Estimated 1RM (kg)"
+
+
+def e1rm_unit(exercise_title: str | None) -> str:
+    """Suffix for e1RM annotations."""
+    if exercise_title and (is_assisted(exercise_title) or is_bodyweight(exercise_title)):
+        return "kg BW-rel"
+    return "kg e1RM"
 
 
 def build_comparison_block(workout_df, same_type_df, bodyweight) -> str:
@@ -453,7 +476,8 @@ def build_comparison_block(workout_df, same_type_df, bodyweight) -> str:
         today_top = today_sets.loc[today_sets["e1rm"].idxmax()]
         today_load = format_load(ex, today_top["weight_kg"], today_top["reps"], bodyweight)
         today_e = float(today_top["e1rm"])
-        today_str = f"{today_load} (e1RM {today_e:.0f})"
+        unit = e1rm_unit(ex)
+        today_str = f"{today_load} ({today_e:+.0f} {unit})" if "BW-rel" in unit else f"{today_load} (e1RM {today_e:.0f})"
 
         prev_str = "—"
         all_time_str = "—"
@@ -474,13 +498,13 @@ def build_comparison_block(workout_df, same_type_df, bodyweight) -> str:
             prev_dt = prev_top["start_time"].strftime("%b %d")
             prev_load = format_load(ex, prev_top["weight_kg"], prev_top["reps"], bodyweight)
             prev_e = float(prev_top["e1rm"])
-            prev_str = f"{prev_load} (e1RM {prev_e:.0f}, {prev_dt})"
+            prev_str = f"{prev_load} ({prev_e:+.0f} {unit}, {prev_dt})" if "BW-rel" in unit else f"{prev_load} (e1RM {prev_e:.0f}, {prev_dt})"
             # All-time peak e1RM
             atb = hist.loc[hist["e1rm"].idxmax()]
             atb_dt = atb["start_time"].strftime("%Y-%m-%d")
             atb_load = format_load(ex, atb["weight_kg"], atb["reps"], bodyweight)
             all_time_e = float(atb["e1rm"])
-            all_time_str = f"{atb_load} (e1RM {all_time_e:.0f}, {atb_dt})"
+            all_time_str = f"{atb_load} ({all_time_e:+.0f} {unit}, {atb_dt})" if "BW-rel" in unit else f"{atb_load} (e1RM {all_time_e:.0f}, {atb_dt})"
 
         if prev_e is None:
             status = "BASELINE (first time)"
@@ -776,8 +800,10 @@ def generate_charts(workout_df: pd.DataFrame, same_type_df: pd.DataFrame, workou
             today_dt = today_row["start_time"]
             today_e = float(today_row["e1rm"])
             ax.plot(today_dt, today_e, "o", color=C_RED, markersize=9, zorder=3)
+            unit = e1rm_unit(exercise)
+            today_label = f"{today_e:+.0f} {unit}" if "BW-rel" in unit else f"{today_e:.0f} {unit}"
             ax.annotate(
-                f"{today_e:.0f} kg e1RM",
+                today_label,
                 xy=(today_dt, today_e),
                 xytext=(6, 6), textcoords="offset points",
                 color=C_RED, fontsize=8, fontweight="bold",
@@ -796,8 +822,12 @@ def generate_charts(workout_df: pd.DataFrame, same_type_df: pd.DataFrame, workou
                         color=pct_color, fontsize=8, fontweight="bold",
                     )
 
-        ax.set_ylabel("Estimated 1RM (kg)")
-        _dark_ax(ax, f"{exercise} — e1RM (last {WINDOW_WEEKS} weeks)")
+        ax.set_ylabel(e1rm_label(exercise))
+        # Add zero reference line for bw-relative exercises
+        if is_assisted(exercise) or is_bodyweight(exercise):
+            ax.axhline(0, color=FG, linewidth=0.6, linestyle="--", alpha=0.5, zorder=1)
+        chart_title_suffix = "1RM rel. bw" if is_assisted(exercise) or is_bodyweight(exercise) else "e1RM"
+        _dark_ax(ax, f"{exercise} — {chart_title_suffix} (last {WINDOW_WEEKS} weeks)")
         _apply_date_axis(ax, window_end)
         plt.tight_layout()
         charts.append((exercise, _save_chart(fig)))
