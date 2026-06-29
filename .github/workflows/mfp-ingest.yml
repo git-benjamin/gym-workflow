@@ -1,8 +1,24 @@
 name: MFP Ingest
 
+# NOTE: MFP is fronted by Cloudflare WAF which blocks all known datacenter IP
+# ranges (including GitHub Actions runners) regardless of cookies / UA. This
+# workflow returns 403 from Cloudflare before the request reaches MFP.
+#
+# Scheduled trigger is DISABLED to avoid daily failure emails. Kept manually
+# triggerable for re-testing if MFP changes their bot policy or if running
+# via a self-hosted runner on a residential IP.
+#
+# Realistic options for automated MFP ingestion:
+#   1. Residential proxy in this workflow (paid; cheapest ~$5/mo)
+#   2. Self-hosted GitHub runner on a residential IP
+#   3. Local macOS launchd job running mfp_ingest.py on the laptop
+#
+# Until one of those is set up, MFP ingestion remains manual:
+#   python health/training/scripts/mfp_ingest.py
+
 on:
-  schedule:
-    - cron: '0 22 * * *'   # 06:00 AWST = 22:00 UTC daily
+  # schedule:
+  #   - cron: '0 22 * * *'   # disabled — see note above
   workflow_dispatch:
     inputs:
       start_date:

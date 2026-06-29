@@ -19,7 +19,11 @@ health/training/scripts/
                         (workflow_dispatch supports workout_id + force inputs)
   hevy-backfill.yml   — manual backfill
   garmin-ingest.yml   — daily 22:00 UTC; uses GARMIN_OAUTH1/2_TOKEN secrets
-  mfp-ingest.yml      — daily 22:00 UTC; uses MFP_COOKIES_JSON secret
+  mfp-ingest.yml      — workflow_dispatch only; daily cron DISABLED because
+                        MFP's Cloudflare WAF blocks GitHub Actions IP ranges
+                        (Cloudflare 403 before request reaches MFP, regardless
+                        of cookies/UA). Manual run is the current path; see
+                        ben-health-data skill for options.
 ```
 
 ## analyse.py context strategy
