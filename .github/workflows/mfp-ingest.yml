@@ -1,0 +1,52 @@
+name: MFP Ingest
+
+on:
+  schedule:
+    - cron: '0 22 * * *'   # 06:00 AWST = 22:00 UTC daily
+  workflow_dispatch:
+    inputs:
+      start_date:
+        description: 'Start date (YYYY-MM-DD). Defaults to last 7 days.'
+        required: false
+      skip_weight:
+        description: 'Skip weight ingest'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: health/training/scripts
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: health/training/scripts/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Ingest MFP data
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          MFP_COOKIES_JSON: ${{ secrets.MFP_COOKIES_JSON }}
+        run: |
+          ARGS=""
+          START="${{ github.event.inputs.start_date }}"
+          if [ -n "$START" ]; then
+            ARGS="$ARGS --start-date $START"
+          else
+            ARGS="$ARGS --start-date $(date -d '7 days ago' +%Y-%m-%d 2>/dev/null || date -v-7d +%Y-%m-%d)"
+          fi
+          if [ "${{ github.event.inputs.skip_weight }}" = "true" ]; then
+            ARGS="$ARGS --skip-weight"
+          fi
+          python mfp_ingest.py $ARGS
